@@ -1,0 +1,4 @@
+<library   name="V0Analyzer_plugins" file="*.cc">
+    <flags   EDM_PLUGIN="1"/>
+    <use   name="V0Analysis/V0Analyzer"/>
+</library>
