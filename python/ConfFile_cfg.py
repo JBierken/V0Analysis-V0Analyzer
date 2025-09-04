@@ -6,7 +6,7 @@ import FWCore.ParameterSet.Config as cms
 ## ---------------------------------------
 
 # Default input file (could be overwritten by parameters given on the command line and by crab), some examples:
-inputFile          = '/store/data/Run2018A/DoubleMuon/MINIAOD/UL2018_MiniAODv2-v1/260000/00264E65-8EFD-974C-8A29-866EFA1609D3.root'
+inputFile          = '/store/data/Run2022B/DoubleMuon/MINIAOD/PromptReco-v1/000/355/208/00000/ab94f70b-f4a2-46b0-9ca1-5e4d832a36fa.root'
 
 nEvents         = 100
 # extraContent    = 'storeAllTauID'
@@ -50,8 +50,8 @@ is2023          = "Run2023"     in inputFile or "23MiniAOD"     in inputFile or 
 ## ---------------------------------------
 # Start process
 ## ---------------------------------------
-process = cms.Process("Demo")
-#process = cms.Process("BlackJackAndHookers")
+#process = cms.Process("Demo")
+process = cms.Process("BlackJackAndHookers")
 
 ## Load the standard set of configuration modules
 process.load('Configuration.StandardSequences.Services_cff')
@@ -99,10 +99,11 @@ process.TFileService = cms.Service("TFileService",
 )
 
 #process.demo = cms.EDAnalyzer('ECPTreeMaker',
-process.demo = cms.EDAnalyzer('V0Analyzer',
+process.blackJackAndHookers = cms.EDAnalyzer('V0Analyzer',
         # Beam spot & vertices
-        vertices                = cms.InputTag("offlineSlimmedPrimaryVertices", "", "PAT"),
         offlineBeamSpot         = cms.InputTag("offlineBeamSpot",               "", "RECO"),
+        vertices                = cms.InputTag("offlineSlimmedPrimaryVertices"),
+        #vertices                = cms.InputTag("offlineSlimmedPrimaryVertices", "", "PAT"),
 
         # Generator information
         genEventInfo            = cms.InputTag("generator"),
@@ -128,7 +129,7 @@ process.demo = cms.EDAnalyzer('V0Analyzer',
         lostTracks              = cms.InputTag("lostTracks"),
         fixedGridRhoFastjetAll  = cms.InputTag("fixedGridRhoFastjetAll"),
         met                     = cms.InputTag("slimmedMETs"),
-        metsPuppi               = cms.InputTag("slimmedMETsPuppi"),
+        metPuppi                = cms.InputTag("slimmedMETsPuppi"),
         jets                    = cms.InputTag("slimmedJets"),
         jetsPuppi               = cms.InputTag("slimmedJetsPuppi"),
 
@@ -140,9 +141,30 @@ process.demo = cms.EDAnalyzer('V0Analyzer',
         # Trigger info
         recoResultsPrimary      = cms.InputTag("TriggerResults",                "", "RECO"),
         recoResultsSecondary    = cms.InputTag("TriggerResults",                "", "RECO"),
-        trigger                 = cms.InputTag("TriggerResults",                "", "HLT"),
+        triggers                = cms.InputTag("TriggerResults",                "", "HLT"),
         prescales               = cms.InputTag("patTrigger"),
         triggerObjects          = cms.InputTag("slimmedPatTrigger"),
+
+        # Additional input parameters
+        skim                    = cms.untracked.string("noskim"),
+        isData                  = cms.untracked.bool(isData),
+        is2016preVFP            = cms.untracked.bool(is2016preVFP),
+        is2017                  = cms.untracked.bool(is2017),
+        is2018                  = cms.untracked.bool(is2018),
+        is2022                  = cms.untracked.bool(is2022),
+        is2022EE                = cms.untracked.bool(is2022EE),
+        is2023                  = cms.untracked.bool(is2023),
+
+        # Which info should be collected
+        storeLheParticles       = cms.untracked.bool(True),
+        storeGenParticles       = cms.untracked.bool(True),
+        storeParticleLevel      = cms.untracked.bool(True),
+        storeJecSourcesAll      = cms.untracked.bool(False),
+        storeJecSourcesGrouped  = cms.untracked.bool(False),
+        #storeAllTauID           = cms.untracked.bool(False),
+        storeAllTauID           = cms.untracked.bool(True),
+        storePrefireComponents  = cms.untracked.bool(False),
+        storeJetSubstructure    = cms.untracked.bool(False),
 )
 
-process.p = cms.Path(process.demo)
+process.p = cms.Path(process.blackJackAndHookers)

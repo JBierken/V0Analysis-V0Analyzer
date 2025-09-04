@@ -345,7 +345,7 @@ bool JetAnalyzer::analyze(const edm::Event& iEvent)
     edm::Handle<std::vector<pat::MET>> mets            = getHandle(iEvent, myAnalyzer->metToken);
     edm::Handle<std::vector<pat::MET>> metsPuppi       = getHandle(iEvent, myAnalyzer->metPuppiToken);
 
-    edm::Handle<double> rho                            = getHandle(iEvent, myAnalyzer->rhoToken);
+    //edm::Handle<double> rho                            = getHandle(iEvent, myAnalyzer->rhoToken);
 
     _nJets          = 0;
     _nJetsPuppi     = 0;
