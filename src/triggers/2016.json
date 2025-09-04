@@ -1,0 +1,126 @@
+{
+    "passTrigger_FR": {
+        "HLT_Mu3_PFJet40", 
+        "HLT_Mu8", 
+        "HLT_Mu17", 
+        "HLT_Mu20", 
+        "HLT_Mu27", 
+        "HLT_Ele8_CaloIdM_TrackIdM_PFJet30", 
+        "HLT_Ele12_CaloIdM_TrackIdM_PFJet30", 
+        "HLT_Ele17_CaloIdM_TrackIdM_PFJet30", 
+        "HLT_Ele23_CaloIdM_TrackIdM_PFJet30"
+    },
+    "passTrigger_FR_iso": {
+        "HLT_Mu8_TrkIsoVVL", 
+        "HLT_Mu17_TrkIsoVVL", 
+        "HLT_Ele8_CaloIdL_TrackIdL_IsoVL_PFJet30", 
+        "HLT_Ele12_CaloIdL_TrackIdL_IsoVL_PFJet30", 
+        "HLT_Ele17_CaloIdL_TrackIdL_IsoVL_PFJet30", 
+        "HLT_Ele23_CaloIdL_TrackIdL_IsoVL_PFJet30"
+    },
+
+    "passTrigger_m": {
+        "HLT_IsoMu24", 
+        "HLT_IsoTkMu24", 
+        "HLT_Mu50", 
+        "HLT_TkMu50",                                                               // HLT_TkMu50 off for ~3/fb 
+        "HLT_Mu45_eta2p1"                                                           // HLT_Mu45_eta2p1 off for ~12/fb
+    },
+    "passTrigger_e": {
+        "HLT_Ele27_WPTight_Gsf", 
+        "HLT_Ele105_CaloIdVT_GsfTrkIdT",                                            // HLT_Ele105_CaloIdVT_GsfTrkIdT was switched off several times in second half of 2016 
+        "HLT_Ele115_CaloIdVT_GsfTrkIdT", 
+        "HLT_Photon175"                                                             // HLT_Photon175 recovers inefficiency for > 300 GeV electrons
+    },
+    "passTrigger_mm": {
+        "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL", 
+        "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ",                                      // non-DZ version heavily prescaled for a few /fb at end of 2016
+        "HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL", 
+        "HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ",                                    // same as above
+        "HLT_TkMu17_TrkIsoVVL_TkMu8_TrkIsoVVL", 
+        "HLT_TkMu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ",                                  // non-DZ version heavily prescaled for a few /fb at end of 2016, DZ-version only introduced at end of 2016
+        "HLT_Mu30_TkMu11"
+    },
+    "passTrigger_em": {
+        "HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL", 
+        "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ",                        // non-DZ not existing end of 2016, DZ-version not existing first half of 2016
+        "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL", 
+        "HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ",                        // same as above
+        "HLT_Mu30_Ele30_CaloIdL_GsfTrkIdVL", 
+        "HLT_Mu33_Ele33_CaloIdL_GsfTrkIdVL"                                         // same as above
+    },
+    "passTrigger_ee": {
+        "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ", 
+        "HLT_DoubleEle33_CaloIdL_GsfTrkIdVL", 
+        "HLT_DoubleEle33_CaloIdL_GsfTrkIdVL_MW"
+    },
+    "passTrigger_et": {
+        "HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFtau20_SingleL1", 
+        "HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20",                             // first half of 2016
+        "HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30"                              // second half of 2016
+    },
+    "passTrigger_mt": {
+        "HLT_IsoMu21_eta2p1_LooseIsoPFTau20_SingleL1",
+        "HLT_IsoMu21_eta2p1_LooseIsoPFTau50_Trk30_eta2p1_SingleL1", 
+        "HLT_IsoMu21_eta2p1_MediumIsoPFTau32_Trk1_eta2p1_Reg", 
+        "HLT_IsoMu19_eta2p1_LooseIsoPFTau20", 
+        "HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1", 
+        "HLT_IsoMu19_eta2p1_MediumIsoPFTau32_Trk1_eta2p1_Reg", 
+        "HLT_IsoMu16_eta2p1_MET30_LooseIsoPFTau50_Trk30_eta2p1", 
+        "HLT_LooseIsoPFTau50_Trk30_eta2p1_MET90"
+    },
+    "passTrigger_tt": {
+        "HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg",                               //Spring16 MC & Legacy 2016 samples, Data: Run 2016B-F
+        "HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg"                        //Data: Run 2016G
+    },
+
+    "passTrigger_mmm": {
+        "HLT_TripleMu_12_10_5"
+    },
+    "passTrigger_emm": {
+        "HLT_DiMu9_Ele9_CaloIdL_TrackIdL"
+    },
+    "passTrigger_eem": {
+        "HLT_Mu8_DiEle12_CaloIdL_TrackIdL"
+    },
+    "passTrigger_eee": {
+        "HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL"
+    },
+
+    "passTrigger_ref": {
+        "HLT_MET200", 
+        "HLT_PFMET300", 
+        "HLT_PFMET170_HBHECleaned", 
+        "HLT_PFMET120_PFMHT120_IDTight",                                            // Reference triggers that could be used to select unprescaled, unbiased data for trigger efficiency measurements (extremely important to have triggers here which have prescale 1 for the whole year!)
+        "HLT_PFHT300_PFMET110", 
+        "HLT_PFHT350_DiPFJetAve90_PFAlphaT0p53", 
+        "HLT_PFHT400_DiPFJetAve90_PFAlphaT0p52",                                    // Note: there are prescales in quite some L1 seeds though, assume their effect is small wrt the unprescaled L1 seeds
+        "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056", 
+        "HLT_PFHT900", 
+        "HLT_PFHT650_WideJetMJJ900DEtaJJ1p5", 
+        "HLT_CaloJet500_NoJetID"                                                    // Note: CaloJet not used in previous analyses, maybe it is biased to measure lepton triggers? Should check the correlation factor for this one
+    },
+    "passTrigger_add": {
+        "HLT_Ele32_WPTight_Gsf", 
+        "HLT_IsoMu27", 
+        "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL", 
+        "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ",
+        "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL", 
+        "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8",
+        "HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1", 
+        "HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1",
+        "HLT_IsoMu20_eta2p1_LooseChargedIsoPFTau27_eta2p1_CrossL1", 
+        "HLT_IsoMu20_eta2p1_LooseChargedIsoPFTauHPS27_eta2p1_CrossL1",
+        "HLT_DoubleTightChargedIsoPFTau35_Trk1_TightID_eta2p1_Reg", 
+        "HLT_DoubleMediumChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg",
+        "HLT_DoubleTightChargedIsoPFTau40_Trk1_eta2p1_Reg", 
+        "HLT_DoubleMediumChargedIsoPFTauHPS35_Trk1_eta2p1_Reg",
+        "HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ", 
+        "HLT_Ele27_eta2p1_WPLoose_Gsf", 
+        "HLT_IsoMu22", 
+        "HLT_IsoTkMu22", 
+        "HLT_IsoMu22_eta2p1", 
+        "HLT_IsoTkMu22_eta2p1"
+    }
+
+}

@@ -1,0 +1,37 @@
+  <!-- Core framework -->
+<use name="FWCore/Framework"/>
+<use name="FWCore/ParameterSet"/>
+<use name="FWCore/MessageLogger"/>
+<use name="DataFormats/Common"/>
+<use name="DataFormats/VertexReco"/>
+<use name="CommonTools/UtilAlgos"/>
+<use name="rivet"/>
+<use name="xgboost"/>
+<use name="root"/>
+
+<!-- JetAnalyzer dependancies -->
+<use name="DataFormats/JetReco"/>
+<use name="CondFormats/JetMETObjects"/>
+
+ <!-- LeptonAnalyzer dependencies -->
+<use name="DataFormats/MuonReco"/>
+<use name="DataFormats/EgammaReco"/>
+<use name="DataFormats/PatCandidates"/>
+<use name="RecoEgamma/EgammaTools"/>
+<use name="DataFormats/EgammaCandidates"/>
+
+<!-- LheAnalyzer and ParticleLevelAnalyzer dependencies -->
+<use name="SimDataFormats/GeneratorProducts"/>  
+<use name="DataFormats/HepMCCandidate"/>
+
+<!-- V0Analyzer dependencies -->
+<use name="MagneticField/ParametrizedEngine"/>
+<use name="TrackingTools/TransientTrack"/>
+<use name="TrackingTools/Records"/>
+<use name="RecoVertex/VertexPrimitives"/>
+<use name="RecoVertex/KalmanVertexFit"/>
+<use name="RecoVertex/VertexTools"/>
+<use name="DataFormats/TrackReco"/>
+<export>
+    <lib   name="1"/>
+</export>

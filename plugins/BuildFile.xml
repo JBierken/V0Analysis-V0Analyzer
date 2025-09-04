@@ -1,0 +1,12 @@
+<library name="V0Analyzer_plugins" file="*.cc">
+    <flags EDM_PLUGIN="1"/>
+</library>
+
+<!-- Core framework -->
+<use   name="FWCore/Framework"/>
+<use   name="FWCore/ParameterSet"/>
+<use   name="FWCore/MessageLogger"/>
+<use   name="DataFormats/Common"/>
+    
+<!-- Link against the sub-analyzer library -->
+<use   name="V0Analysis/V0Analyzer"/>

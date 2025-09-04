@@ -1,0 +1,148 @@
+import sys, os
+import FWCore.ParameterSet.Config as cms
+
+## ---------------------------------------
+# DEFAULT ARGUMENTS:
+## ---------------------------------------
+
+# Default input file (could be overwritten by parameters given on the command line and by crab), some examples:
+inputFile          = '/store/data/Run2018A/DoubleMuon/MINIAOD/UL2018_MiniAODv2-v1/260000/00264E65-8EFD-974C-8A29-866EFA1609D3.root'
+
+nEvents         = 100
+# extraContent    = 'storeAllTauID'
+# extraContent    = 'storeLheParticles,storeParticleLevel'
+# extraContent    = 'storeJecSources'
+# extraContent    = 'storeJecSources'
+extraContent    = ''
+
+outputFile      = 'noskim.root' # trilep    --> skim three leptons (basic pt/eta criteria)
+                                # dilep     --> skim two leptons
+                                # singlelep --> skim one lepton
+                                # singlejet --> one jet
+                                # FR        --> one jet and one light lepton
+
+## ---------------------------------------
+# INITIATE parameters:
+## ---------------------------------------
+def getVal(arg):
+        return arg.split('=')[-1]
+
+# Loop over arguments
+for i in range(1,len(sys.argv)):
+    #print "[arg "+str(i)+"] : ", sys.argv[i]
+    print("[arg " + str(i) + "] : ", sys.argv[i])
+    if "outputFile"     in sys.argv[i]: outputFile   = getVal(sys.argv[i])
+    elif "inputFile"    in sys.argv[i]: inputFile    = getVal(sys.argv[i])
+    elif "extraContent" in sys.argv[i]: extraContent = getVal(sys.argv[i])
+    elif "events"       in sys.argv[i]: nEvents      = int(getVal(sys.argv[i]))
+    
+isData          = not ('SIM' in inputFile or 'heavyNeutrinoMiniAOD' in inputFile)
+# Data taking year:
+#   run-2
+is2017          = "Run2017"     in inputFile or "17MiniAOD"     in inputFile or 'Fall17'    in inputFile
+is2018          = "Run2018"     in inputFile or "18MiniAOD"     in inputFile or 'Autumn18'  in inputFile
+is2016preVFP    = "preVFP"      in inputFile or "HIPM"          in inputFile
+#   run-3                   --->TODO: check if this is correct!!!
+is2022          = "Run2022"     in inputFile or "22MiniAOD"     in inputFile or 'Fall22'    in inputFile
+is2022EE        = "Run2022EE"   in inputFile or "22EEMiniAOD"   in inputFile or 'Fall22EE'  in inputFile
+is2023          = "Run2023"     in inputFile or "23MiniAOD"     in inputFile or 'Autumn23'  in inputFile
+
+## ---------------------------------------
+# Start process
+## ---------------------------------------
+process = cms.Process("Demo")
+#process = cms.Process("BlackJackAndHookers")
+
+## Load the standard set of configuration modules
+process.load('Configuration.StandardSequences.Services_cff')
+process.load('Configuration.StandardSequences.GeometryDB_cff')
+process.load('Configuration.StandardSequences.MagneticField_38T_cff')
+process.load('SimGeneral.HepPDTESSource.pythiapdt_cfi')
+process.load('Configuration.StandardSequences.Services_cff')
+process.load("FWCore.MessageService.MessageLogger_cfi")
+process.load("RecoMuon.DetLayers.muonDetLayerGeometry_cfi")
+process.load('Configuration.EventContent.EventContent_cff')
+process.load("TrackingTools.TransientTrack.TransientTrackBuilder_cfi")
+process.load('Configuration.StandardSequences.GeometryRecoDB_cff')
+process.load('Configuration.StandardSequences.MagneticField_AutoFromDBCurrent_cff')
+process.load('Configuration.StandardSequences.Reconstruction_Data_cff')
+process.load('Configuration.StandardSequences.EndOfProcess_cff')
+process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
+
+
+### Data global tag
+#process.GlobalTag.globaltag = "106X_dataRun2_v35"
+process.GlobalTag.globaltag = "124X_dataRun3_Prompt_v4"
+
+## Message Logger settings
+process.load("FWCore.MessageService.MessageLogger_cfi")
+process.MessageLogger.cerr.FwkReport.reportEvery = 10000
+process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1) )
+
+process.source = cms.Source("PoolSource",
+        fileNames = cms.untracked.vstring(
+            # Run-2
+            #'/store/data/Run2018A/DoubleMuon/MINIAOD/UL2018_MiniAODv2-v1/260000/00264E65-8EFD-974C-8A29-866EFA1609D3.root'
+            # Run-3
+            '/store/data/Run2022B/DoubleMuon/MINIAOD/PromptReco-v1/000/355/208/00000/ab94f70b-f4a2-46b0-9ca1-5e4d832a36fa.root'
+        ),
+)
+
+## ---------------------------------------
+## Create output file
+## ---------------------------------------
+
+## Setup the service to make a ROOT TTree
+process.TFileService = cms.Service("TFileService",
+        #fileName = cms.string("DoubleMuon_Run2018A-UL2018.root")
+        fileName = cms.string("DoubleMuon_Run2022B-PromptReco.root")
+)
+
+#process.demo = cms.EDAnalyzer('ECPTreeMaker',
+process.demo = cms.EDAnalyzer('V0Analyzer',
+        # Beam spot & vertices
+        vertices                = cms.InputTag("offlineSlimmedPrimaryVertices", "", "PAT"),
+        offlineBeamSpot         = cms.InputTag("offlineBeamSpot",               "", "RECO"),
+
+        # Generator information
+        genEventInfo            = cms.InputTag("generator"),
+        lheEventInfo            = cms.InputTag("externalLHEProducer"),
+        pileUpInfo              = cms.InputTag("slimmedAddPileupInfo"),
+        genParticles            = cms.InputTag("prunedGenParticles"),
+
+        # Particle-level objects (MINIAOD doesn't store these directly usually from NanoAOD or Rivet step)
+        particleLevelPhotons    = cms.InputTag("particleLevel",                     "photons"),   # adjust if not produced
+        particleLevelLeptons    = cms.InputTag("particleLevel",                     "leptons"),
+        particleLevelJets       = cms.InputTag("particleLevel",                     "jets"),
+        #genJets                 = cms.InputTag("slimmedGenJets"),
+        particleLevelMets       = cms.InputTag("particleLevel",                     "met"),
+
+
+        # Reco / PAT objects
+        muons                   = cms.InputTag("slimmedMuons"),
+        electrons               = cms.InputTag("slimmedElectrons"),
+        taus                    = cms.InputTag("slimmedTaus"),
+        tauGenJets              = cms.InputTag("tauGenJetsSelectorAllHadrons"),  # from tau tools
+        photons                 = cms.InputTag("slimmedPhotons"),
+        packedCandidates        = cms.InputTag("packedPFCandidates"),
+        lostTracks              = cms.InputTag("lostTracks"),
+        fixedGridRhoFastjetAll  = cms.InputTag("fixedGridRhoFastjetAll"),
+        met                     = cms.InputTag("slimmedMETs"),
+        metsPuppi               = cms.InputTag("slimmedMETsPuppi"),
+        jets                    = cms.InputTag("slimmedJets"),
+        jetsPuppi               = cms.InputTag("slimmedJetsPuppi"),
+
+        # JES-smeared jets (only present if you run JME modules yourself)
+        jetsSmeared             = cms.InputTag("slimmedJetsSmeared"),
+        jetsSmearedUp           = cms.InputTag("slimmedJetsSmearedUp"),
+        jetsSmearedDown         = cms.InputTag("slimmedJetsSmearedDown"),
+        
+        # Trigger info
+        recoResultsPrimary      = cms.InputTag("TriggerResults",                "", "RECO"),
+        recoResultsSecondary    = cms.InputTag("TriggerResults",                "", "RECO"),
+        trigger                 = cms.InputTag("TriggerResults",                "", "HLT"),
+        prescales               = cms.InputTag("patTrigger"),
+        triggerObjects          = cms.InputTag("slimmedPatTrigger"),
+)
+
+process.p = cms.Path(process.demo)
