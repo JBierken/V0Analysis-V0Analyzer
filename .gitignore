@@ -1,0 +1,8 @@
+### ignore images and similar types (normally not a problem but just in case)
+*.png
+*.jpeg
+*.jpg
+*.eps
+
+### ignore root files while pushing/pulling directory
+*.root
