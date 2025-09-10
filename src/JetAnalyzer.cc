@@ -319,7 +319,7 @@ void JetAnalyzer::beginJob(TTree* outputTree)
 
 }
 
-
+/*
 //helper function to fill maps with split JEC uncertainties
 template< typename T > void fillJetUncertaintySources( const std::map< std::string, std::shared_ptr< JetCorrectorParameters> >& jetCorrParameters,  T& sourcesMapDown, T& sourcesMapUp, const pat::Jet& jet, const unsigned jetIndex )
 {
@@ -336,7 +336,7 @@ template< typename T > void fillJetUncertaintySources( const std::map< std::stri
         delete jetCorUnc;
     }
 }
-
+*/
 
 bool JetAnalyzer::analyze(const edm::Event& iEvent)
 {
@@ -410,10 +410,13 @@ bool JetAnalyzer::analyze(const edm::Event& iEvent)
     // Loop over Puppi Jets
     for(const auto& jet : *jetsPuppi){
         if(_nJetsPuppi == nJets_max) break;
-
+        
+        /*
+        ---> Do I need this???
         // Implementation based on global tag
         jecUncPuppi->setJetEta(jet.eta());
         jecUncPuppi->setJetPt(jet.pt());
+        */
 
         _jetPuppiPt[_nJetsPuppi]        = jet.pt();
         _jetPuppiEta[_nJetsPuppi]       = jet.eta();

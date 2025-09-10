@@ -2,12 +2,12 @@
 #define JET_ANALYZER_H
 //CMSSW
 #include "DataFormats/PatCandidates/interface/Jet.h"
-#include "CondFormats/JetMETObjects/interface/JetCorrectionUncertainty.h"
-#include "CondFormats/JetMETObjects/interface/JetCorrectorParameters.h"
+//#include "CondFormats/JetMETObjects/interface/JetCorrectionUncertainty.h"
+//#include "CondFormats/JetMETObjects/interface/JetCorrectorParameters.h"
 #include "FWCore/ParameterSet/interface/ParameterSet.h"
 #include "FWCore/Framework/interface/Event.h"
 
-#include "CondFormats/JetMETObjects/interface/FactorizedJetCorrector.h"
+//#include "CondFormats/JetMETObjects/interface/FactorizedJetCorrector.h"
 
 //c++ standard library
 #include <memory>
@@ -26,17 +26,17 @@ class JetAnalyzer {
     friend class V0Analyzer;
     
     private:
-        JetCorrectionUncertainty* jecUnc;
-        JetCorrectionUncertainty* jecUncPuppi;
+        //JetCorrectionUncertainty* jecUnc;
+        //JetCorrectionUncertainty* jecUncPuppi;
 
         // Maxim number of Jets/PFcandidates
         static const unsigned nJets_max         = 100;
         static const unsigned nPFCandidates_max = 1000;
 
-        std::map<std::string, std::shared_ptr< JetCorrectorParameters> > jetSourcesCorParameters;
-        std::map<std::string, std::shared_ptr< JetCorrectorParameters> > jetGroupedCorParameters;
+        //std::map<std::string, std::shared_ptr< JetCorrectorParameters> > jetSourcesCorParameters;
+        //std::map<std::string, std::shared_ptr< JetCorrectorParameters> > jetGroupedCorParameters;
 
-        std::shared_ptr<FactorizedJetCorrector> jetCorrector;
+        //std::shared_ptr<FactorizedJetCorrector> jetCorrector;
 
         // Initiate counter for number of Jets
         unsigned _nJets     = 0;
