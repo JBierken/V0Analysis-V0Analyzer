@@ -174,10 +174,10 @@ void V0Analyzer::beginJob()
     if( isMC() && storeParticleLevel)   particleLevelAnalyzer->beginJob(outputTree);
 
     //Initialize other analyzers 
-    triggerAnalyzer->beginJob(outputTree);
-    leptonAnalyzer->beginJob(outputTree);
-    jetAnalyzer->beginJob(outputTree);
-    k0Analyzer->beginJob(outputTree);
+    triggerAnalyzer->beginJob(          outputTree);
+    leptonAnalyzer->beginJob(           outputTree);
+    jetAnalyzer->beginJob(              outputTree);
+    k0Analyzer->beginJob(               outputTree);
 
     _runNb = 0;
 
@@ -201,12 +201,11 @@ void V0Analyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
     if(isMC() && storeParticleLevel)                            applySkim = !particleLevelAnalyzer->analyze(iEvent);
     else                                                        applySkim = true;
 
-    if (applySkim)                                              return;
     if(_nVertex == 0)                                           return;
     if(!leptonAnalyzer->analyze(iEvent, *(vertices->begin())) 
             and applySkim)                                      return;
-    if(!jetAnalyzer->analyze(iEvent) 
-            and applySkim)                                      return;
+    //if(!jetAnalyzer->analyze(iEvent) 
+    //        and applySkim)                                      return;
     if( isMC() )                                                genAnalyzer->analyze(iEvent);
     triggerAnalyzer->analyze(                                   iEvent);
     k0Analyzer->analyze(                                        iEvent, iSetup, *(vertices->begin()));

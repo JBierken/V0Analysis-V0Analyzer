@@ -84,7 +84,9 @@ process.source = cms.Source("PoolSource",
             # Run-2
             #'/store/data/Run2018A/DoubleMuon/MINIAOD/UL2018_MiniAODv2-v1/260000/00264E65-8EFD-974C-8A29-866EFA1609D3.root'
             # Run-3
-            '/store/data/Run2022B/DoubleMuon/MINIAOD/PromptReco-v1/000/355/208/00000/ab94f70b-f4a2-46b0-9ca1-5e4d832a36fa.root'
+            #'root://cms-xrd-global.cern.ch/' + '/store/data/Run2022B/DoubleMuon/MINIAOD/PromptReco-v1/000/355/196/00000/b3bcf49d-5072-40f8-994e-e7ba2d323fb2.root',         # Small file (N_evt=89, size=5.7MB)
+            #'root://cms-xrd-global.cern.ch/' + '/store/data/Run2022B/DoubleMuon/MINIAOD/PromptReco-v1/000/355/207/00000/e6f8e5ae-70e0-4dac-9106-b81723a98c7a.root',         # Medium file (n_evt=2874, size=101.0MB)
+            #'root://cms-xrd-global.cern.ch/' + '/store/data/Run2022B/DoubleMuon/MINIAOD/PromptReco-v1/000/355/208/00000/ab94f70b-f4a2-46b0-9ca1-5e4d832a36fa.root'        # Big file (N_evt=32636, size=1.1GB)
         ),
 )
 
@@ -95,7 +97,9 @@ process.source = cms.Source("PoolSource",
 ## Setup the service to make a ROOT TTree
 process.TFileService = cms.Service("TFileService",
         #fileName = cms.string("DoubleMuon_Run2018A-UL2018.root")
-        fileName = cms.string("DoubleMuon_Run2022B-PromptReco.root")
+        #fileName = cms.string("DoubleMuon_Run2022B-PromptReco_v1.root")
+        fileName = cms.string("DoubleMuon_Run2022B-PromptReco_v2.root")
+        #fileName = cms.string("DoubleMuon_Run2022B-PromptReco_v3.root")
 )
 
 #process.demo = cms.EDAnalyzer('ECPTreeMaker',
@@ -103,7 +107,6 @@ process.blackJackAndHookers = cms.EDAnalyzer('V0Analyzer',
         # Beam spot & vertices
         offlineBeamSpot         = cms.InputTag("offlineBeamSpot",               "", "RECO"),
         vertices                = cms.InputTag("offlineSlimmedPrimaryVertices"),
-        #vertices                = cms.InputTag("offlineSlimmedPrimaryVertices", "", "PAT"),
 
         # Generator information
         genEventInfo            = cms.InputTag("generator"),
@@ -115,7 +118,6 @@ process.blackJackAndHookers = cms.EDAnalyzer('V0Analyzer',
         particleLevelPhotons    = cms.InputTag("particleLevel",                     "photons"),   # adjust if not produced
         particleLevelLeptons    = cms.InputTag("particleLevel",                     "leptons"),
         particleLevelJets       = cms.InputTag("particleLevel",                     "jets"),
-        #genJets                 = cms.InputTag("slimmedGenJets"),
         particleLevelMets       = cms.InputTag("particleLevel",                     "met"),
 
 
@@ -159,10 +161,10 @@ process.blackJackAndHookers = cms.EDAnalyzer('V0Analyzer',
         storeLheParticles       = cms.untracked.bool(True),
         storeGenParticles       = cms.untracked.bool(True),
         storeParticleLevel      = cms.untracked.bool(True),
+        #storeJecSourcesAll      = cms.untracked.bool(False),
         storeJecSourcesAll      = cms.untracked.bool(False),
         storeJecSourcesGrouped  = cms.untracked.bool(False),
-        #storeAllTauID           = cms.untracked.bool(False),
-        storeAllTauID           = cms.untracked.bool(True),
+        storeAllTauID           = cms.untracked.bool(False),
         storePrefireComponents  = cms.untracked.bool(False),
         storeJetSubstructure    = cms.untracked.bool(False),
 )

@@ -116,10 +116,14 @@ bool LeptonAnalyzer::analyze(const edm::Event& iEvent, const reco::Vertex& prima
 
         //store Lepton flavor and ID
         _lFlavor[_nL]       = 0;
-        _lPOGVeto[_nL]      = ele->electronID("mvaEleID-RunIIIWinter22-V1-wp90");   // no veto available, so we take WP90 here
-        _lPOGLoose[_nL]     = ele->electronID("mvaEleID-RunIIIWinter22-V1-wp90");   // no loose available, so we take WP90 here
-        _lPOGMedium[_nL]    = ele->electronID("mvaEleID-RunIIIWinter22-V1-wp90");   // no medium available, the run-3 equivalent is WP90
-        _lPOGTight[_nL]     = ele->electronID("mvaEleID-RunIIIWinter22-V1-wp80");   // no tight available, the run-3 equivalent is WP80
+        //_lPOGVeto[_nL]      = ele->electronID("mvaEleID-RunIIIWinter22-V1-wp90");   // no veto available, so we take WP90 here
+        //_lPOGLoose[_nL]     = ele->electronID("mvaEleID-RunIIIWinter22-V1-wp90");   // no loose available, so we take WP90 here
+        //_lPOGMedium[_nL]    = ele->electronID("mvaEleID-RunIIIWinter22-V1-wp90");   // no medium available, the run-3 equivalent is WP90
+        //_lPOGTight[_nL]     = ele->electronID("mvaEleID-RunIIIWinter22-V1-wp80");   // no tight available, the run-3 equivalent is WP80
+        _lPOGVeto[_nL]      = ele->electronID("mvaEleID-Fall17-iso-V1-wp90");   // no veto available, so we take WP90 here
+        _lPOGLoose[_nL]     = ele->electronID("mvaEleID-Fall17-iso-V1-wp90");   // no loose available, so we take WP90 here
+        _lPOGMedium[_nL]    = ele->electronID("mvaEleID-Fall17-iso-V1-wp90");   // no medium available, the run-3 equivalent is WP90
+        _lPOGTight[_nL]     = ele->electronID("mvaEleID-Fall17-iso-V1-wp80");   // no tight available, the run-3 equivalent is WP80
 
         ++_nEle;
         ++_nL;
@@ -139,10 +143,14 @@ bool LeptonAnalyzer::analyze(const edm::Event& iEvent, const reco::Vertex& prima
 
         //store Lepton flavor and ID
         _lFlavor[_nL]                           = 2;
-        _lPOGVeto[_nL]                          = tau.tauID("byVVVLooseDeepTau2018v2p5VSjet");
-        _lPOGLoose[_nL]                         = tau.tauID("byLooseDeepTau2018v2p5VSjet");
-        _lPOGMedium[_nL]                        = tau.tauID("byMediumDeepTau2018v2p5VSjet");
-        _lPOGTight[_nL]                         = tau.tauID("byTightDeepTau2018v2p5VSjet");
+        //_lPOGVeto[_nL]                          = tau.tauID("byVVVLooseDeepTau2018v2p5VSjet");
+        //_lPOGLoose[_nL]                         = tau.tauID("byLooseDeepTau2018v2p5VSjet");
+        //_lPOGMedium[_nL]                        = tau.tauID("byMediumDeepTau2018v2p5VSjet");
+        //_lPOGTight[_nL]                         = tau.tauID("byTightDeepTau2018v2p5VSjet");
+        _lPOGVeto[_nL]                          = tau.tauID("byVVVLooseDeepTau2017v2p1VSjet");
+        _lPOGLoose[_nL]                         = tau.tauID("byLooseDeepTau2017v2p1VSjet");
+        _lPOGMedium[_nL]                        = tau.tauID("byMediumDeepTau2017v2p1VSjet");
+        _lPOGTight[_nL]                         = tau.tauID("byTightDeepTau2017v2p1VSjet");
         
         ++_nTau;
         ++_nL;
