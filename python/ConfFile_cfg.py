@@ -71,7 +71,8 @@ process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 
 ### Data global tag
 #process.GlobalTag.globaltag= "106X_dataRun2_v35"
-process.GlobalTag.globaltag = "124X_dataRun3_Prompt_v4"
+#process.GlobalTag.globaltag = "124X_dataRun3_Prompt_v4"
+process.GlobalTag.globaltag = "130X_dataRun3_v2"
 
 ## Message Logger settings
 process.load("FWCore.MessageService.MessageLogger_cfi")

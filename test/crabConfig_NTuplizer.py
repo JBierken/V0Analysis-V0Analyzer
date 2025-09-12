@@ -1,3 +1,4 @@
+import os
 from CRABClient.UserUtilities import config
 config = config()
 
@@ -5,12 +6,13 @@ config = config()
 # HYPERPARAMETERS:
 
 user                                    = 'jbierken'
+cmssw                                   = "CMSSW_14_0_15"
 data                                    = 'data'
 year                                    = 2022
 era                                     = "Run2022B"
 primary_dataset                         = "DoubleMuon"
 process                                 = "V0Analyzer"
-version                                 = 1
+version                                 = 0
 
 nunits                                  = 50
 nthreads                                = 1
@@ -19,8 +21,9 @@ nthreads                                = 1
 # ---------------------------------------------------------
 # RUN CONFIGURATION:
 
-dbssavepath                             = f'/pnfs/iihe/cms/store/user/{user}/K0sAnalysis/NTuples/v{version}/MINIAOD/{data}' 
-if not os.path.exists(dbssavepath):     os.makedirs(dbssavepath)
+#dbssavepath                             = f'/store/user/{user}/{cmssw}/src/NTuples/MINIAOD/v{version}/{data}'
+dbssavepath                             = f'/store/user/{user}/K0sAnalysis/NTuples/MINIAOD/v{version}/{data}' 
+if not os.path.exists(dbssavepath):     os.makedirs('/pnfs/iihe/cms/' + dbssavepath)
 
 lumijson                                = {
                                             2022        : "https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions22/Cert_Collisions2022_355100_362760_Golden.json",
@@ -29,13 +32,12 @@ lumijson                                = {
                                         }
 datasets                                = {
                                             # Run2022
-                                            "Run2022A"  : f"/{primary_dataset}/Run2022A-PromptReco-v1/MINIAOD",
-                                            "Run2022B"  : f"/{primary_dataset}/Run2022B-PromptReco-v1/MINIAOD",
-                                            "Run2022C"  : f"/{primary_dataset}/Run2022C-PromptReco-v1/MINIAOD",
-                                            "Run2022D"  : f"/{primary_dataset}/Run2022D-PromptReco-v1/MINIAOD",     # Not correct!
-                                            "Run2022E"  : f"/{primary_dataset}/Run2022E-PromptReco-v1/MINIAOD",     # Not correct!
+                                            "Run2022A"  : f"/{primary_dataset}/Run2022A-22Sep2023-v1/MINIAOD",
+                                            "Run2022B"  : f"/{primary_dataset}/Run2022B-22Sep2023-v1/MINIAOD",
+                                            "Run2022C"  : f"/{primary_dataset}/Run2022C-22Sep2023-v1/MINIAOD",
                                             # Run2023
                                             # Run2024
+                                            "Run2022E"  : f"/{primary_dataset}/Run2022A-PromptReco-v1/MINIAOD",     # Not correct!
                                         }
 
 
