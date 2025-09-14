@@ -1,5 +1,4 @@
 import os
-import datetime
 from CRABClient.UserUtilities import config
 config = config()
 
@@ -17,20 +16,15 @@ version                                 = 0
 
 nunits                                  = 200
 nthreads                                = 1
+cores                                   = 1
+memory                                  = 2000                                                          # in MB
 
 # ---------------------------------------------------------
 # RUN CONFIGURATION:
 
 # Data or MC
-if isData:
-    dataType                            = 'data'
-else:
-    dataType                            = 'sim'
-
-
-# get current time for folder naming
-time                                    = datetime.datetime.now()
-current_time                            = f'{time.year}{time.month}{time.day}_{time.hour}{time.minute}{time.second}'
+if isData:                              dataType = 'data'
+else:                                   dataType = 'sim'
 
 dbssavepath                             = f'/store/user/{user}/K0sAnalysis/NTuples/MINIAOD/{dataType}/v{version}'
 if not os.path.exists('/pnfs/iihe/cms/' + dbssavepath):     os.makedirs('/pnfs/iihe/cms/' + dbssavepath)
@@ -49,14 +43,22 @@ datasets                                = {
                                             # Run2024
                                             "Run2022E"  : f"/{primary_dataset}/Run2022A-PromptReco-v1/MINIAOD",     # Not correct!
                                         }
+globalTags                              = {
+                                            # Run2022
+                                            "Run2022A"  : "130X_dataRun3_v2",
+                                            "Run2022B"  : "130X_dataRun3_v2",
+                                            "Run2022C"  : "130X_dataRun3_v2",
+                                            # Run2023
+                                            # Run2024
+                                            "Run2022E"  : "130X_dataRun3_v2",
+                                        }
 
 
 # ---------------------------------------------------------
 # CRAB SETUP:
 
 # General
-config.General.requestName              = f"{process}_MiniAOD_{dataType}_{era}_v{version}"                                                                                                                                          
-#config.General.requestName              = f'V0Analyzer_Run3_MINIAOD_{era}'
+config.General.requestName              = f"{process}_MiniAOD_{dataType}_{era}"
 config.General.workArea                 = 'crab_V0Analyzer'
 config.General.transferOutputs          = True
 config.General.transferLogs             = True
@@ -65,11 +67,17 @@ config.General.transferLogs             = True
 config.JobType.pluginName               = 'Analysis'
 config.JobType.psetName                 = 'V0Analysis/V0Analyzer/python/ConfFile_cfg.py'                # your cmsRun config
 config.JobType.allowUndistributedCMSSW  = True                                                          # useful if you're on CMSSW_14_X
-#config.JobType.inputFiles               = [f''V0Analysis/V0Analyzer/python/ConfFile_cfg.py']
-#config.JobType.pyCfgParams              = ['isMC=False', 'campaign=2024']
+config.JobType.inputFiles               = [f'V0Analysis/V0Analyzer/python/ConfFile_cfg.py']
+config.JobType.pyCfgParams              = [
+                                            f'isData={isData}', 
+                                            f'campaign={year}', 
+                                            f'era={era}', 
+                                            f'dataset={primary_dataset}', 
+                                            f'globaltag={globalTags[era]}'
+                                        ]
 
-config.JobType.numCores                 = 1
-config.JobType.maxMemoryMB              = 2500
+config.JobType.numCores                 = cores
+config.JobType.maxMemoryMB              = memory
 
 
 # Data
@@ -84,12 +92,12 @@ config.Data.splitting                   = 'Automatic'
 config.Data.lumiMask                    = lumijson[year]
 
 config.Data.unitsPerJob                 = nunits
-config.Data.totalUnits                  = -1                                            # -1 = process all files
+config.Data.totalUnits                  = -1                                                            # -1 = process all files
 config.Data.publication                 = False
 
 # Site
 config.Site.ignoreGlobalBlacklist       = True
-config.Site.storageSite                 = 'T2_BE_IIHE'                              # or your site
+config.Site.storageSite                 = 'T2_BE_IIHE'                                                  # or your site
 config.Site.whitelist                   = [
                                             "T2_CH*", "T2_FR*", "T2_IT*", "T2_DE*", "T2_AT*", "T2_BE*", "T2_ES*",
                                             "T1_US*", "T2_US*", "T3_US*", "T1_FR*", "T1_IT*", "T1_DE*", "T2_UK*", "T3_UK*", "T2_FI*", "T2_EE*", "T1_ES*"

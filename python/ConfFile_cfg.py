@@ -7,19 +7,40 @@ import FWCore.ParameterSet.VarParsing as VarParsing
 ## ---------------------------------------
 options = VarParsing.VarParsing('analysis')
  
-#options.register("isMC",
-#                False, 
-#                VarParsing.VarParsing.multiplicity.singleton,
-#                VarParsing.VarParsing.varType.bool,
-#                "Simulated MC events"
-#)
+options.register("isData",
+                False, 
+                VarParsing.VarParsing.multiplicity.singleton,
+                VarParsing.VarParsing.varType.bool,
+                "Are we considering Data/MC"
+)
  
-#options.register ("campaign",
-#                "2024",
-#                VarParsing.VarParsing.multiplicity.singleton,
-#                VarParsing.VarParsing.varType.string,
-#                "Campaign MC events"
-#)
+options.register ("campaign",
+                "2022",
+                VarParsing.VarParsing.multiplicity.singleton,
+                VarParsing.VarParsing.varType.string,
+                "Data-taking/MC Campaign"
+)
+ 
+options.register ("era",
+                "Run2022B",
+                VarParsing.VarParsing.multiplicity.singleton,
+                VarParsing.VarParsing.varType.string,
+                "Data-taking era for data"
+)
+ 
+options.register ("dataset",
+                "DoubleMuon",
+                VarParsing.VarParsing.multiplicity.singleton,
+                VarParsing.VarParsing.varType.string,
+                "which Primary-Dataset are we considering"
+)
+ 
+options.register ("globaltag",
+                "130X_dataRun3_v2",
+                VarParsing.VarParsing.multiplicity.singleton,
+                VarParsing.VarParsing.varType.string,
+                "globalTag to be used"
+)
 
 options.parseArguments()
 
@@ -27,7 +48,7 @@ options.parseArguments()
 ## ---------------------------------------
 # DEFAULT ARGUMENTS:
 ## ---------------------------------------
-
+"""
 # Default input file (could be overwritten by parameters given on the command line and by crab), some examples:
 inputFile               = '/store/data/Run2022B/DoubleMuon/MINIAOD/PromptReco-v1/000/355/208/00000/ab94f70b-f4a2-46b0-9ca1-5e4d832a36fa.root'
 
@@ -69,6 +90,18 @@ is2016preVFP            = "preVFP"      in inputFile or "HIPM"          in input
 is2022                  = "Run2022"     in inputFile or "22MiniAOD"     in inputFile or 'Fall22'    in inputFile
 is2022EE                = "Run2022EE"   in inputFile or "22EEMiniAOD"   in inputFile or 'Fall22EE'  in inputFile
 is2023                  = "Run2023"     in inputFile or "23MiniAOD"     in inputFile or 'Autumn23'  in inputFile
+"""
+
+isData                  = options.isData
+# Data taking year:
+#   run-2
+is2017                      = "2017"        in options.campaign 
+is2018                      = "2018"        in options.campaign 
+is2016preVFP                = "preVFP"      in options.campaign 
+#   run-3
+is2022                      = "2022"        in options.campaign 
+is2022EE                    = "2022EE"      in options.campaign 
+is2023                      = "2023"        in options.campaign 
 
 ## ---------------------------------------
 # Start process
@@ -95,7 +128,8 @@ process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 ### Data global tag
 #process.GlobalTag.globaltag= "106X_dataRun2_v35"
 #process.GlobalTag.globaltag = "124X_dataRun3_Prompt_v4"
-process.GlobalTag.globaltag = "130X_dataRun3_v2"
+#process.GlobalTag.globaltag = "130X_dataRun3_v2"
+process.GlobalTag.globaltag = options.globaltag 
 
 ## Message Logger settings
 process.load("FWCore.MessageService.MessageLogger_cfi")
@@ -127,7 +161,8 @@ process.TFileService        = cms.Service("TFileService",
                                 # Run-2
                                 #fileName = cms.string("DoubleMuon_Run2018A-UL2018.root")
                                 # Run-3
-                                fileName = cms.string("output_DoubleMuon_Run2022B.root")
+                                #fileName = cms.string(f"output_DoubleMuon_Run2022B.root")
+                                fileName = cms.string(f"output_{options.dataset}_{options.era}.root")
                             )
 
 #process.demo = cms.EDAnalyzer('ECPTreeMaker',
