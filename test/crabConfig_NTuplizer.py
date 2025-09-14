@@ -15,7 +15,7 @@ primary_dataset                         = "DoubleMuon"
 process                                 = "V0Analyzer"
 version                                 = 0
 
-nunits                                  = 50
+nunits                                  = 200
 nthreads                                = 1
 
 # ---------------------------------------------------------
@@ -32,9 +32,7 @@ else:
 time                                    = datetime.datetime.now()
 current_time                            = f'{time.year}{time.month}{time.day}_{time.hour}{time.minute}{time.second}'
 
-#dbssavepath                             = f'/store/user/{user}/{cmssw}/src/NTuples/MINIAOD/v{version}/{data}'
-#dbssavepath                             = f'/store/user/{user}/K0sAnalysis/NTuples/MINIAOD/{dataType}/v{version}'
-dbssavepath                             = f'/store/user/{user}/K0sAnalysis/NTuples/MINIAOD/{dataType}/v{version}/{current_time}'
+dbssavepath                             = f'/store/user/{user}/K0sAnalysis/NTuples/MINIAOD/{dataType}/v{version}'
 if not os.path.exists('/pnfs/iihe/cms/' + dbssavepath):     os.makedirs('/pnfs/iihe/cms/' + dbssavepath)
 
 lumijson                                = {
@@ -81,8 +79,8 @@ config.Data.outLFNDirBase               = dbssavepath
 config.Data.outputDatasetTag            = datasets[era].split("/")[2]
 config.Data.allowNonValidInputDataset   = True
 
-config.Data.splitting                   = 'FileBased'
-#config.Data.splitting                   = 'Automatic'
+#config.Data.splitting                   = 'FileBased'
+config.Data.splitting                   = 'Automatic'
 config.Data.lumiMask                    = lumijson[year]
 
 config.Data.unitsPerJob                 = nunits

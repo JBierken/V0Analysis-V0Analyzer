@@ -45,7 +45,7 @@ outputFile              = 'noskim.root'             # trilep    --> skim three l
                                                     # FR        --> one jet and one light lepton
 
 ## ---------------------------------------
-# INITIATE parameters:
+# INITIATE parameters:                          ---> TODO: Need to update this!!! (this works but is very far from general)
 ## ---------------------------------------
 def getVal(arg):
         return  arg.split('=')[-1]
@@ -127,7 +127,7 @@ process.TFileService        = cms.Service("TFileService",
                                 # Run-2
                                 #fileName = cms.string("DoubleMuon_Run2018A-UL2018.root")
                                 # Run-3
-                                fileName = cms.string("DoubleMuon_Run2022B-PromptReco_v3.root")
+                                fileName = cms.string("output_DoubleMuon_Run2022B.root")
                             )
 
 #process.demo = cms.EDAnalyzer('ECPTreeMaker',
