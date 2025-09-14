@@ -4,16 +4,19 @@ config = config()
 
 # ---------------------------------------------------------
 # HYPERPARAMETERS:
+# ---------------------------------------------------------
 
-user                                    = 'jbierken'
-cmssw                                   = "CMSSW_14_0_15"
+# data configuration
+version                                 = 0
 isData                                  = True 
 year                                    = 2022
-era                                     = "Run2022B"
+era                                     = "Run2022C"
 primary_dataset                         = "DoubleMuon"
 process                                 = "V0Analyzer"
-version                                 = 0
 
+# user/processing configuration
+user                                    = 'jbierken'
+cmssw                                   = "CMSSW_14_0_15"
 nunits                                  = 200
 nthreads                                = 1
 cores                                   = 1
@@ -21,49 +24,51 @@ memory                                  = 2000                                  
 
 # ---------------------------------------------------------
 # RUN CONFIGURATION:
+# ---------------------------------------------------------
 
 # Data or MC
 if isData:                              dataType = 'data'
 else:                                   dataType = 'sim'
 
 dbssavepath                             = f'/store/user/{user}/K0sAnalysis/NTuples/MINIAOD/{dataType}/v{version}'
-if not os.path.exists('/pnfs/iihe/cms/' + dbssavepath):     os.makedirs('/pnfs/iihe/cms/' + dbssavepath)
+if not os.path.exists('/pnfs/iihe/cms/' + dbssavepath):         os.makedirs('/pnfs/iihe/cms/' + dbssavepath)
 
 lumijson                                = {
-                                            2022        : "https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions22/Cert_Collisions2022_355100_362760_Golden.json",
-                                            2023        : "https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions23/Cert_Collisions2023_366442_370790_Golden.json",
-                                            2024        : "https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions24/Cert_Collisions2024_378981_386951_Golden.json",
+                                            2022  :             "https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions22/Cert_Collisions2022_355100_362760_Golden.json",
+                                            2023  :             "https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions23/Cert_Collisions2023_366442_370790_Golden.json",
+                                            2024  :             "https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions24/Cert_Collisions2024_378981_386951_Golden.json",
                                         }
-datasets                                = {
+
+data_config                             = {
                                             # Run2022
-                                            "Run2022A"  : f"/{primary_dataset}/Run2022A-22Sep2023-v1/MINIAOD",
-                                            "Run2022B"  : f"/{primary_dataset}/Run2022B-22Sep2023-v1/MINIAOD",
-                                            "Run2022C"  : f"/{primary_dataset}/Run2022C-22Sep2023-v1/MINIAOD",
+                                            "Run2022A"  : {
+                                                "dataset":      f"/{primary_dataset}/Run2022A-22Sep2023-v1/MINIAOD",
+                                                "globalTag":    "130X_dataRun3_v2",
+                                            },
+                                            "Run2022B"  : {
+                                                "dataset":      f"/{primary_dataset}/Run2022B-22Sep2023-v1/MINIAOD",
+                                                "globalTag":    "130X_dataRun3_v2",
+                                            },
+                                            "Run2022C"  : {
+                                                "dataset":      f"/{primary_dataset}/Run2022C-22Sep2023-v1/MINIAOD",
+                                                "globalTag":    "130X_dataRun3_v2",
+                                            },
                                             # Run2023
                                             # Run2024
-                                            "Run2022E"  : f"/{primary_dataset}/Run2022A-PromptReco-v1/MINIAOD",     # Not correct!
-                                        }
-globalTags                              = {
-                                            # Run2022
-                                            "Run2022A"  : "130X_dataRun3_v2",
-                                            "Run2022B"  : "130X_dataRun3_v2",
-                                            "Run2022C"  : "130X_dataRun3_v2",
-                                            # Run2023
-                                            # Run2024
-                                            "Run2022E"  : "130X_dataRun3_v2",
                                         }
 
 
 # ---------------------------------------------------------
 # CRAB SETUP:
+# ---------------------------------------------------------
 
-# General
+## General config:
 config.General.requestName              = f"{process}_MiniAOD_{dataType}_{era}"
 config.General.workArea                 = 'crab_V0Analyzer'
 config.General.transferOutputs          = True
 config.General.transferLogs             = True
 
-# JobType
+## JobType config:
 config.JobType.pluginName               = 'Analysis'
 config.JobType.psetName                 = 'V0Analysis/V0Analyzer/python/ConfFile_cfg.py'                # your cmsRun config
 config.JobType.allowUndistributedCMSSW  = True                                                          # useful if you're on CMSSW_14_X
@@ -73,18 +78,18 @@ config.JobType.pyCfgParams              = [
                                             f'campaign={year}', 
                                             f'era={era}', 
                                             f'dataset={primary_dataset}', 
-                                            f'globaltag={globalTags[era]}'
+                                            f'globaltag={data_config[era]["globalTag"]}'
                                         ]
 
 config.JobType.numCores                 = cores
 config.JobType.maxMemoryMB              = memory
 
 
-# Data
-config.Data.inputDataset                = datasets[era]
+## Data config:
+config.Data.inputDataset                = data_config[era]["dataset"]
 config.Data.inputDBS                    = 'global'
 config.Data.outLFNDirBase               = dbssavepath
-config.Data.outputDatasetTag            = datasets[era].split("/")[2]
+config.Data.outputDatasetTag            = data_config[era]["dataset"].split("/")[2]
 config.Data.allowNonValidInputDataset   = True
 
 #config.Data.splitting                   = 'FileBased'
@@ -95,7 +100,7 @@ config.Data.unitsPerJob                 = nunits
 config.Data.totalUnits                  = -1                                                            # -1 = process all files
 config.Data.publication                 = False
 
-# Site
+## Site config:
 config.Site.ignoreGlobalBlacklist       = True
 config.Site.storageSite                 = 'T2_BE_IIHE'                                                  # or your site
 config.Site.whitelist                   = [

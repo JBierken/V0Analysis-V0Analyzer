@@ -46,52 +46,8 @@ options.parseArguments()
 
 
 ## ---------------------------------------
-# DEFAULT ARGUMENTS:
+# Default Arguments:
 ## ---------------------------------------
-"""
-# Default input file (could be overwritten by parameters given on the command line and by crab), some examples:
-inputFile               = '/store/data/Run2022B/DoubleMuon/MINIAOD/PromptReco-v1/000/355/208/00000/ab94f70b-f4a2-46b0-9ca1-5e4d832a36fa.root'
-
-nEvents                 = 100
-# extraContent          = 'storeAllTauID'
-# extraContent          = 'storeLheParticles,storeParticleLevel'
-# extraContent          = 'storeJecSources'
-# extraContent          = 'storeJecSources'
-extraContent            = ''
-
-outputFile              = 'noskim.root'             # trilep    --> skim three leptons (basic pt/eta criteria)
-                                                    # dilep     --> skim two leptons
-                                                    # singlelep --> skim one lepton
-                                                    # singlejet --> one jet
-                                                    # FR        --> one jet and one light lepton
-
-## ---------------------------------------
-# INITIATE parameters:                          ---> TODO: Need to update this!!! (this works but is very far from general)
-## ---------------------------------------
-def getVal(arg):
-        return  arg.split('=')[-1]
-
-# Loop over arguments
-for i in range(1,len(sys.argv)):
-    #print "[arg "+str(i)+"] : ", sys.argv[i]
-    print("[arg " + str(i) + "] : ", sys.argv[i])
-    if "outputFile"     in sys.argv[i]: outputFile   = getVal(      sys.argv[i])
-    elif "inputFile"    in sys.argv[i]: inputFile    = getVal(      sys.argv[i])
-    elif "extraContent" in sys.argv[i]: extraContent = getVal(      sys.argv[i])
-    elif "events"       in sys.argv[i]: nEvents      = int(getVal(  sys.argv[i]))
-    
-isData                  = not ('SIM'    in inputFile or 'heavyNeutrinoMiniAOD'                      in inputFile)
-# Data taking year:
-#   run-2
-is2017                  = "Run2017"     in inputFile or "17MiniAOD"     in inputFile or 'Fall17'    in inputFile
-is2018                  = "Run2018"     in inputFile or "18MiniAOD"     in inputFile or 'Autumn18'  in inputFile
-is2016preVFP            = "preVFP"      in inputFile or "HIPM"          in inputFile
-#   run-3
-is2022                  = "Run2022"     in inputFile or "22MiniAOD"     in inputFile or 'Fall22'    in inputFile
-is2022EE                = "Run2022EE"   in inputFile or "22EEMiniAOD"   in inputFile or 'Fall22EE'  in inputFile
-is2023                  = "Run2023"     in inputFile or "23MiniAOD"     in inputFile or 'Autumn23'  in inputFile
-"""
-
 isData                  = options.isData
 # Data taking year:
 #   run-2
@@ -127,8 +83,6 @@ process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 
 ### Data global tag
 #process.GlobalTag.globaltag= "106X_dataRun2_v35"
-#process.GlobalTag.globaltag = "124X_dataRun3_Prompt_v4"
-#process.GlobalTag.globaltag = "130X_dataRun3_v2"
 process.GlobalTag.globaltag = options.globaltag 
 
 ## Message Logger settings
@@ -136,18 +90,15 @@ process.load("FWCore.MessageService.MessageLogger_cfi")
 process.MessageLogger.cerr.FwkReport.reportEvery= 10000
 process.maxEvents           = cms.untracked.PSet( input = cms.untracked.int32(-1) )
 
-#process.source              = cms.Source("PoolSource",
-#                                fileNames = cms.untracked.vstring(
-#                                    # Run-2
-#                                    #'/store/data/Run2018A/DoubleMuon/MINIAOD/UL2018_MiniAODv2-v1/260000/00264E65-8EFD-974C-8A29-866EFA1609D3.root'
-#                                    # Run-3
-#                                    #'root://cms-xrd-global.cern.ch/'   + '/store/data/Run2022B/DoubleMuon/MINIAOD/PromptReco-v1/000/355/196/00000/b3bcf49d-5072-40f8-994e-e7ba2d323fb2.root',
-#                                    #'root://cms-xrd-global.cern.ch/'    + '/store/data/Run2022B/DoubleMuon/MINIAOD/PromptReco-v1/000/355/207/00000/e6f8e5ae-70e0-4dac-9106-b81723a98c7a.root',
-#                                    'root://cms-xrd-global.cern.ch/'   + '/store/data/Run2022B/DoubleMuon/MINIAOD/PromptReco-v1/000/355/208/00000/ab94f70b-f4a2-46b0-9ca1-5e4d832a36fa.root'
-#                                ),
-#                            )
 process.source              = cms.Source("PoolSource",
-                                fileNames           = cms.untracked.vstring(options.inputFiles),
+                                fileNames           = cms.untracked.vstring(
+                                                        # Run-2 (locally)
+                                                        #'/store/data/Run2018A/DoubleMuon/MINIAOD/UL2018_MiniAODv2-v1/260000/00264E65-8EFD-974C-8A29-866EFA1609D3.root'
+                                                        # Run-3 (locally)
+                                                        #'root://cms-xrd-global.cern.ch/'    + '/store/data/Run2022B/DoubleMuon/MINIAOD/PromptReco-v1/000/355/207/00000/e6f8e5ae-70e0-4dac-9106-b81723a98c7a.root',
+                                                        # for Crab job submission
+                                                        options.inputFiles
+                                                    ),
                                 secondaryFileNames  = cms.untracked.vstring(),
                                 duplicateCheckMode  = cms.untracked.string('noDuplicateCheck')
                             )
@@ -158,10 +109,6 @@ process.source              = cms.Source("PoolSource",
 
 ## Setup the service to make a ROOT TTree
 process.TFileService        = cms.Service("TFileService",
-                                # Run-2
-                                #fileName = cms.string("DoubleMuon_Run2018A-UL2018.root")
-                                # Run-3
-                                #fileName = cms.string(f"output_DoubleMuon_Run2022B.root")
                                 fileName = cms.string(f"output_{options.dataset}_{options.era}.root")
                             )
 
@@ -178,7 +125,7 @@ process.blackJackAndHookers = cms.EDAnalyzer('V0Analyzer',
                                 genParticles            = cms.InputTag("prunedGenParticles"),
 
                                 # Particle-level objects (MINIAOD doesn't store these directly usually from NanoAOD or Rivet step)
-                                particleLevelPhotons    = cms.InputTag("particleLevel",                     "photons"),   # adjust if not produced
+                                particleLevelPhotons    = cms.InputTag("particleLevel",                     "photons"),     # adjust if not produced
                                 particleLevelLeptons    = cms.InputTag("particleLevel",                     "leptons"),
                                 particleLevelJets       = cms.InputTag("particleLevel",                     "jets"),
                                 particleLevelMets       = cms.InputTag("particleLevel",                     "met"),
@@ -188,7 +135,7 @@ process.blackJackAndHookers = cms.EDAnalyzer('V0Analyzer',
                                 muons                   = cms.InputTag("slimmedMuons"),
                                 electrons               = cms.InputTag("slimmedElectrons"),
                                 taus                    = cms.InputTag("slimmedTaus"),
-                                tauGenJets              = cms.InputTag("tauGenJetsSelectorAllHadrons"),  # from tau tools
+                                tauGenJets              = cms.InputTag("tauGenJetsSelectorAllHadrons"),                     # from tau tools
                                 photons                 = cms.InputTag("slimmedPhotons"),
                                 packedCandidates        = cms.InputTag("packedPFCandidates"),
                                 lostTracks              = cms.InputTag("lostTracks"),
