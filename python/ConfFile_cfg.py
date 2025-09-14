@@ -1,5 +1,28 @@
 import sys, os
 import FWCore.ParameterSet.Config as cms
+import FWCore.ParameterSet.VarParsing as VarParsing
+
+## ---------------------------------------
+### parser (for crab submission)
+## ---------------------------------------
+options = VarParsing.VarParsing('analysis')
+ 
+#options.register("isMC",
+#                False, 
+#                VarParsing.VarParsing.multiplicity.singleton,
+#                VarParsing.VarParsing.varType.bool,
+#                "Simulated MC events"
+#)
+ 
+#options.register ("campaign",
+#                "2024",
+#                VarParsing.VarParsing.multiplicity.singleton,
+#                VarParsing.VarParsing.varType.string,
+#                "Campaign MC events"
+#)
+
+options.parseArguments()
+
 
 ## ---------------------------------------
 # DEFAULT ARGUMENTS:
@@ -79,15 +102,20 @@ process.load("FWCore.MessageService.MessageLogger_cfi")
 process.MessageLogger.cerr.FwkReport.reportEvery= 10000
 process.maxEvents           = cms.untracked.PSet( input = cms.untracked.int32(-1) )
 
+#process.source              = cms.Source("PoolSource",
+#                                fileNames = cms.untracked.vstring(
+#                                    # Run-2
+#                                    #'/store/data/Run2018A/DoubleMuon/MINIAOD/UL2018_MiniAODv2-v1/260000/00264E65-8EFD-974C-8A29-866EFA1609D3.root'
+#                                    # Run-3
+#                                    #'root://cms-xrd-global.cern.ch/'   + '/store/data/Run2022B/DoubleMuon/MINIAOD/PromptReco-v1/000/355/196/00000/b3bcf49d-5072-40f8-994e-e7ba2d323fb2.root',
+#                                    #'root://cms-xrd-global.cern.ch/'    + '/store/data/Run2022B/DoubleMuon/MINIAOD/PromptReco-v1/000/355/207/00000/e6f8e5ae-70e0-4dac-9106-b81723a98c7a.root',
+#                                    'root://cms-xrd-global.cern.ch/'   + '/store/data/Run2022B/DoubleMuon/MINIAOD/PromptReco-v1/000/355/208/00000/ab94f70b-f4a2-46b0-9ca1-5e4d832a36fa.root'
+#                                ),
+#                            )
 process.source              = cms.Source("PoolSource",
-                                fileNames = cms.untracked.vstring(
-                                    # Run-2
-                                    #'/store/data/Run2018A/DoubleMuon/MINIAOD/UL2018_MiniAODv2-v1/260000/00264E65-8EFD-974C-8A29-866EFA1609D3.root'
-                                    # Run-3
-                                    #'root://cms-xrd-global.cern.ch/'   + '/store/data/Run2022B/DoubleMuon/MINIAOD/PromptReco-v1/000/355/196/00000/b3bcf49d-5072-40f8-994e-e7ba2d323fb2.root',
-                                    #'root://cms-xrd-global.cern.ch/'    + '/store/data/Run2022B/DoubleMuon/MINIAOD/PromptReco-v1/000/355/207/00000/e6f8e5ae-70e0-4dac-9106-b81723a98c7a.root',
-                                    'root://cms-xrd-global.cern.ch/'   + '/store/data/Run2022B/DoubleMuon/MINIAOD/PromptReco-v1/000/355/208/00000/ab94f70b-f4a2-46b0-9ca1-5e4d832a36fa.root'
-                                ),
+                                fileNames           = cms.untracked.vstring(options.inputFiles),
+                                secondaryFileNames  = cms.untracked.vstring(),
+                                duplicateCheckMode  = cms.untracked.string('noDuplicateCheck')
                             )
 
 ## ---------------------------------------

@@ -1,4 +1,5 @@
 import os
+import datetime
 from CRABClient.UserUtilities import config
 config = config()
 
@@ -7,7 +8,7 @@ config = config()
 
 user                                    = 'jbierken'
 cmssw                                   = "CMSSW_14_0_15"
-data                                    = 'data'
+isData                                  = True 
 year                                    = 2022
 era                                     = "Run2022B"
 primary_dataset                         = "DoubleMuon"
@@ -17,13 +18,24 @@ version                                 = 0
 nunits                                  = 50
 nthreads                                = 1
 
-
 # ---------------------------------------------------------
 # RUN CONFIGURATION:
 
+# Data or MC
+if isData:
+    dataType                            = 'data'
+else:
+    dataType                            = 'sim'
+
+
+# get current time for folder naming
+time                                    = datetime.datetime.now()
+current_time                            = f'{time.year}{time.month}{time.day}_{time.hour}{time.minute}{time.second}'
+
 #dbssavepath                             = f'/store/user/{user}/{cmssw}/src/NTuples/MINIAOD/v{version}/{data}'
-dbssavepath                             = f'/store/user/{user}/K0sAnalysis/NTuples/MINIAOD/v{version}/{data}' 
-if not os.path.exists(dbssavepath):     os.makedirs('/pnfs/iihe/cms/' + dbssavepath)
+#dbssavepath                             = f'/store/user/{user}/K0sAnalysis/NTuples/MINIAOD/{dataType}/v{version}'
+dbssavepath                             = f'/store/user/{user}/K0sAnalysis/NTuples/MINIAOD/{dataType}/v{version}/{current_time}'
+if not os.path.exists('/pnfs/iihe/cms/' + dbssavepath):     os.makedirs('/pnfs/iihe/cms/' + dbssavepath)
 
 lumijson                                = {
                                             2022        : "https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions22/Cert_Collisions2022_355100_362760_Golden.json",
@@ -45,9 +57,9 @@ datasets                                = {
 # CRAB SETUP:
 
 # General
-config.General.requestName              = f"{process}_v{version}_{era}_data"                                                                                                                                          
-config.General.requestName              = f'V0Analyzer_Run3_MINIAOD_{era}'
-config.General.workArea                 = 'crab_projects_V0Analyzer'
+config.General.requestName              = f"{process}_MiniAOD_{dataType}_{era}_v{version}"                                                                                                                                          
+#config.General.requestName              = f'V0Analyzer_Run3_MINIAOD_{era}'
+config.General.workArea                 = 'crab_V0Analyzer'
 config.General.transferOutputs          = True
 config.General.transferLogs             = True
 
