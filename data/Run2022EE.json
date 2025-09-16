@@ -1,0 +1,17 @@
+{
+    "lumijson" :            "https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions22/Cert_Collisions2022_355100_362760_Golden.json",
+    "eras": {
+        "Run2022E"  : {
+            "dataset":      "/Muon/Run2022E-22Sep2023-v1/MINIAOD",
+            "globalTag":    "130X_dataRun3_v2"
+        },
+        "Run2022F"  : {
+            "dataset":      "/Muon/Run2022F-22Sep2023-v1/MINIAOD",
+            "globalTag":    "130X_dataRun3_PromptAnalysis_v1"
+        },
+        "Run2022G"  : {
+            "dataset":      "/Muon/Run2022G-22Sep2023-v1/MINIAOD",
+            "globalTag":    "130X_dataRun3_PromptAnalysis_v1"
+        }
+    }
+}

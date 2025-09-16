@@ -1,0 +1,61 @@
+{
+    "lumijson" :            "https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions23/Cert_Collisions2023_366442_370790_Golden.json",
+    "eras": {
+        "Run2023B_M0" : {
+            "dataset":      "/Muon0/Run2022B-22Sep2023-v1/MINIAOD",
+            "globalTag":    "130X_dataRun3_PromptAnalysis_v1",
+        },
+        "Run2023B_M1" : {
+            "dataset":      "/Muon1/Run2022B-22Sep2023-v1/MINIAOD",
+            "globalTag":    "130X_dataRun3_PromptAnalysis_v1",
+        },
+        "Run2023C1_M0": {
+            "dataset":      "/Muon0/Run2023C-22Sep2023_v1-v1/MINIAOD",
+            "globalTag":    "130X_dataRun3_PromptAnalysis_v1",
+        },
+        "Run2023C2_M0": {
+            "dataset":      "/Muon0/Run2023C-22Sep2023_v2-v1/MINIAOD",
+            "globalTag":    "130X_dataRun3_PromptAnalysis_v1"
+        },
+        "Run2023C3_M0": {
+            "dataset":      "/Muon0/Run2023C-22Sep2023_v3-v1/MINIAOD",
+            "globalTag":    "130X_dataRun3_PromptAnalysis_v1"
+        },
+        "Run2023C4_M0": {
+            "dataset":      "/Muon0/Run2023C-22Sep2023_v4-v1/MINIAOD",
+            "globalTag":    "130X_dataRun3_PromptAnalysis_v1"
+        },
+        "Run2023C1_M1": {
+            "dataset":      "/Muon1/Run2023C-22Sep2023_v1-v1/MINIAOD",
+            "globalTag":    "130X_dataRun3_PromptAnalysis_v1"
+        },
+        "Run2023C2_M1": {
+            "dataset":      "/Muon1/Run2023C-22Sep2023_v2-v1/MINIAOD",
+            "globalTag":    "130X_dataRun3_PromptAnalysis_v1"
+        },
+        "Run2023C3_M1": {
+            "dataset":      "/Muon1/Run2023C-22Sep2023_v3-v1/MINIAOD",
+            "globalTag":    "130X_dataRun3_PromptAnalysis_v1"
+        },
+        "Run2023C4_M1": {
+            "dataset":      "/Muon1/Run2023C-22Sep2023_v4-v1/MINIAOD",
+            "globalTag":    "130X_dataRun3_PromptAnalysis_v1"
+        },
+        "Run2023D_M0": {
+            "dataset":      "/Muon0/Run2023D-22Sep2023_v1-v1/MINIAOD",
+            "globalTag":    "130X_dataRun3_PromptAnalysis_v1"
+        },
+        "Run2023D_M1": {
+            "dataset":      "/Muon1/Run2023D-22Sep2023_v1-v1/MINIAOD",
+            "globalTag":    "130X_dataRun3_PromptAnalysis_v1"
+        },
+        "Run2023D2_M0": {
+            "dataset":      "/Muon0/Run2023D-22Sep2023_v2-v1/MINIAOD",
+            "globalTag":    "130X_dataRun3_PromptAnalysis_v1"
+        },
+        "Run2023D2_M1": {
+            "dataset":      "/Muon1/Run2023D-22Sep2023_v2-v1/MINIAOD",
+            "globalTag":    "130X_dataRun3_PromptAnalysis_v1"
+        }
+    }
+}

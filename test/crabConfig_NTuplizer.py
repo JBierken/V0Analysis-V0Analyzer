@@ -33,6 +33,8 @@ else:                                   dataType = 'sim'
 dbssavepath                             = f'/store/user/{user}/K0sAnalysis/NTuples/MINIAOD/{dataType}/v{version}'
 if not os.path.exists('/pnfs/iihe/cms/' + dbssavepath):         os.makedirs('/pnfs/iihe/cms/' + dbssavepath)
 
+
+# Luminosity Golden JSON: https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions23/
 lumijson                                = {
                                             2022  :             "https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions22/Cert_Collisions2022_355100_362760_Golden.json",
                                             2023  :             "https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions23/Cert_Collisions2023_366442_370790_Golden.json",
@@ -41,19 +43,92 @@ lumijson                                = {
 
 data_config                             = {
                                             # Run2022
-                                            "Run2022A"  : {
-                                                "dataset":      f"/{primary_dataset}/Run2022A-22Sep2023-v1/MINIAOD",
-                                                "globalTag":    "130X_dataRun3_v2",
-                                            },
                                             "Run2022B"  : {
-                                                "dataset":      f"/{primary_dataset}/Run2022B-22Sep2023-v1/MINIAOD",
+                                                "dataset":      "/DoubleMuon/Run2022B-22Sep2023-v1/MINIAOD",
                                                 "globalTag":    "130X_dataRun3_v2",
                                             },
-                                            "Run2022C"  : {
-                                                "dataset":      f"/{primary_dataset}/Run2022C-22Sep2023-v1/MINIAOD",
+                                            "Run2022C1"  : {
+                                                "dataset":      "/DoubleMuon/Run2022C-22Sep2023-v1/MINIAOD",
                                                 "globalTag":    "130X_dataRun3_v2",
+                                            },
+                                            "Run2022C2"  : {
+                                                "dataset":      "/Muon/Run2022C-22Sep2023-v1/MINIAOD",
+                                                "globalTag":    "130X_dataRun3_v2",
+                                            },
+                                            "Run2022D"  : {
+                                                "dataset":      "/Muon/Run2022D-22Sep2023-v1/MINIAOD",
+                                                "globalTag":    "130X_dataRun3_v2",
+                                            },
+                                            # Run2022EE
+                                            "Run2022E"  : {
+                                                "dataset":      "/Muon/Run2022E-22Sep2023-v1/MINIAOD",
+                                                "globalTag":    "130X_dataRun3_v2",
+                                            },
+                                            "Run2022F"  : {
+                                                "dataset":      "/Muon/Run2022F-22Sep2023-v1/MINIAOD",
+                                                "globalTag":    "130X_dataRun3_PromptAnalysis_v1",
+                                            },
+                                            "Run2022G"  : {
+                                                "dataset":      "/Muon/Run2022G-22Sep2023-v1/MINIAOD",
+                                                "globalTag":    "130X_dataRun3_PromptAnalysis_v1",
                                             },
                                             # Run2023
+                                            "Run2023B_M0" : {
+                                                "dataset":      "/Muon0/Run2022B-22Sep2023-v1/MINIAOD",
+                                                "globalTag":    "130X_dataRun3_PromptAnalysis_v1",
+                                            },
+                                            "Run2023B_M1" : {
+                                                "dataset":      "/Muon1/Run2022B-22Sep2023-v1/MINIAOD",
+                                                "globalTag":    "130X_dataRun3_PromptAnalysis_v1",
+                                            },
+                                            "Run2023C1_M0": {
+                                                "dataset":      "/Muon0/Run2023C-22Sep2023_v1-v1/MINIAOD",
+                                                "globalTag":    "130X_dataRun3_PromptAnalysis_v1",
+                                            },
+                                            "Run2023C2_M0": {
+                                                "dataset":      "/Muon0/Run2023C-22Sep2023_v2-v1/MINIAOD",
+                                                "globalTag":    "130X_dataRun3_PromptAnalysis_v1"
+                                            },
+                                            "Run2023C3_M0": {
+                                                "dataset":      "/Muon0/Run2023C-22Sep2023_v3-v1/MINIAOD",
+                                                "globalTag":    "130X_dataRun3_PromptAnalysis_v1"
+                                            },
+                                            "Run2023C4_M0": {
+                                                "dataset":      "/Muon0/Run2023C-22Sep2023_v4-v1/MINIAOD",
+                                                "globalTag":    "130X_dataRun3_PromptAnalysis_v1"
+                                            },
+                                            "Run2023C1_M1": {
+                                                "dataset":      "/Muon1/Run2023C-22Sep2023_v1-v1/MINIAOD",
+                                                "globalTag":    "130X_dataRun3_PromptAnalysis_v1"
+                                            },
+                                            "Run2023C2_M1": {
+                                                "dataset":      "/Muon1/Run2023C-22Sep2023_v2-v1/MINIAOD",
+                                                "globalTag":    "130X_dataRun3_PromptAnalysis_v1"
+                                            },
+                                            "Run2023C3_M1": {
+                                                "dataset":      "/Muon1/Run2023C-22Sep2023_v3-v1/MINIAOD",
+                                                "globalTag":    "130X_dataRun3_PromptAnalysis_v1"
+                                            },
+                                            "Run2023C4_M1": {
+                                                "dataset":      "/Muon1/Run2023C-22Sep2023_v4-v1/MINIAOD",
+                                                "globalTag":    "130X_dataRun3_PromptAnalysis_v1"
+                                            },
+                                            "Run2023D_M0": {
+                                                "dataset":      "/Muon0/Run2023D-22Sep2023_v1-v1/MINIAOD",
+                                                "globalTag":    "130X_dataRun3_PromptAnalysis_v1"
+                                            },
+                                            "Run2023D_M1": {
+                                                "dataset":      "/Muon1/Run2023D-22Sep2023_v1-v1/MINIAOD",
+                                                "globalTag":    "130X_dataRun3_PromptAnalysis_v1"
+                                            },
+                                            "Run2023D2_M0": {
+                                                "dataset":      "/Muon0/Run2023D-22Sep2023_v2-v1/MINIAOD",
+                                                "globalTag":    "130X_dataRun3_PromptAnalysis_v1"
+                                            },
+                                            "Run2023D2_M1": {
+                                                "dataset":      "/Muon1/Run2023D-22Sep2023_v2-v1/MINIAOD",
+                                                "globalTag":    "130X_dataRun3_PromptAnalysis_v1"
+                                            }
                                             # Run2024
                                         }
 
