@@ -1,4 +1,5 @@
 import os
+import json
 from CRABClient.UserUtilities import config
 config = config()
 
@@ -9,8 +10,8 @@ config = config()
 # data configuration
 version                                 = 0
 isData                                  = True 
-year                                    = 2022
-era                                     = "Run2022C"
+year                                    = "2022"
+era                                     = "Run2022C2"
 primary_dataset                         = "DoubleMuon"
 process                                 = "V0Analyzer"
 
@@ -30,108 +31,17 @@ memory                                  = 2000                                  
 if isData:                              dataType = 'data'
 else:                                   dataType = 'sim'
 
+# Create storage location (if not already exist)
 dbssavepath                             = f'/store/user/{user}/K0sAnalysis/NTuples/MINIAOD/{dataType}/v{version}'
 if not os.path.exists('/pnfs/iihe/cms/' + dbssavepath):         os.makedirs('/pnfs/iihe/cms/' + dbssavepath)
 
+# Read data from JSON:
+try:
+    with open(f'V0Analysis/V0Analyzer/data/Run{year}.json', 'r') as file:
+        data_config                     = json.load(file)
 
-# Luminosity Golden JSON: https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions23/
-lumijson                                = {
-                                            2022  :             "https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions22/Cert_Collisions2022_355100_362760_Golden.json",
-                                            2023  :             "https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions23/Cert_Collisions2023_366442_370790_Golden.json",
-                                            2024  :             "https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions24/Cert_Collisions2024_378981_386951_Golden.json",
-                                        }
-
-data_config                             = {
-                                            # Run2022
-                                            "Run2022B"  : {
-                                                "dataset":      "/DoubleMuon/Run2022B-22Sep2023-v1/MINIAOD",
-                                                "globalTag":    "130X_dataRun3_v2",
-                                            },
-                                            "Run2022C1"  : {
-                                                "dataset":      "/DoubleMuon/Run2022C-22Sep2023-v1/MINIAOD",
-                                                "globalTag":    "130X_dataRun3_v2",
-                                            },
-                                            "Run2022C2"  : {
-                                                "dataset":      "/Muon/Run2022C-22Sep2023-v1/MINIAOD",
-                                                "globalTag":    "130X_dataRun3_v2",
-                                            },
-                                            "Run2022D"  : {
-                                                "dataset":      "/Muon/Run2022D-22Sep2023-v1/MINIAOD",
-                                                "globalTag":    "130X_dataRun3_v2",
-                                            },
-                                            # Run2022EE
-                                            "Run2022E"  : {
-                                                "dataset":      "/Muon/Run2022E-22Sep2023-v1/MINIAOD",
-                                                "globalTag":    "130X_dataRun3_v2",
-                                            },
-                                            "Run2022F"  : {
-                                                "dataset":      "/Muon/Run2022F-22Sep2023-v1/MINIAOD",
-                                                "globalTag":    "130X_dataRun3_PromptAnalysis_v1",
-                                            },
-                                            "Run2022G"  : {
-                                                "dataset":      "/Muon/Run2022G-22Sep2023-v1/MINIAOD",
-                                                "globalTag":    "130X_dataRun3_PromptAnalysis_v1",
-                                            },
-                                            # Run2023
-                                            "Run2023B_M0" : {
-                                                "dataset":      "/Muon0/Run2022B-22Sep2023-v1/MINIAOD",
-                                                "globalTag":    "130X_dataRun3_PromptAnalysis_v1",
-                                            },
-                                            "Run2023B_M1" : {
-                                                "dataset":      "/Muon1/Run2022B-22Sep2023-v1/MINIAOD",
-                                                "globalTag":    "130X_dataRun3_PromptAnalysis_v1",
-                                            },
-                                            "Run2023C1_M0": {
-                                                "dataset":      "/Muon0/Run2023C-22Sep2023_v1-v1/MINIAOD",
-                                                "globalTag":    "130X_dataRun3_PromptAnalysis_v1",
-                                            },
-                                            "Run2023C2_M0": {
-                                                "dataset":      "/Muon0/Run2023C-22Sep2023_v2-v1/MINIAOD",
-                                                "globalTag":    "130X_dataRun3_PromptAnalysis_v1"
-                                            },
-                                            "Run2023C3_M0": {
-                                                "dataset":      "/Muon0/Run2023C-22Sep2023_v3-v1/MINIAOD",
-                                                "globalTag":    "130X_dataRun3_PromptAnalysis_v1"
-                                            },
-                                            "Run2023C4_M0": {
-                                                "dataset":      "/Muon0/Run2023C-22Sep2023_v4-v1/MINIAOD",
-                                                "globalTag":    "130X_dataRun3_PromptAnalysis_v1"
-                                            },
-                                            "Run2023C1_M1": {
-                                                "dataset":      "/Muon1/Run2023C-22Sep2023_v1-v1/MINIAOD",
-                                                "globalTag":    "130X_dataRun3_PromptAnalysis_v1"
-                                            },
-                                            "Run2023C2_M1": {
-                                                "dataset":      "/Muon1/Run2023C-22Sep2023_v2-v1/MINIAOD",
-                                                "globalTag":    "130X_dataRun3_PromptAnalysis_v1"
-                                            },
-                                            "Run2023C3_M1": {
-                                                "dataset":      "/Muon1/Run2023C-22Sep2023_v3-v1/MINIAOD",
-                                                "globalTag":    "130X_dataRun3_PromptAnalysis_v1"
-                                            },
-                                            "Run2023C4_M1": {
-                                                "dataset":      "/Muon1/Run2023C-22Sep2023_v4-v1/MINIAOD",
-                                                "globalTag":    "130X_dataRun3_PromptAnalysis_v1"
-                                            },
-                                            "Run2023D_M0": {
-                                                "dataset":      "/Muon0/Run2023D-22Sep2023_v1-v1/MINIAOD",
-                                                "globalTag":    "130X_dataRun3_PromptAnalysis_v1"
-                                            },
-                                            "Run2023D_M1": {
-                                                "dataset":      "/Muon1/Run2023D-22Sep2023_v1-v1/MINIAOD",
-                                                "globalTag":    "130X_dataRun3_PromptAnalysis_v1"
-                                            },
-                                            "Run2023D2_M0": {
-                                                "dataset":      "/Muon0/Run2023D-22Sep2023_v2-v1/MINIAOD",
-                                                "globalTag":    "130X_dataRun3_PromptAnalysis_v1"
-                                            },
-                                            "Run2023D2_M1": {
-                                                "dataset":      "/Muon1/Run2023D-22Sep2023_v2-v1/MINIAOD",
-                                                "globalTag":    "130X_dataRun3_PromptAnalysis_v1"
-                                            }
-                                            # Run2024
-                                        }
-
+except FileNotFoundError:
+    print(f"Error: The file 'Run{year}.json' was not found.")
 
 # ---------------------------------------------------------
 # CRAB SETUP:
@@ -153,7 +63,7 @@ config.JobType.pyCfgParams              = [
                                             f'campaign={year}', 
                                             f'era={era}', 
                                             f'dataset={primary_dataset}', 
-                                            f'globaltag={data_config[era]["globalTag"]}'
+                                            f'globaltag={data_config["eras"][era]["globalTag"]}'
                                         ]
 
 config.JobType.numCores                 = cores
@@ -161,15 +71,15 @@ config.JobType.maxMemoryMB              = memory
 
 
 ## Data config:
-config.Data.inputDataset                = data_config[era]["dataset"]
+config.Data.inputDataset                = data_config["eras"][era]["dataset"]
 config.Data.inputDBS                    = 'global'
 config.Data.outLFNDirBase               = dbssavepath
-config.Data.outputDatasetTag            = data_config[era]["dataset"].split("/")[2]
+config.Data.outputDatasetTag            = data_config["eras"][era]["dataset"].split("/")[2]
 config.Data.allowNonValidInputDataset   = True
 
 #config.Data.splitting                   = 'FileBased'
 config.Data.splitting                   = 'Automatic'
-config.Data.lumiMask                    = lumijson[year]
+config.Data.lumiMask                    = data_config["lumijson"]
 
 config.Data.unitsPerJob                 = nunits
 config.Data.totalUnits                  = -1                                                            # -1 = process all files
