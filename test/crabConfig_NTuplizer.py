@@ -77,10 +77,13 @@ config.Data.outLFNDirBase               = dbssavepath
 config.Data.outputDatasetTag            = data_config["eras"][era]["dataset"].split("/")[2]
 config.Data.allowNonValidInputDataset   = True
 
-#config.Data.splitting                   = 'FileBased'
-config.Data.splitting                   = 'Automatic'
-config.Data.lumiMask                    = data_config["lumijson"]
-
+if isData:
+    # For Data: Automatic splitting with lumimasking gives best configuration
+    config.Data.splitting               = 'Automatic'
+    config.Data.lumiMask                = data_config["lumijson"]
+else:
+    # For MC: use FileBased splitting of files 
+    config.Data.splitting               = 'FileBased'
 config.Data.unitsPerJob                 = nunits
 config.Data.totalUnits                  = -1                                                            # -1 = process all files
 config.Data.publication                 = False
