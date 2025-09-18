@@ -1,6 +1,10 @@
 {
     "lumijson" :            "https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions22/Cert_Collisions2022_355100_362760_Golden.json",
     "eras": {
+        "DYJetsToLL_M50"  : {
+            "dataset":      "/DYJetsToLL_M-50_TuneCP5_13p6TeV-madgraphMLM-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v5-v2/MINIAODSIM",
+            "globalTag":    "130X_mcRun3_2022_realistic_postEE_v5",
+        },
         "Run2022E"  : {
             "dataset":      "/Muon/Run2022E-22Sep2023-v1/MINIAOD",
             "globalTag":    "130X_dataRun3_v2"

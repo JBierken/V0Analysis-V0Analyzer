@@ -1,6 +1,14 @@
 {
     "lumijson" :            "https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions23/Cert_Collisions2023_366442_370790_Golden.json",
     "eras": {
+        "DYJetsToLL_M50" : {
+            "dataset":      "/DYJetsToLL_M-50_TuneCP5_13p6TeV-madgraphMLM-pythia8/Run3Summer23MiniAODv4-Pilot_130X_mcRun3_2023_realistic_v14-v3/MINIAODSIM",
+            "globalTag":    "130X_mcRun3_2023_realistic_v14",
+        },
+        "DYJetsToLL_M50_BPix" : {
+            "dataset":      "/DYJetsToLL_M-50_TuneCP5_13p6TeV-madgraphMLM-pythia8/Run3Summer23BPixMiniAODv4-Pilot_130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIMi",
+            "globalTag":    "130X_mcRun3_2023_realistic_postBPix_v2",
+        },
         "Run2023B_M0" : {
             "dataset":      "/Muon0/Run2022B-22Sep2023-v1/MINIAOD",
             "globalTag":    "130X_dataRun3_PromptAnalysis_v1",

@@ -1,6 +1,73 @@
 {
     "lumijson" :           "https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions24/Cert_Collisions2024_378981_386951_Golden.json",
     "eras": {
-        TODO
+        "DYJetsToLL_M50"  : {
+            "dataset":      "/DYJetsToLL_M-50_TuneCP5_13p6TeV-madgraphMLM-pythia8/Run3Winter24MiniAOD-NoPU_Pilot_133X_mcRun3_2024_realistic_v6-v2/MINIAODSIM",
+            "globalTag":    "133X_mcRun3_2024_realistic_v6"
+        },
+        "Run2024B_M0"  : {
+            "dataset":      "/Muon0/Run2024B-PromptReco-v1/MINIAOD",
+            "globalTag":    "140X_dataRun3_Prompt_v2"
+        },
+        "Run2024B_M1"  : {
+            "dataset":      "/Muon1/Run2024B-PromptReco-v1/MINIAOD",
+            "globalTag":    "140X_dataRun3_Prompt_v2"
+        },
+        "Run2024C_M0"  : {
+            "dataset":      "/Muon0/Run2024C-PromptReco-v1/MINIAOD",
+            "globalTag":    "140X_dataRun3_Prompt_v2"
+        },
+        "Run2024C_M1"  : {
+            "dataset":      "/Muon1/Run2024C-PromptReco-v1/MINIAOD",
+            "globalTag":    "140X_dataRun3_Prompt_v2"
+        },
+        "Run2024D_M0"  : {
+            "dataset":      "/Muon0/Run2024D-PromptReco-v1/MINIAOD",
+            "globalTag":    "140X_dataRun3_Prompt_v2"
+        },
+        "Run2024D_M1"  : {
+            "dataset":      "/Muon1/Run2024D-PromptReco-v1/MINIAOD",
+            "globalTag":    "140X_dataRun3_Prompt_v2"
+        },
+        "Run2024E_M0"  : {
+            "dataset":      "/Muon0/Run2024E-PromptReco-v2/MINIAOD",
+            "globalTag":    "140X_dataRun3_Prompt_v2"
+        },
+        "Run2024E_M1"  : {
+            "dataset":      "/Muon1/Run2024E-PromptReco-v2/MINIAOD",
+            "globalTag":    "140X_dataRun3_Prompt_v2"
+        },
+        "Run2024F_M0"  : {
+            "dataset":      "/Muon0/Run2024F-PromptReco-v1/MINIAOD",
+            "globalTag":    "140X_dataRun3_Prompt_v2"
+        },
+        "Run2024F_M1"  : {
+            "dataset":      "/Muon1/Run2024F-PromptReco-v1/MINIAOD",
+            "globalTag":    "140X_dataRun3_Prompt_v2"
+        },
+        "Run2024G_M0"  : {
+            "dataset":      "/Muon0/Run2024G-PromptReco-v1/MINIAOD",
+            "globalTag":    "140X_dataRun3_Prompt_v2"
+        },
+        "Run2024G_M1"  : {
+            "dataset":      "/Muon1/Run2024G-PromptReco-v1/MINIAOD",
+            "globalTag":    "140X_dataRun3_Prompt_v2"
+        },
+        "Run2024H_M0"  : {
+            "dataset":      "/Muon0/Run2024H-PromptReco-v1/MINIAOD",
+            "globalTag":    "140X_dataRun3_Prompt_v2"
+        },
+        "Run2024H_M1"  : {
+            "dataset":      "/Muon1/Run2024H-PromptReco-v1/MINIAOD",
+            "globalTag":    "140X_dataRun3_Prompt_v2"
+        },
+        "Run2024I_M0"  : {
+            "dataset":      "/Muon0/Run2024I-PromptReco-v2/MINIAOD",
+            "globalTag":    "140X_dataRun3_Prompt_v2"
+        },
+        "Run2024I_M1"  : {
+            "dataset":      "/Muon1/Run2024I-PromptReco-v2/MINIAOD",
+            "globalTag":    "140X_dataRun3_Prompt_v2"
+        }
     }
 }
