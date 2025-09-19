@@ -170,12 +170,12 @@ process.blackJackAndHookers = cms.EDAnalyzer('V0Analyzer',
                                 # Which info should be collected
                                 storeLheParticles       = cms.untracked.bool(True),
                                 storeGenParticles       = cms.untracked.bool(True),
-                                storeParticleLevel      = cms.untracked.bool(True),
-                                storeJecSourcesAll      = cms.untracked.bool(True),
-                                storeJecSourcesGrouped  = cms.untracked.bool(True),
+                                storeParticleLevel      = cms.untracked.bool(False),
+                                storeJecSourcesAll      = cms.untracked.bool(False),
+                                storeJecSourcesGrouped  = cms.untracked.bool(False),
                                 storeAllTauID           = cms.untracked.bool(True),
-                                storePrefireComponents  = cms.untracked.bool(True),
-                                storeJetSubstructure    = cms.untracked.bool(True),
+                                storePrefireComponents  = cms.untracked.bool(False),
+                                storeJetSubstructure    = cms.untracked.bool(False),
                             )
 
 process.p                   = cms.Path(process.blackJackAndHookers)
