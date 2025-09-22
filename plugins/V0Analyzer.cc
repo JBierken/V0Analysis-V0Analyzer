@@ -37,15 +37,15 @@ V0Analyzer::V0Analyzer(const edm::ParameterSet& iConfig):
     triggerToken(               consumes<edm::TriggerResults>(                   iConfig.getParameter<edm::InputTag>("triggers"))),
     prescalesToken(             consumes<pat::PackedTriggerPrescales>(           iConfig.getParameter<edm::InputTag>("prescales"))),
     trigObjToken(               consumes<pat::TriggerObjectStandAloneCollection>(iConfig.getParameter<edm::InputTag>("triggerObjects"))),
-    prefireWeightToken(         consumes<double>(                                edm::InputTag("prefiringweight:nonPrefiringProb"))),
-    prefireWeightUpToken(       consumes<double>(                                edm::InputTag("prefiringweight:nonPrefiringProbUp"))),
-    prefireWeightDownToken(     consumes<double>(                                edm::InputTag("prefiringweight:nonPrefiringProbDown"))),
-    prefireWeightMuonToken(     consumes<double>(                                edm::InputTag("prefiringweight:nonPrefiringProbMuon"))),
-    prefireWeightMuonUpToken(   consumes<double>(                                edm::InputTag("prefiringweight:nonPrefiringProbMuonUp"))),
-    prefireWeightMuonDownToken( consumes<double>(                                edm::InputTag("prefiringweight:nonPrefiringProbMuonDown"))),
-    prefireWeightECALToken(     consumes<double>(                                edm::InputTag("prefiringweight:nonPrefiringProbECAL"))),
-    prefireWeightECALUpToken(   consumes<double>(                                edm::InputTag("prefiringweight:nonPrefiringProbECALUp"))),
-    prefireWeightECALDownToken( consumes<double>(                                edm::InputTag("prefiringweight:nonPrefiringProbECALDon"))),
+    //prefireWeightToken(         consumes<double>(                                edm::InputTag("prefiringweight:nonPrefiringProb"))),
+    //prefireWeightUpToken(       consumes<double>(                                edm::InputTag("prefiringweight:nonPrefiringProbUp"))),
+    //prefireWeightDownToken(     consumes<double>(                                edm::InputTag("prefiringweight:nonPrefiringProbDown"))),
+    //prefireWeightMuonToken(     consumes<double>(                                edm::InputTag("prefiringweight:nonPrefiringProbMuon"))),
+    //prefireWeightMuonUpToken(   consumes<double>(                                edm::InputTag("prefiringweight:nonPrefiringProbMuonUp"))),
+    //prefireWeightMuonDownToken( consumes<double>(                                edm::InputTag("prefiringweight:nonPrefiringProbMuonDown"))),
+    //prefireWeightECALToken(     consumes<double>(                                edm::InputTag("prefiringweight:nonPrefiringProbECAL"))),
+    //prefireWeightECALUpToken(   consumes<double>(                                edm::InputTag("prefiringweight:nonPrefiringProbECALUp"))),
+    //prefireWeightECALDownToken( consumes<double>(                                edm::InputTag("prefiringweight:nonPrefiringProbECALDon"))),
     bFieldToken_(               esConsumes<MagneticField, IdealMagneticFieldRecord>()),
     skim(                                                                        iConfig.getUntrackedParameter<std::string>("skim")),
     sampleIsData(                                                                iConfig.getUntrackedParameter<bool>("isData")),
@@ -61,7 +61,7 @@ V0Analyzer::V0Analyzer(const edm::ParameterSet& iConfig):
     storeJecSourcesAll(                                                          iConfig.getUntrackedParameter<bool>("storeJecSourcesAll")),
     storeJecSourcesGrouped(                                                      iConfig.getUntrackedParameter<bool>("storeJecSourcesGrouped")),
     storeAllTauID(                                                               iConfig.getUntrackedParameter<bool>("storeAllTauID")),
-    storePrefireComponents(                                                      iConfig.getUntrackedParameter<bool>("storePrefireComponents")),
+    //storePrefireComponents(                                                      iConfig.getUntrackedParameter<bool>("storePrefireComponents")),
     storeJetSubstructure(                                                        iConfig.getUntrackedParameter<bool>("storeJetSubstructure"))
 {
     // In case of run-2 data apply ecal filter
@@ -151,6 +151,7 @@ void V0Analyzer::beginJob()
     }
 
     // Set Prefiring branches for MC samples
+    /*
     if( isMC())
     {
         outputTree->Branch("_prefireWeight",                &_prefireWeight,        "_prefireWeight/F");
@@ -166,7 +167,7 @@ void V0Analyzer::beginJob()
             outputTree->Branch("_prefireWeightECALUp",      &_prefireWeightECALUp,  "_prefireWeightECALUp/F");
             outputTree->Branch("_prefireWeightECALDown",    &_prefireWeightECALDown,"_prefireWeightECALDown/F");
         }
-    }
+    }*/
 
     //Initialize MC analyzers 
     if( isMC() )                        lheAnalyzer->beginJob(outputTree, fs);
@@ -213,6 +214,7 @@ void V0Analyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
     _eventNb                                                    = (unsigned long) iEvent.id().event();
 
     // Calculate Prefiring for MC samples
+    /*
     if(isMC())
     {
         _prefireWeight                                          = *(getHandle(iEvent, prefireWeightToken));
@@ -230,6 +232,7 @@ void V0Analyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
 
         }
     }
+    */
 
     // Fill output TTree
     outputTree->Fill();

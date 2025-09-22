@@ -19,3 +19,24 @@ Traceback (most recent call last):
     raise ConfigurationException(msg)
 CRABClient.ClientExceptions.ConfigurationException: [91mError[0m: crab_V0Analyzer/crab_V0Analyzer_MiniAOD_data_Run2022B_v0 is not a valid CRAB project directory.
 INFO 2025-09-14 08:36:29.386 UTC: 	 Log file is /ada_mnt/ada/user/jbierken/CMSSW_14_0_15/src/V0Analysis/V0Analyzer/crab.log
+DEBUG 2025-09-22 14:09:22.754 UTC: 	 CRAB Client version: v3.250820
+DEBUG 2025-09-22 14:09:22.755 UTC: 	 Running on: Linux m11.iihe.ac.be 5.14.0-570.42.2.el9_6.x86_64 #1 SMP PREEMPT_DYNAMIC Mon Sep 15 05:17:56 EDT 2025 x86_64 x86_64 x86_64 GNU/Linux
+DEBUG 2025-09-22 14:09:22.755 UTC: 	 Not using Singularity
+DEBUG 2025-09-22 14:09:22.755 UTC: 	 Operating System: AlmaLinux 9.6 (Sage Margay)
+DEBUG 2025-09-22 14:09:22.755 UTC: 	 Executing command: 'status'
+DEBUG 2025-09-22 14:09:22.761 UTC: 	 Found CRAB cache file /user/jbierken/.crab3
+ERROR 2025-09-22 14:09:22.814 UTC: 	 Error: crab_V0Analyzer/crab_V0Analyzer_MiniAOD_sim_DYJetsToLL_M50 is not a valid CRAB project directory.
+ERROR 2025-09-22 14:09:22.814 UTC: 	 Caught ClientException exception
+Traceback (most recent call last):
+  File "/cvmfs/cms.cern.ch/share/cms/crab-prod/v3.250820.00/bin/crab.py", line 157, in <module>
+    client()
+  File "/cvmfs/cms.cern.ch/share/cms/crab-prod/v3.250820.00/bin/crab.py", line 135, in __call__
+    self.cmd = sub_cmd(self.logger, args[1:])  # the crab command to be executed
+  File "/cvmfs/cms.cern.ch/share/cms/crab-prod/v3.250820.00/lib/CRABClient/Commands/status.py", line 49, in __init__
+    SubCommand.__init__(self, logger, cmdargs)
+  File "/cvmfs/cms.cern.ch/share/cms/crab-prod/v3.250820.00/lib/CRABClient/Commands/SubCommand.py", line 281, in __init__
+    SubCommand.validateOptions(self)
+  File "/cvmfs/cms.cern.ch/share/cms/crab-prod/v3.250820.00/lib/CRABClient/Commands/SubCommand.py", line 691, in validateOptions
+    raise ConfigurationException(msg)
+CRABClient.ClientExceptions.ConfigurationException: [91mError[0m: crab_V0Analyzer/crab_V0Analyzer_MiniAOD_sim_DYJetsToLL_M50 is not a valid CRAB project directory.
+INFO 2025-09-22 14:09:22.847 UTC: 	 Log file is /ada_mnt/ada/user/jbierken/CMSSW_14_0_15/src/V0Analysis/V0Analyzer/crab.log

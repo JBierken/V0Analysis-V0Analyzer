@@ -177,7 +177,7 @@ process.blackJackAndHookers = cms.EDAnalyzer('V0Analyzer',
                                 storeJecSourcesAll      = cms.untracked.bool(True),
                                 storeJecSourcesGrouped  = cms.untracked.bool(True),
                                 storeAllTauID           = cms.untracked.bool(True),
-                                storePrefireComponents  = cms.untracked.bool(True),
+                                #storePrefireComponents  = cms.untracked.bool(True),
                                 storeJetSubstructure    = cms.untracked.bool(True),
                             )
 

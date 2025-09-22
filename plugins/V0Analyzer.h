@@ -181,15 +181,15 @@ class V0Analyzer : public edm::one::EDAnalyzer<edm::one::WatchLuminosityBlocks, 
         edm::EDGetTokenT<pat::PackedTriggerPrescales>               prescalesToken;
         edm::EDGetTokenT<pat::TriggerObjectStandAloneCollection>    trigObjToken;
         edm::EDGetTokenT<bool>                                      ecalBadCalibFilterToken;
-        edm::EDGetTokenT<double>                                    prefireWeightToken;
-        edm::EDGetTokenT<double>                                    prefireWeightUpToken;
-        edm::EDGetTokenT<double>                                    prefireWeightDownToken;
-        edm::EDGetTokenT<double>                                    prefireWeightMuonToken;
-        edm::EDGetTokenT<double>                                    prefireWeightMuonUpToken;
-        edm::EDGetTokenT<double>                                    prefireWeightMuonDownToken;
-        edm::EDGetTokenT<double>                                    prefireWeightECALToken;
-        edm::EDGetTokenT<double>                                    prefireWeightECALUpToken;
-        edm::EDGetTokenT<double>                                    prefireWeightECALDownToken;
+        //edm::EDGetTokenT<double>                                    prefireWeightToken;
+        //edm::EDGetTokenT<double>                                    prefireWeightUpToken;
+        //edm::EDGetTokenT<double>                                    prefireWeightDownToken;
+        //edm::EDGetTokenT<double>                                    prefireWeightMuonToken;
+        //edm::EDGetTokenT<double>                                    prefireWeightMuonUpToken;
+        //edm::EDGetTokenT<double>                                    prefireWeightMuonDownToken;
+        //edm::EDGetTokenT<double>                                    prefireWeightECALToken;
+        //edm::EDGetTokenT<double>                                    prefireWeightECALUpToken;
+        //edm::EDGetTokenT<double>                                    prefireWeightECALDownToken;
         edm::ESGetToken<MagneticField, IdealMagneticFieldRecord>    bFieldToken_;
 
         // Helper variables
@@ -207,7 +207,7 @@ class V0Analyzer : public edm::one::EDAnalyzer<edm::one::WatchLuminosityBlocks, 
         bool                        storeJecSourcesAll;
         bool                        storeJecSourcesGrouped;
         bool                        storeAllTauID;
-        bool                        storePrefireComponents;
+        //bool                        storePrefireComponents;
         bool                        storeJetSubstructure;
 
         // TTree variables
@@ -221,15 +221,15 @@ class V0Analyzer : public edm::one::EDAnalyzer<edm::one::WatchLuminosityBlocks, 
         unsigned long               _eventNb;
         unsigned                    _nVertex;
 
-        float                       _prefireWeight;
-        float                       _prefireWeightUp;
-        float                       _prefireWeightDown;
-        float                       _prefireWeightMuon;
-        float                       _prefireWeightMuonUp;
-        float                       _prefireWeightMuonDown;
-        float                       _prefireWeightECAL;
-        float                       _prefireWeightECALUp;
-        float                       _prefireWeightECALDown;
+        //float                       _prefireWeight;
+        //float                       _prefireWeightUp;
+        //float                       _prefireWeightDown;
+        //float                       _prefireWeightMuon;
+        //float                       _prefireWeightMuonUp;
+        //float                       _prefireWeightMuonDown;
+        //float                       _prefireWeightECAL;
+        //float                       _prefireWeightECALUp;
+        //float                       _prefireWeightECALDown;
         
         // Declare sub-analyzers
         TriggerAnalyzer*            triggerAnalyzer;
