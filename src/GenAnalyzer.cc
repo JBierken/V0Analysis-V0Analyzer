@@ -71,9 +71,9 @@ void GenAnalyzer::beginJob(TTree* outputTree, edm::Service<TFileService>& fs){
 
 void GenAnalyzer::analyze(const edm::Event& iEvent){
     edm::Handle<std::vector<reco::GenParticle>> genParticles = getHandle(iEvent, myAnalyzer->genParticleToken);
-    edm::Handle<std::vector<reco::GenJet>> tauGenJets = getHandle(iEvent, myAnalyzer->tauGenJetsToken);
-
     if(!genParticles.isValid()) return;
+    edm::Handle<std::vector<reco::GenJet>> tauGenJets = getHandle(iEvent, myAnalyzer->tauGenJetsToken);
+    if(!tauGenJets.isValid()) return;
 
     // TODO: when applying overlap for new photon samples: check the pt and eta cuts of the photon
     _ttgEventType = overlapEventType(*genParticles, 10., 5.0, 0.1);

@@ -44,6 +44,7 @@ bool ParticleLevelAnalyzer::analyze(const edm::Event& iEvent){
     edm::Handle<std::vector<reco::GenJet>> leptons      = getHandle(iEvent, myAnalyzer->particleLevelLeptonsToken);
     edm::Handle<std::vector<reco::GenJet>> jets         = getHandle(iEvent, myAnalyzer->particleLevelJetsToken);
     edm::Handle<std::vector<reco::MET>> mets            = getHandle(iEvent, myAnalyzer->particleLevelMetsToken);
+    if (!mets.isValid()) return false;
 
     _pl_met    = mets->front().pt();
     _pl_metPhi = mets->front().phi();

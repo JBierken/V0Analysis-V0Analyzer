@@ -10,9 +10,11 @@ config = config()
 # data configuration
 version                                 = 0
 isData                                  = False 
+#isData                                  = True 
 year                                    = "2022"
 era                                     = "DYJetsToLL_M50"
-primary_dataset                         = "DoubleMuon"
+#era                                     = "Run2022D"
+primary_dataset                         = "Muon"
 process                                 = "V0Analyzer"
 
 # user/processing configuration
