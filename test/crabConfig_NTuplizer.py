@@ -1,37 +1,47 @@
 import os
 import json
+import argparse
 from CRABClient.UserUtilities import config
 config = config()
+
+# ---------------------------------------------------------
+# COMMAND LINE INPUT 
+# ---------------------------------------------------------
+
+# read command line arguments
+parser = argparse.ArgumentParser( description = 'crab submission config' )
+parser.add_argument(    '-e',   '--year',        required=True,  retype=str)
+parser.add_argument(    '-e',   '--era',        required=True,  retype=str)
+parser.add_argument(            '--isData',     default=True,   action='store_false')
+args = parser.parse_args()
 
 # ---------------------------------------------------------
 # HYPERPARAMETERS:
 # ---------------------------------------------------------
 
 # data configuration
-version                                 = 0
-isData                                  = False 
-#isData                                  = True 
-year                                    = "2022"
-era                                     = "DYJetsToLL_M50"
-#era                                     = "Run2022D"
+isData                                  = args.isData 
+year                                    = args.year
+era                                     = args.era
 primary_dataset                         = "Muon"
 process                                 = "V0Analyzer"
 
 # user/processing configuration
-user                                    = 'jbierken'
+version                                 = 0
+user                                    = "jbierken"
 cmssw                                   = "CMSSW_14_0_15"
-nunits                                  = 200
 nthreads                                = 1
 cores                                   = 1
-memory                                  = 2000                                                          # in MB
+memory                                  = 2000                  # in MB
+runTime                                 = 2750                  # ~45 hours (default is ~20h)
 
 # ---------------------------------------------------------
 # RUN CONFIGURATION:
 # ---------------------------------------------------------
 
 # Data or MC
-if isData:                              dataType = 'data'
-else:                                   dataType = 'sim'
+dataType                                = 'data'    if isData else 'sim'
+nunits                                  = 200       if isData else 5
 
 # Create storage location (if not already exist)
 dbssavepath                             = f'/store/user/{user}/K0sAnalysis/NTuples/MINIAOD/{dataType}/v{version}'
@@ -50,7 +60,7 @@ except FileNotFoundError:
 # ---------------------------------------------------------
 
 ## General config:
-config.General.requestName              = f"{process}_MiniAOD_{dataType}_{era}"
+config.General.requestName              = f"{process}_Run{year}_MiniAOD_{dataType}_{era}"
 config.General.workArea                 = 'crab_V0Analyzer'
 config.General.transferOutputs          = True
 config.General.transferLogs             = True
@@ -71,7 +81,6 @@ config.JobType.pyCfgParams              = [
 config.JobType.numCores                 = cores
 config.JobType.maxMemoryMB              = memory
 
-
 ## Data config:
 config.Data.inputDataset                = data_config["eras"][era]["dataset"]
 config.Data.inputDBS                    = 'global'
@@ -86,6 +95,7 @@ if isData:
 else:
     # For MC: use FileBased splitting of files 
     config.Data.splitting               = 'FileBased'
+    config.JobType.maxJobRuntimeMin     = runTime
 config.Data.unitsPerJob                 = nunits
 config.Data.totalUnits                  = -1                                                            # -1 = process all files
 config.Data.publication                 = False
