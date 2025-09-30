@@ -1,6 +1,6 @@
 import os
 import json
-import argparse
+#import argparse
 from CRABClient.UserUtilities import config
 config = config()
 
@@ -9,20 +9,23 @@ config = config()
 # ---------------------------------------------------------
 
 # read command line arguments
-parser = argparse.ArgumentParser( description = 'crab submission config' )
-parser.add_argument(    '-e',   '--year',        required=True,  retype=str)
-parser.add_argument(    '-e',   '--era',        required=True,  retype=str)
-parser.add_argument(            '--isData',     default=True,   action='store_false')
-args = parser.parse_args()
+#parser = argparse.ArgumentParser( description = 'crab submission config' )
+#parser.add_argument(    '-e',   '--year',        required=True,  retype=str)
+#parser.add_argument(    '-e',   '--era',        required=True,  retype=str)
+#parser.add_argument(            '--isData',     default=True,   action='store_false')
+#args = parser.parse_args()
 
 # ---------------------------------------------------------
 # HYPERPARAMETERS:
 # ---------------------------------------------------------
 
 # data configuration
-isData                                  = args.isData 
-year                                    = args.year
-era                                     = args.era
+#isData                                  = args.isData 
+#year                                    = args.year
+#era                                     = args.era
+isData                                  = True 
+year                                    = "2022EE" 
+era                                     = 'Run2022F'
 primary_dataset                         = "Muon"
 process                                 = "V0Analyzer"
 

@@ -10,7 +10,7 @@
             "globalTag":    "130X_dataRun3_v2"
         },
         "Run2022F"  : {
-            "dataset":      "/Muon/Run2022F-22Sep2023-v1/MINIAOD",
+            "dataset":      "/Muon/Run2022F-22Sep2023-v2/MINIAOD",
             "globalTag":    "130X_dataRun3_PromptAnalysis_v1"
         },
         "Run2022G"  : {
