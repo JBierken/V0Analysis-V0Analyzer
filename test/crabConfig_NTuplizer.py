@@ -35,7 +35,7 @@ user                                    = "jbierken"
 cmssw                                   = "CMSSW_14_0_15"
 nthreads                                = 1
 cores                                   = 1
-memory                                  = 2000                  # in MB
+memory                                  = 4000                  # in MB
 runTime                                 = 2750                  # ~45 hours (default is ~20h)
 
 # ---------------------------------------------------------
@@ -44,7 +44,7 @@ runTime                                 = 2750                  # ~45 hours (def
 
 # Data or MC
 dataType                                = 'data'    if isData else 'sim'
-nunits                                  = 200       if isData else 5
+nunits                                  = 500       if isData else 5
 
 # Create storage location (if not already exist)
 dbssavepath                             = f'/store/user/{user}/K0sAnalysis/NTuples/MINIAOD/{dataType}/v{version}'
