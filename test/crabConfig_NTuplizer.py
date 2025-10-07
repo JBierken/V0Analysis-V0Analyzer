@@ -23,9 +23,9 @@ config = config()
 #isData                                  = args.isData 
 #year                                    = args.year
 #era                                     = args.era
-isData                                  = True 
-year                                    = "2022EE" 
-era                                     = 'Run2022F'
+isData                                  = False 
+year                                    = "2023" 
+era                                     = 'DYJetsToLL_M50_BPix'
 primary_dataset                         = "Muon"
 process                                 = "V0Analyzer"
 

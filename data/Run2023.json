@@ -3,23 +3,23 @@
     "eras": {
         "DYJetsToLL_M50" : {
             "dataset":      "/DYJetsToLL_M-50_TuneCP5_13p6TeV-madgraphMLM-pythia8/Run3Summer23MiniAODv4-Pilot_130X_mcRun3_2023_realistic_v14-v3/MINIAODSIM",
-            "globalTag":    "130X_mcRun3_2023_realistic_v14",
+            "globalTag":    "130X_mcRun3_2023_realistic_v14"
         },
         "DYJetsToLL_M50_BPix" : {
             "dataset":      "/DYJetsToLL_M-50_TuneCP5_13p6TeV-madgraphMLM-pythia8/Run3Summer23BPixMiniAODv4-Pilot_130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM",
-            "globalTag":    "130X_mcRun3_2023_realistic_postBPix_v2",
+            "globalTag":    "130X_mcRun3_2023_realistic_postBPix_v2"
         },
         "Run2023B_M0" : {
             "dataset":      "/Muon0/Run2022B-22Sep2023-v1/MINIAOD",
-            "globalTag":    "130X_dataRun3_PromptAnalysis_v1",
+            "globalTag":    "130X_dataRun3_PromptAnalysis_v1"
         },
         "Run2023B_M1" : {
             "dataset":      "/Muon1/Run2022B-22Sep2023-v1/MINIAOD",
-            "globalTag":    "130X_dataRun3_PromptAnalysis_v1",
+            "globalTag":    "130X_dataRun3_PromptAnalysis_v1"
         },
         "Run2023C1_M0": {
             "dataset":      "/Muon0/Run2023C-22Sep2023_v1-v1/MINIAOD",
-            "globalTag":    "130X_dataRun3_PromptAnalysis_v1",
+            "globalTag":    "130X_dataRun3_PromptAnalysis_v1"
         },
         "Run2023C2_M0": {
             "dataset":      "/Muon0/Run2023C-22Sep2023_v2-v1/MINIAOD",
