@@ -1,9 +1,9 @@
 {
     "lumijson" :           "https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions24/Cert_Collisions2024_378981_386951_Golden.json",
     "eras": {
-        "DYJetsToLL_M50"  : {
-            "dataset":      "/DYJetsToLL_M-50_TuneCP5_13p6TeV-madgraphMLM-pythia8/Run3Winter24MiniAOD-NoPU_Pilot_133X_mcRun3_2024_realistic_v6-v2/MINIAODSIM",
-            "globalTag":    "133X_mcRun3_2024_realistic_v6"
+        "DYJetsTo2L_M50"  : {
+            "dataset":     "/DYto2L-2Jets_MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Winter24MiniAOD-133X_mcRun3_2024_realistic_v10-v2/MINIAODSIM", 
+            "globalTag":    "133X_mcRun3_2024_realistic_v10"
         },
         "Run2024B_M0"  : {
             "dataset":      "/Muon0/Run2024B-PromptReco-v1/MINIAOD",

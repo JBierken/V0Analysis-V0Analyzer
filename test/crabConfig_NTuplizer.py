@@ -23,9 +23,11 @@ config = config()
 #isData                                  = args.isData 
 #year                                    = args.year
 #era                                     = args.era
+#isData                                  = True 
 isData                                  = False 
-year                                    = "2023" 
-era                                     = 'DYJetsToLL_M50_BPix'
+year                                    = "2022EE" 
+#era                                     = 'Run2024B_M1'
+era                                     = 'DYJetsTo2L_M50'
 primary_dataset                         = "Muon"
 process                                 = "V0Analyzer"
 
@@ -35,7 +37,7 @@ user                                    = "jbierken"
 cmssw                                   = "CMSSW_14_0_15"
 nthreads                                = 1
 cores                                   = 1
-memory                                  = 4000                  # in MB
+memory                                  = 3000                  # in MB
 runTime                                 = 2750                  # ~45 hours (default is ~20h)
 
 # ---------------------------------------------------------
