@@ -58,6 +58,8 @@ is2016preVFP                = "preVFP"      in options.campaign
 is2022                      = "2022"        in options.campaign 
 is2022EE                    = "2022EE"      in options.campaign 
 is2023                      = "2023"        in options.campaign 
+is2023BPix                  = "2023BPix"    in options.campaign 
+is2024                      = "2024"        in options.campaign 
 
 ## ---------------------------------------
 # Start process
@@ -112,7 +114,7 @@ process.source              = cms.Source("PoolSource",
 
 ## Setup the service to make a ROOT TTree
 process.TFileService        = cms.Service("TFileService",
-                                fileName = cms.string(f"output_{options.dataset}_{options.era}.root")
+                                fileName = cms.string(f"output_{options.dataset}_{options.campaign}_{options.era}.root")
                             )
 
 #process.demo = cms.EDAnalyzer('ECPTreeMaker',
@@ -169,6 +171,8 @@ process.blackJackAndHookers = cms.EDAnalyzer('V0Analyzer',
                                 is2022                  = cms.untracked.bool(is2022),
                                 is2022EE                = cms.untracked.bool(is2022EE),
                                 is2023                  = cms.untracked.bool(is2023),
+                                is2022BPix              = cms.untracked.bool(is2023BPix),
+                                is2024                  = cms.untracked.bool(is2024),
 
                                 # Which info should be collected
                                 storeLheParticles       = cms.untracked.bool(True),

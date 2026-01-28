@@ -47,7 +47,7 @@ class JetAnalyzer {
         double   _jetPhi[nJets_max];
         double   _jetE[nJets_max];
         
-        // Flavor tagging: Deep CSV
+        // Flavor tagging: CSV v2
         double   _jetCsvV2[nJets_max];
         
         // Flavor tagging: Deep CSV
@@ -57,7 +57,7 @@ class JetAnalyzer {
         double   _jetDeepCsv_bb[nJets_max];
         double   _jetDeepCsv[nJets_max];
 
-        // Flavor tagging: Deep CSV
+        // Flavor tagging: Deep Flavor
         double   _jetDeepFlavor_b[nJets_max];
         double   _jetDeepFlavor_bb[nJets_max];
         double   _jetDeepFlavor_lepb[nJets_max];
@@ -65,6 +65,11 @@ class JetAnalyzer {
         double   _jetDeepFlavor_c[nJets_max];
         double   _jetDeepFlavor_uds[nJets_max];
         double   _jetDeepFlavor_g[nJets_max];
+        
+        // Flavor tagging: Particle Net 
+        double   _jetParticleNet_BvsAll[nJets_max];
+        double   _jetParticleNet_CvsAll[nJets_max];
+        double   _jetParticleNet_CvsB[nJets_max];
         
         // Flavor tagging: Puppi Jets 
         unsigned _nJetsPuppi = 0;

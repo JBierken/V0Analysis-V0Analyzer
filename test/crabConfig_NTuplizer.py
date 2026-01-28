@@ -5,36 +5,22 @@ from CRABClient.UserUtilities import config
 config = config()
 
 # ---------------------------------------------------------
-# COMMAND LINE INPUT 
-# ---------------------------------------------------------
-
-# read command line arguments
-#parser = argparse.ArgumentParser( description = 'crab submission config' )
-#parser.add_argument(    '-e',   '--year',        required=True,  retype=str)
-#parser.add_argument(    '-e',   '--era',        required=True,  retype=str)
-#parser.add_argument(            '--isData',     default=True,   action='store_false')
-#args = parser.parse_args()
-
-# ---------------------------------------------------------
 # HYPERPARAMETERS:
 # ---------------------------------------------------------
 
 # data configuration
-#isData                                  = args.isData 
-#year                                    = args.year
-#era                                     = args.era
 #isData                                  = True 
 isData                                  = False 
-year                                    = "2022EE" 
-#era                                     = 'Run2024B_M1'
-era                                     = 'DYJetsTo2L_M50'
+year                                    = "2024" 
+#era                                     = 'Run2024C_M1'
+era                                     = 'DYJetsTo2L_M50_Prompt'
 primary_dataset                         = "Muon"
 process                                 = "V0Analyzer"
 
 # user/processing configuration
-version                                 = 0
+version                                 = 1
 user                                    = "jbierken"
-cmssw                                   = "CMSSW_14_0_15"
+cmssw                                   = "CMSSW_15_0_17"
 nthreads                                = 1
 cores                                   = 1
 memory                                  = 3000                  # in MB

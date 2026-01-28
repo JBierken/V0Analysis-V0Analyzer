@@ -275,16 +275,20 @@ template< typename T > void setMETSourceBranches( TTree* outputTree, T& sourceMa
 void JetAnalyzer::beginJob(TTree* outputTree)
 {
     outputTree->Branch("_nJets",                     &_nJets,                    "_nJets/i");
+    // Jet kinematics
     outputTree->Branch("_jetPt",                     &_jetPt,                    "_jetPt[_nJets]/D");
     outputTree->Branch("_jetEta",                    &_jetEta,                   "_jetEta[_nJets]/D");
     outputTree->Branch("_jetPhi",                    &_jetPhi,                   "_jetPhi[_nJets]/D");
     outputTree->Branch("_jetE",                      &_jetE,                     "_jetE[_nJets]/D");
+    // Flavor tagging: CSV v2
     outputTree->Branch("_jetCsvV2",                  &_jetCsvV2,                 "_jetCsvV2[_nJets]/D");
+    // Flavor tagging: Deep CSV
     outputTree->Branch("_jetDeepCsv_udsg",           &_jetDeepCsv_udsg,          "_jetDeepCsv_udsg[_nJets]/D");
     outputTree->Branch("_jetDeepCsv_b",              &_jetDeepCsv_b,             "_jetDeepCsv_b[_nJets]/D");
     outputTree->Branch("_jetDeepCsv_c",              &_jetDeepCsv_c,             "_jetDeepCsv_c[_nJets]/D");
     outputTree->Branch("_jetDeepCsv_bb",             &_jetDeepCsv_bb,            "_jetDeepCsv_bb[_nJets]/D");
     outputTree->Branch("_jetDeepCsv",                &_jetDeepCsv,               "_jetDeepCsv[_nJets]/D");
+    // Flavor tagging: Deep Flavor
     outputTree->Branch("_jetDeepFlavor_b",           &_jetDeepFlavor_b,          "_jetDeepFlavor_b[_nJets]/D");
     outputTree->Branch("_jetDeepFlavor_bb",          &_jetDeepFlavor_bb,         "_jetDeepFlavor_bb[_nJets]/D");
     outputTree->Branch("_jetDeepFlavor_lepb",        &_jetDeepFlavor_lepb,       "_jetDeepFlavor_lepb[_nJets]/D");
@@ -292,10 +296,16 @@ void JetAnalyzer::beginJob(TTree* outputTree)
     outputTree->Branch("_jetDeepFlavor_c",           &_jetDeepFlavor_c,          "_jetDeepFlavor_c[_nJets]/D");
     outputTree->Branch("_jetDeepFlavor_uds",         &_jetDeepFlavor_uds,        "_jetDeepFlavor_uds[_nJets]/D");
     outputTree->Branch("_jetDeepFlavor_g",           &_jetDeepFlavor_g,          "_jetDeepFlavor_g[_nJets]/D");
+    // Flavor tagging: Particle Net 
+    outputTree->Branch("_jetParticleNet_BvsAll",     &_jetParticleNet_BvsAll,    "_jetParticleNet_BvsAll[_nJets]/D");
+    outputTree->Branch("_jetParticleNet_CvsAll",     &_jetParticleNet_CvsAll,    "_jetParticleNet_CvsAll[_nJets]/D");
+    outputTree->Branch("_jetParticleNet_CvsB",       &_jetParticleNet_CvsB,      "_jetParticleNet_CvsB[_nJets]/D");
+    // Jet ID requirements
     outputTree->Branch("_jetHadronFlavor",           &_jetHadronFlavor,          "_jetHadronFlavor[_nJets]/i");
     outputTree->Branch("_jetPartonFlavor",           &_jetPartonFlavor,          "_jetPartonFlavor[_nJets]/i");
     outputTree->Branch("_jetIsTight",                &_jetIsTight,               "_jetIsTight[_nJets]/O");
     outputTree->Branch("_jetIsTightLepVeto",         &_jetIsTightLepVeto,        "_jetIsTightLepVeto[_nJets]/O");
+    // Gen-level Jet kinemmatics
     if( ! myAnalyzer->isData() ) {
 
         outputTree->Branch("_jetHasGen",             &_jetHasGen,                "_jetHasGen[_nJets]/O");
@@ -305,17 +315,20 @@ void JetAnalyzer::beginJob(TTree* outputTree)
         outputTree->Branch("_jetGenE",               &_jetGenE,                  "_jetGenE[_nJets]/D");
 
     }
+    // Flavor tagging: Puppi Jets 
     outputTree->Branch("_nJetsPuppi",                &_nJetsPuppi,               "_nJetsPuppi/i");
     outputTree->Branch("_jetPuppiPt",                &_jetPuppiPt,               "_jetPuppiPt[_nJetsPuppi]/D");
     outputTree->Branch("_jetPuppiEta",               &_jetPuppiEta,              "_jetPuppiEta[_nJetsPuppi]/D");
     outputTree->Branch("_jetPuppiPhi",               &_jetPuppiPhi,              "_jetPuppiPhi[_nJetsPuppi]/D");
+    //met kinematics
     outputTree->Branch("_met",                       &_met,                      "_met/D");
 
     outputTree->Branch("_metPhi",                   &_metPhi,                    "_metPhi/D");
+    //metPuppi kinematics
     outputTree->Branch("_metPuppi",                 &_metPuppi,                  "_metPuppi/D");
     outputTree->Branch("_metPuppiPhi",              &_metPuppiPhi,               "_metPuppiPhi/D");
     
-    if(!myAnalyzer->is2018() ) outputTree->Branch("_jetIsLoose", _jetIsLoose, "_jetIsLoose[_nJets]/O"); // WARNING, not recommended to be used, only exists for 2016
+    if(myAnalyzer->isRun2() && !myAnalyzer->is2017() && !myAnalyzer->is2018() ) outputTree->Branch("_jetIsLoose", _jetIsLoose, "_jetIsLoose[_nJets]/O"); // WARNING, not recommended to be used, only exists for 2016
 
 }
 
@@ -353,12 +366,13 @@ bool JetAnalyzer::analyze(const edm::Event& iEvent)
     for(const auto& jet : *jets){
         if(_nJets == nJets_max) break;
 
-        _jetIsLoose[_nJets]        = jetIsLoose(        jet, myAnalyzer->is2017() || myAnalyzer->is2018() );
-        _jetIsTight[_nJets]        = jetIsTight(        jet, myAnalyzer->is2017(), myAnalyzer->is2018() );
-        _jetIsTightLepVeto[_nJets] = jetIsTightLepVeto( jet, myAnalyzer->is2017(), myAnalyzer->is2018() );
+        // Jet ID requirements
+        _jetIsLoose[_nJets]                         = jetIsLoose(        jet, myAnalyzer->is2017() || myAnalyzer->is2018() );
+        _jetIsTight[_nJets]                         = jetIsTight(        jet, myAnalyzer->is2017(), myAnalyzer->is2018() );
+        _jetIsTightLepVeto[_nJets]                  = jetIsTightLepVeto( jet, myAnalyzer->is2017(), myAnalyzer->is2018() );
 
-        _jetPt[_nJets]         = jet.pt();
-
+        // Jet kinematics
+        _jetPt[_nJets]                              = jet.pt();
         _jetEta[_nJets]                             = jet.eta();
         _jetPhi[_nJets]                             = jet.phi();
         _jetE[_nJets]                               = jet.energy();
@@ -371,22 +385,27 @@ bool JetAnalyzer::analyze(const edm::Event& iEvent)
         _jetDeepCsv_b[_nJets]                       = jet.bDiscriminator("pfDeepCSVJetTags:probb");
         _jetDeepCsv_c[_nJets]                       = jet.bDiscriminator("pfDeepCSVJetTags:probc");
         _jetDeepCsv_bb[_nJets]                      = jet.bDiscriminator("pfDeepCSVJetTags:probbb");
+        
         _jetDeepCsv[_nJets]                         = _jetDeepCsv_b[_nJets] + _jetDeepCsv_bb[_nJets];
         if( std::isnan( _jetDeepCsv[_nJets] ) ) _jetDeepCsv[_nJets] = 0.;
 
-        //DeepFlavor taggeer
+        // Flavor tagging: Deep Flavor
         _jetDeepFlavor_b[_nJets]                    = jet.bDiscriminator("pfDeepFlavourJetTags:probb");
         _jetDeepFlavor_bb[_nJets]                   = jet.bDiscriminator("pfDeepFlavourJetTags:probbb");
         _jetDeepFlavor_lepb[_nJets]                 = jet.bDiscriminator("pfDeepFlavourJetTags:problepb");
+        
         _jetDeepFlavor[_nJets]                      = _jetDeepFlavor_b[_nJets] + _jetDeepFlavor_bb[_nJets] + _jetDeepFlavor_lepb[_nJets];
         if( std::isnan( _jetDeepFlavor[_nJets] ) ) _jetDeepFlavor[_nJets] = 0.;
+        
         _jetDeepFlavor_c[_nJets]                    = jet.bDiscriminator("pfDeepFlavourJetTags:probc");
         _jetDeepFlavor_uds[_nJets]                  = jet.bDiscriminator("pfDeepFlavourJetTags:probuds");
         _jetDeepFlavor_g[_nJets]                    = jet.bDiscriminator("pfDeepFlavourJetTags:probg");
-
+        
+        // Jet ID requirements
         _jetHadronFlavor[_nJets]                    = jet.hadronFlavour();
         _jetPartonFlavor[_nJets]                    = jet.partonFlavour();
 
+        // Gen-level Jet kinemmatics
         _jetHasGen[_nJets]  = 0;
         _jetGenPt[_nJets]   = 0;
         _jetGenEta[_nJets]  = 0;
@@ -411,16 +430,16 @@ bool JetAnalyzer::analyze(const edm::Event& iEvent)
     for(const auto& jet : *jetsPuppi){
         if(_nJetsPuppi == nJets_max) break;
         
-        /*
-        ---> Do I need this???
-        // Implementation based on global tag
-        jecUncPuppi->setJetEta(jet.eta());
-        jecUncPuppi->setJetPt(jet.pt());
-        */
-
+        // Flavor tagging: Puppi Jets 
         _jetPuppiPt[_nJetsPuppi]        = jet.pt();
         _jetPuppiEta[_nJetsPuppi]       = jet.eta();
         _jetPuppiPhi[_nJetsPuppi]       = jet.phi();
+        
+
+        // Flavor tagging: Particle Net 
+        _jetParticleNet_BvsAll[_nJetsPuppi]         = jet.bDiscriminator("pfParticleNetDiscriminatorsJetTags:BvsAll");
+        _jetParticleNet_CvsAll[_nJetsPuppi]         = jet.bDiscriminator("pfParticleNetDiscriminatorsJetTags:CvsAll");
+        _jetParticleNet_CvsB[_nJetsPuppi]           = jet.bDiscriminator("pfParticleNetDiscriminatorsJetTags:CvsB");
 
         ++_nJetsPuppi;
     }

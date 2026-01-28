@@ -127,15 +127,17 @@ class V0Analyzer : public edm::one::EDAnalyzer<edm::one::WatchLuminosityBlocks, 
         static void fillDescriptions(edm::ConfigurationDescriptions& descriptions);
 
         //Helper functions
-        bool isData()   const{ return sampleIsData; }
-        bool isMC()     const{ return !sampleIsData; }
-        bool isRun2()   const{ return !(sampleIs2022 || sampleIs2023); }
-        //bool is2016() const{ return !(sampleIs2017 || sampleIs2018); }
-        bool is2017()   const{ return sampleIs2017; }
-        bool is2018()   const{ return sampleIs2018; }
-        bool is2022()   const{ return sampleIs2022; }
-        bool is2022EE() const{ return sampleIs2022EE; }
-        bool is2023()   const{ return sampleIs2023; }
+        bool isData()       const{ return sampleIsData; }
+        bool isMC()         const{ return !sampleIsData; }
+        bool isRun2()       const{ return !(sampleIs2022 || sampleIs2022EE || sampleIs2023 || sampleIs2023BPix || sampleIs2024); }
+        bool isRun3()       const{ return (sampleIs2022 || sampleIs2022EE || sampleIs2023 || sampleIs2023BPix || sampleIs2024); }
+        bool is2017()       const{ return sampleIs2017; }
+        bool is2018()       const{ return sampleIs2018; }
+        bool is2022()       const{ return sampleIs2022; }
+        bool is2022EE()     const{ return sampleIs2022EE; }
+        bool is2023()       const{ return sampleIs2023; }
+        bool is2023BPix()   const{ return sampleIs2023BPix; }
+        bool is2024()       const{ return sampleIs2024; }
 
     private:
 
@@ -201,6 +203,8 @@ class V0Analyzer : public edm::one::EDAnalyzer<edm::one::WatchLuminosityBlocks, 
         bool                        sampleIs2022;
         bool                        sampleIs2022EE;
         bool                        sampleIs2023;
+        bool                        sampleIs2023BPix;
+        bool                        sampleIs2024;
         bool                        storeLheParticles;
         bool                        storeGenParticles;
         bool                        storeParticleLevel;

@@ -143,14 +143,26 @@ bool LeptonAnalyzer::analyze(const edm::Event& iEvent, const reco::Vertex& prima
 
         //store Lepton flavor and ID
         _lFlavor[_nL]                           = 2;
-        //_lPOGVeto[_nL]                          = tau.tauID("byVVVLooseDeepTau2018v2p5VSjet");
-        //_lPOGLoose[_nL]                         = tau.tauID("byLooseDeepTau2018v2p5VSjet");
-        //_lPOGMedium[_nL]                        = tau.tauID("byMediumDeepTau2018v2p5VSjet");
-        //_lPOGTight[_nL]                         = tau.tauID("byTightDeepTau2018v2p5VSjet");
-        _lPOGVeto[_nL]                          = tau.tauID("byVVVLooseDeepTau2017v2p1VSjet");
-        _lPOGLoose[_nL]                         = tau.tauID("byLooseDeepTau2017v2p1VSjet");
-        _lPOGMedium[_nL]                        = tau.tauID("byMediumDeepTau2017v2p1VSjet");
-        _lPOGTight[_nL]                         = tau.tauID("byTightDeepTau2017v2p1VSjet");
+        _lPOGVeto[_nL]                          = ((tau.tauID("byUTagPUPPIDecayMode") > 0.5) 
+                                                    && (tau.tauID("byUTagPUPPIVSjetraw") > 0.10) 
+                                                    && (tau.tauID("byUTagPUPPIVSeraw")  > 0.50) 
+                                                    && (tau.tauID("byUTagPUPPIVSmuraw") > 0.50)); 
+        _lPOGLoose[_nL]                         = ((tau.tauID("byUTagPUPPIDecayMode") > 0.5) 
+                                                    && (tau.tauID("byUTagPUPPIVSjetraw") > 0.10) 
+                                                    && (tau.tauID("byUTagPUPPIVSeraw")  > 0.50) 
+                                                    && (tau.tauID("byUTagPUPPIVSmuraw") > 0.50)); 
+        _lPOGMedium[_nL]                        = ((tau.tauID("byUTagPUPPIDecayMode") > 0.5) 
+                                                    && (tau.tauID("byUTagPUPPIVSjetraw") > 0.50) 
+                                                    && (tau.tauID("byUTagPUPPIVSeraw")  > 0.50) 
+                                                    && (tau.tauID("byUTagPUPPIVSmuraw") > 0.50)); 
+        _lPOGTight[_nL]                         = ((tau.tauID("byUTagPUPPIDecayMode") > 0.5) 
+                                                    && (tau.tauID("byUTagPUPPIVSjetraw") > 0.10) 
+                                                    && (tau.tauID("byUTagPUPPIVSeraw")  > 0.50) 
+                                                    && (tau.tauID("byUTagPUPPIVSmuraw") > 0.70)); 
+        //_lPOGVeto[_nL]                          = tau.tauID("byVVVLooseDeepTau2017v2p1VSjet");
+        //_lPOGLoose[_nL]                         = tau.tauID("byLooseDeepTau2017v2p1VSjet");
+        //_lPOGMedium[_nL]                        = tau.tauID("byMediumDeepTau2017v2p1VSjet");
+        //_lPOGTight[_nL]                         = tau.tauID("byTightDeepTau2017v2p1VSjet");
         
         ++_nTau;
         ++_nL;
