@@ -171,7 +171,7 @@ process.blackJackAndHookers = cms.EDAnalyzer('V0Analyzer',
                                 is2022                  = cms.untracked.bool(is2022),
                                 is2022EE                = cms.untracked.bool(is2022EE),
                                 is2023                  = cms.untracked.bool(is2023),
-                                is2022BPix              = cms.untracked.bool(is2023BPix),
+                                is2023BPix              = cms.untracked.bool(is2023BPix),
                                 is2024                  = cms.untracked.bool(is2024),
 
                                 # Which info should be collected

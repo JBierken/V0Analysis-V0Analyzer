@@ -9,11 +9,9 @@ config = config()
 # ---------------------------------------------------------
 
 # data configuration
-#isData                                  = True 
-isData                                  = False 
 year                                    = "2024" 
-#era                                     = 'Run2024C_M1'
-era                                     = 'DYJetsTo2L_M50_Prompt'
+#era                                     = 'Run2024G_M1'
+era                                     = 'DYJetsTo2L_M50'
 primary_dataset                         = "Muon"
 process                                 = "V0Analyzer"
 
@@ -23,7 +21,7 @@ user                                    = "jbierken"
 cmssw                                   = "CMSSW_15_0_17"
 nthreads                                = 1
 cores                                   = 1
-memory                                  = 3000                  # in MB
+memory                                  = 2500                  # in MB
 runTime                                 = 2750                  # ~45 hours (default is ~20h)
 
 # ---------------------------------------------------------
@@ -31,8 +29,10 @@ runTime                                 = 2750                  # ~45 hours (def
 # ---------------------------------------------------------
 
 # Data or MC
+isData                                  = False     if 'DYJets' in era else True
+
 dataType                                = 'data'    if isData else 'sim'
-nunits                                  = 500       if isData else 5
+nunits                                  = 50        if isData else 5
 
 # Create storage location (if not already exist)
 dbssavepath                             = f'/store/user/{user}/K0sAnalysis/NTuples/MINIAOD/{dataType}/v{version}'
@@ -81,7 +81,8 @@ config.Data.allowNonValidInputDataset   = True
 
 if isData:
     # For Data: Automatic splitting with lumimasking gives best configuration
-    config.Data.splitting               = 'Automatic'
+    #config.Data.splitting               = 'Automatic'
+    config.Data.splitting               = 'LumiBased'
     config.Data.lumiMask                = data_config["lumijson"]
 else:
     # For MC: use FileBased splitting of files 
