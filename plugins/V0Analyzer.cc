@@ -69,7 +69,7 @@ V0Analyzer::V0Analyzer(const edm::ParameterSet& iConfig):
 {
     // In case of run-2 data apply ecal filter
     if( is2017() || is2018() ) ecalBadCalibFilterToken = consumes<bool>(edm::InputTag("ecalBadCalibReducedMINIAODFilter"));
-    if( is2022() || is2022EE() || is2023() || is2023BPix()() ) ecalBadCalibFilterToken = consumes<bool>(edm::InputTag("ecalBadCalibReducedMINIAODFilter"));
+    if( is2022() || is2022EE() || is2023() || is2023BPix() )  ecalBadCalibFilterToken = consumes<bool>(edm::InputTag("ecalBadCalibReducedMINIAODFilter"));
     
     // Create new sub-analyzer objects
     triggerAnalyzer             = new TriggerAnalyzer(      iConfig, this);
