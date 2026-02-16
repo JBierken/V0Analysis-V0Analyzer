@@ -16,7 +16,7 @@ V0Analyzer::V0Analyzer(const edm::ParameterSet& iConfig):
     particleLevelLeptonsToken(  consumes<reco::GenJetCollection>(                iConfig.getParameter<edm::InputTag>("particleLevelLeptons"))),
     particleLevelJetsToken(     consumes<reco::GenJetCollection>(                iConfig.getParameter<edm::InputTag>("particleLevelJets"))),
     genJetsToken(               consumes<reco::GenJetCollection>(                iConfig.getParameter<edm::InputTag>("particleLevelJets"))),
-    particleLevelMetsToken(     consumes<reco::METCollection>(                   iConfig.getParameter<edm::InputTag>("particleLevelMets"))),
+   particleLevelMetsToken(     consumes<reco::METCollection>(                   iConfig.getParameter<edm::InputTag>("particleLevelMets"))),
     muonToken(                  consumes<std::vector<pat::Muon>>(                iConfig.getParameter<edm::InputTag>("muons"))),
     eleToken(                   consumes<std::vector<pat::Electron>>(            iConfig.getParameter<edm::InputTag>("electrons"))),
     tauToken(                   consumes<std::vector<pat::Tau>>(                 iConfig.getParameter<edm::InputTag>("taus"))),
@@ -57,6 +57,7 @@ V0Analyzer::V0Analyzer(const edm::ParameterSet& iConfig):
     sampleIs2023(                                                                iConfig.getUntrackedParameter<bool>("is2023")),
     sampleIs2023BPix(                                                            iConfig.getUntrackedParameter<bool>("is2023BPix")),
     sampleIs2024(                                                                iConfig.getUntrackedParameter<bool>("is2024")),
+    sampleIs2025(                                                                iConfig.getUntrackedParameter<bool>("is2025")),
     storeLheParticles(                                                           iConfig.getUntrackedParameter<bool>("storeLheParticles")),
     storeGenParticles(                                                           iConfig.getUntrackedParameter<bool>("storeGenParticles")),
     storeParticleLevel(                                                          iConfig.getUntrackedParameter<bool>("storeParticleLevel")),
@@ -68,6 +69,7 @@ V0Analyzer::V0Analyzer(const edm::ParameterSet& iConfig):
 {
     // In case of run-2 data apply ecal filter
     if( is2017() || is2018() ) ecalBadCalibFilterToken = consumes<bool>(edm::InputTag("ecalBadCalibReducedMINIAODFilter"));
+    if( is2022() || is2022EE() || is2023() || is2023BPix()() ) ecalBadCalibFilterToken = consumes<bool>(edm::InputTag("ecalBadCalibReducedMINIAODFilter"));
     
     // Create new sub-analyzer objects
     triggerAnalyzer             = new TriggerAnalyzer(      iConfig, this);
@@ -152,6 +154,7 @@ void V0Analyzer::beginJob()
         outputTree->Branch("_is2023",        &sampleIs2023,             "_is2023/O");
         outputTree->Branch("_is2023BPix",    &sampleIs2023BPix,         "_is2023BPix/O");
         outputTree->Branch("_is2024",        &sampleIs2024,             "_is2024/O");
+        outputTree->Branch("_is2025",        &sampleIs2025,             "_is2025/O");
     }
 
     // Set Prefiring branches for MC samples

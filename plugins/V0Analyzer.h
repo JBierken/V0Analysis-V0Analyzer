@@ -138,6 +138,7 @@ class V0Analyzer : public edm::one::EDAnalyzer<edm::one::WatchLuminosityBlocks, 
         bool is2023()       const{ return sampleIs2023; }
         bool is2023BPix()   const{ return sampleIs2023BPix; }
         bool is2024()       const{ return sampleIs2024; }
+        bool is2025()       const{ return sampleIs2025; }
 
     private:
 
@@ -205,6 +206,7 @@ class V0Analyzer : public edm::one::EDAnalyzer<edm::one::WatchLuminosityBlocks, 
         bool                        sampleIs2023;
         bool                        sampleIs2023BPix;
         bool                        sampleIs2024;
+        bool                        sampleIs2025;
         bool                        storeLheParticles;
         bool                        storeGenParticles;
         bool                        storeParticleLevel;

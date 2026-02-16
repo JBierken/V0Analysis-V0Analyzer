@@ -10,8 +10,8 @@ config = config()
 
 # data configuration
 year                                    = "2024" 
-#era                                     = 'Run2024G_M1'
-era                                     = 'DYJetsTo2L_M50'
+era                                     = 'Run2024F_M0'
+#era                                     = 'DYJetsTo2L_M50'
 primary_dataset                         = "Muon"
 process                                 = "V0Analyzer"
 
@@ -32,7 +32,7 @@ runTime                                 = 2750                  # ~45 hours (def
 isData                                  = False     if 'DYJets' in era else True
 
 dataType                                = 'data'    if isData else 'sim'
-nunits                                  = 50        if isData else 5
+nunits                                  = 500        if isData else 5
 
 # Create storage location (if not already exist)
 dbssavepath                             = f'/store/user/{user}/K0sAnalysis/NTuples/MINIAOD/{dataType}/v{version}'
@@ -81,8 +81,8 @@ config.Data.allowNonValidInputDataset   = True
 
 if isData:
     # For Data: Automatic splitting with lumimasking gives best configuration
-    #config.Data.splitting               = 'Automatic'
-    config.Data.splitting               = 'LumiBased'
+    config.Data.splitting               = 'Automatic'
+    #config.Data.splitting               = 'LumiBased'
     config.Data.lumiMask                = data_config["lumijson"]
 else:
     # For MC: use FileBased splitting of files 

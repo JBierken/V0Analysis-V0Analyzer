@@ -60,6 +60,7 @@ is2022EE                    = "2022EE"      in options.campaign
 is2023                      = "2023"        in options.campaign 
 is2023BPix                  = "2023BPix"    in options.campaign 
 is2024                      = "2024"        in options.campaign 
+is2025                      = "2025"        in options.campaign 
 
 ## ---------------------------------------
 # Start process
@@ -173,6 +174,7 @@ process.blackJackAndHookers = cms.EDAnalyzer('V0Analyzer',
                                 is2023                  = cms.untracked.bool(is2023),
                                 is2023BPix              = cms.untracked.bool(is2023BPix),
                                 is2024                  = cms.untracked.bool(is2024),
+                                is2025                  = cms.untracked.bool(is2025),
 
                                 # Which info should be collected
                                 storeLheParticles       = cms.untracked.bool(True),

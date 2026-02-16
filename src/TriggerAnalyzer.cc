@@ -25,24 +25,40 @@ TriggerAnalyzer::TriggerAnalyzer(const edm::ParameterSet& iConfig, V0Analyzer* m
     // REFERENCE: https://twiki.cern.ch/twiki/bin/view/CMS/MissingETOptionalFiltersRun2#Analysis_Recommendations_for_ana
     //--------------------------------------------------------
 
-    allFlags["passMETFilters"] = {
-        "Flag_goodVertices", 
-        "Flag_HBHENoiseFilter", 
-        "Flag_HBHENoiseIsoFilter",  
-        "Flag_EcalDeadCellTriggerPrimitiveFilter",
-        "Flag_BadPFMuonFilter"
-    };
+    if( myAnalyzer->isRun2() ) {
+        allFlags["passMETFilters"] = {
+            "Flag_goodVertices", 
+            "Flag_HBHENoiseFilter", 
+            "Flag_HBHENoiseIsoFilter",  
+            "Flag_EcalDeadCellTriggerPrimitiveFilter",
+            "Flag_BadPFMuonFilter"
+        };
 
-    allFlags["passBadChargedCandidateFilter"] = {
-        "Flag_BadChargedCandidateFilter"
-    };
+        allFlags["passBadChargedCandidateFilter"] = {
+            "Flag_BadChargedCandidateFilter"
+        };
 
-    if( myAnalyzer->isData() ){ // This one is only to be applied on data
-        allFlags["passMETFilters"].push_back("Flag_eeBadScFilter");
+        if( myAnalyzer->isData() ){ // This one is only to be applied on data
+            allFlags["passMETFilters"].push_back("Flag_eeBadScFilter");
+        }
+
+        if( myAnalyzer->is2017() || myAnalyzer->is2018() ){ // This one is only for 2017 and 2018 data
+            allFlags["passMETFilters"].push_back("updated_ecalBadCalibFilter"); // improved version over the Flag_ecalBadCalibFilter, implementation manually
+        }
     }
+    else if(myAnalyzer->isRun3()) 
+    {
+        allFlags["passMETFilters"] = {
+            "Flag_goodVertices",
+            "Flag_globalSuperTightHalo2016Filter",
+            "Flag_EcalDeadCellTriggerPrimitiveFilter",
+            "Flag_BadPFMuonFilter",
+            "Flag_BadPFMuonDzFilter",
+            "Flag_hfNoisyHitsFilter",
+            "Flag_eeBadScFilter",
+            "Flag_ecalBadCalibFilter"
+        };
 
-    if( myAnalyzer->is2017() || myAnalyzer->is2018() ){ // This one is only for 2017 and 2018 data
-        allFlags["passMETFilters"].push_back("updated_ecalBadCalibFilter"); // improved version over the Flag_ecalBadCalibFilter, implementation manually
     }
 
     //--------------------------------------------------------
@@ -55,8 +71,30 @@ TriggerAnalyzer::TriggerAnalyzer(const edm::ParameterSet& iConfig, V0Analyzer* m
     // TODO: maybe we should clean up this part by storing it in some configuration file which can be analysis-specific
     //--------------------------------------------------------
     
+    // ------------------ 2025 triggers ------------------
+    if( myAnalyzer->is2025() ){
+        allFlags["passTrigger_mm"] = {
+            "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL",
+            "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ",
+            "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8",
+            "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8",
+            "HLT_Mu37_TkMu27"
+        };
+    }
+    
+    // ------------------ 2024 triggers ------------------
+    if( myAnalyzer->is2024() ){
+        allFlags["passTrigger_mm"] = {
+            "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL",
+            "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ",
+            "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8",
+            "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8",
+            "HLT_Mu37_TkMu27"
+        };
+    }
+    
     // ------------------ 2023 triggers ------------------
-    if( myAnalyzer->is2023() ){
+    if( myAnalyzer->is2023() || myAnalyzer->is2023BPix()){
         allFlags["passTrigger_mm"] = {
             "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL",
             "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ",
@@ -67,7 +105,7 @@ TriggerAnalyzer::TriggerAnalyzer(const edm::ParameterSet& iConfig, V0Analyzer* m
     }
     
     // ------------------ 2022 triggers ------------------
-    else if( myAnalyzer->is2022() ){
+    else if( myAnalyzer->is2022()  || myAnalyzer->is2022EE()){
         allFlags["passTrigger_mm"] = {
             "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL",
             "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ",
@@ -217,6 +255,10 @@ void TriggerAnalyzer::analyze(const edm::Event& iEvent)
     edm::Handle<edm::TriggerResults> triggerResults = getHandle(iEvent, myAnalyzer->triggerToken);
 
     if( myAnalyzer->is2017() || myAnalyzer->is2018() ){         // The updated ecalBadCalibFilter
+        edm::Handle<bool> passEcalBadCalibFilterUpdate = getHandle(iEvent, myAnalyzer->ecalBadCalibFilterToken);
+        flag["updated_ecalBadCalibFilter"] = (*passEcalBadCalibFilterUpdate);
+    }
+    if( myAnalyzer->is2022() || myAnalyzer->is2022EE() || myAnalyzer->is2023() || myAnalyzer->is2023BPix() ){         // The updated ecalBadCalibFilter
         edm::Handle<bool> passEcalBadCalibFilterUpdate = getHandle(iEvent, myAnalyzer->ecalBadCalibFilterToken);
         flag["updated_ecalBadCalibFilter"] = (*passEcalBadCalibFilterUpdate);
     }
