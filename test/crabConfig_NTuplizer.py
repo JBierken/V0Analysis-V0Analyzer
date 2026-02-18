@@ -10,7 +10,7 @@ config = config()
 
 # data configuration
 year                                    = "2024" 
-era                                     = 'Run2024F_M0'
+era                                     = 'Run2024C_M1'
 #era                                     = 'DYJetsTo2L_M50'
 primary_dataset                         = "Muon"
 process                                 = "V0Analyzer"
