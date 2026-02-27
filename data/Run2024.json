@@ -5,7 +5,7 @@
             "dataset":     "/DYto2L-2Jets_MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Winter24MiniAOD-133X_mcRun3_2024_realistic_v10-v2/MINIAODSIM", 
             "globalTag":    "133X_mcRun3_2024_realistic_v10"
         },
-        "DYJetsTo2L_M50"  : {
+        "DYJetsTo2L_M50_v1"  : {
             "dataset":     "/DYto2L-2Jets_Bin-MLL-50-PTLL-100_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v3/MINIAODSIM", 
             "globalTag":    "150X_mcRun3_2024_realistic_v2"
         },

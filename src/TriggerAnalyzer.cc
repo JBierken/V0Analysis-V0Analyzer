@@ -83,18 +83,22 @@ TriggerAnalyzer::TriggerAnalyzer(const edm::ParameterSet& iConfig, V0Analyzer* m
     }
     
     // ------------------ 2024 triggers ------------------
-    if( myAnalyzer->is2024() ){
+    else if( myAnalyzer->is2024() ){
         allFlags["passTrigger_mm"] = {
             "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL",
             "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ",
             "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8",
             "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8",
+            "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8_PFJet30",
+            "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8_AK8PFJet30",
+            "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8_CaloJet30",
+            "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8_AK8CaloJet30",
             "HLT_Mu37_TkMu27"
         };
     }
     
     // ------------------ 2023 triggers ------------------
-    if( myAnalyzer->is2023() || myAnalyzer->is2023BPix()){
+    else if( myAnalyzer->is2023() || myAnalyzer->is2023BPix()){
         allFlags["passTrigger_mm"] = {
             "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL",
             "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ",

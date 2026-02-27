@@ -10,8 +10,8 @@ config = config()
 
 # data configuration
 year                                    = "2024" 
-era                                     = 'Run2024C_M1'
-#era                                     = 'DYJetsTo2L_M50'
+#era                                     = 'Run2024C_M1'
+era                                     = 'DYJetsTo2L_M50_v1'
 primary_dataset                         = "Muon"
 process                                 = "V0Analyzer"
 
@@ -32,7 +32,7 @@ runTime                                 = 2750                  # ~45 hours (def
 isData                                  = False     if 'DYJets' in era else True
 
 dataType                                = 'data'    if isData else 'sim'
-nunits                                  = 500        if isData else 5
+nunits                                  = 700        if isData else 10
 
 # Create storage location (if not already exist)
 dbssavepath                             = f'/store/user/{user}/K0sAnalysis/NTuples/MINIAOD/{dataType}/v{version}'
