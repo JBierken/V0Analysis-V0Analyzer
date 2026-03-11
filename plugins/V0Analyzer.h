@@ -129,8 +129,8 @@ class V0Analyzer : public edm::one::EDAnalyzer<edm::one::WatchLuminosityBlocks, 
         //Helper functions
         bool isData()       const{ return sampleIsData; }
         bool isMC()         const{ return !sampleIsData; }
-        bool isRun2()       const{ return !(sampleIs2022 || sampleIs2022EE || sampleIs2023 || sampleIs2023BPix || sampleIs2024); }
-        bool isRun3()       const{ return (sampleIs2022 || sampleIs2022EE || sampleIs2023 || sampleIs2023BPix || sampleIs2024); }
+        bool isRun2()       const{ return !(sampleIs2022 || sampleIs2022EE || sampleIs2023 || sampleIs2023BPix || sampleIs2024 || sampleIs2025); }
+        bool isRun3()       const{ return (sampleIs2022 || sampleIs2022EE || sampleIs2023 || sampleIs2023BPix || sampleIs2024 || sampleIs2025); }
         bool is2017()       const{ return sampleIs2017; }
         bool is2018()       const{ return sampleIs2018; }
         bool is2022()       const{ return sampleIs2022; }

@@ -155,50 +155,50 @@ double py(double pt, double phi) { return pt*sin(phi); };
 /*
 std::pair<double, double> JetAnalyzer::getMETCorrectionPxPy(double corrPt, double rawPt, double rawEta, double rawMuonSubtractedPt, double phi, double emf, double rho, double area, const std::string& source, unsigned jetIndex, double jecShift)
 {
-    std::vector< float > corrections = getSubCorrections(rawPt, rawEta, rho, area);
+std::vector< float > corrections = getSubCorrections(rawPt, rawEta, rho, area);
 
-    double l1corrptNoMuon = rawMuonSubtractedPt*corrections.front();
-    double fullcorrpt     = rawMuonSubtractedPt*corrections.back();
-    double PT_muon        = rawPt - rawMuonSubtractedPt;
-    double PT_L1L2L3      = fullcorrpt + PT_muon;
-    double PT_L1          = l1corrptNoMuon + PT_muon;
+double l1corrptNoMuon = rawMuonSubtractedPt*corrections.front();
+double fullcorrpt     = rawMuonSubtractedPt*corrections.back();
+double PT_muon        = rawPt - rawMuonSubtractedPt;
+double PT_L1L2L3      = fullcorrpt + PT_muon;
+double PT_L1          = l1corrptNoMuon + PT_muon;
 
-    float f = PT_L1L2L3*(jecShift/corrPt);
+float f = PT_L1L2L3*(jecShift/corrPt);
 
-    if( emf > 0.90 or fullcorrpt < 15. || ( std::abs(rawEta) > 9.9 ) ) return {0., 0.};
+if( emf > 0.90 or fullcorrpt < 15. || ( std::abs(rawEta) > 9.9 ) ) return {0., 0.};
 
-    float ptdiff = (PT_L1 - f);
+float ptdiff = (PT_L1 - f);
 
-    std::pair<double, double> corr = {px(ptdiff, phi), py(ptdiff, phi)};
+std::pair<double, double> corr = {px(ptdiff, phi), py(ptdiff, phi)};
 
-    return corr;
+return corr;
 }
 */
 
 /*
 void JetAnalyzer::correctedMETAndPhi(const pat::MET& met, const std::vector< pat::Jet >& jets, const double rho)
 {
-    for (auto it=_corrMETx_groupedVariationsDown.begin(); it!=_corrMETx_groupedVariationsDown.end(); ++it)
-    {
-        std::string source = it->first;
-        _corrMETx_groupedVariationsDown[ source ]   = met.uncorPx();
-        _corrMETx_groupedVariationsUp[ source ]     = met.uncorPx();
-        _corrMETy_groupedVariationsDown[ source ]   = met.uncorPy();
-        _corrMETy_groupedVariationsUp[ source ]     = met.uncorPy();
-    }
+for (auto it=_corrMETx_groupedVariationsDown.begin(); it!=_corrMETx_groupedVariationsDown.end(); ++it)
+{
+    std::string source = it->first;
+    _corrMETx_groupedVariationsDown[ source ]   = met.uncorPx();
+    _corrMETx_groupedVariationsUp[ source ]     = met.uncorPx();
+    _corrMETy_groupedVariationsDown[ source ]   = met.uncorPy();
+    _corrMETy_groupedVariationsUp[ source ]     = met.uncorPy();
+}
 
-    for (auto it=_corrMETx_allVariationsDown.begin(); it!=_corrMETx_allVariationsDown.end(); ++it)
-    {
-        std::string source = it->first;
-        _corrMETx_allVariationsDown[ source ]   = met.uncorPx();
-        _corrMETx_allVariationsUp[ source ]     = met.uncorPx();
-        _corrMETy_allVariationsDown[ source ]   = met.uncorPy();
-        _corrMETy_allVariationsUp[ source ]     = met.uncorPy();
-    }
+for (auto it=_corrMETx_allVariationsDown.begin(); it!=_corrMETx_allVariationsDown.end(); ++it)
+{
+    std::string source = it->first;
+    _corrMETx_allVariationsDown[ source ]   = met.uncorPx();
+    _corrMETx_allVariationsUp[ source ]     = met.uncorPx();
+    _corrMETy_allVariationsDown[ source ]   = met.uncorPy();
+    _corrMETy_allVariationsUp[ source ]     = met.uncorPy();
+}
 
-    //loop over all jets
-    int iJet = 0;
-    for(auto& jet : jets)
+//loop over all jets
+int iJet = 0;
+for(auto& jet : jets)
     {
         //make lorentzVector of raw jet pt
         TLorentzVector jetV;

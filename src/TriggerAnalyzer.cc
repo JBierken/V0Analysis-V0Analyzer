@@ -78,6 +78,10 @@ TriggerAnalyzer::TriggerAnalyzer(const edm::ParameterSet& iConfig, V0Analyzer* m
             "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ",
             "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8",
             "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8",
+            "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8_PFJet30",
+            "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8_AK8PFJet30",
+            "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8_CaloJet30",
+            "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8_AK8CaloJet30",
             "HLT_Mu37_TkMu27"
         };
     }

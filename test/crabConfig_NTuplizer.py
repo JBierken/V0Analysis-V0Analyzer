@@ -9,9 +9,9 @@ config = config()
 # ---------------------------------------------------------
 
 # data configuration
-year                                    = "2024" 
-#era                                     = 'Run2024C_M1'
-era                                     = 'DYJetsTo2L_M50_v1'
+year                                    = "2025" 
+era                                     = 'Run2025G_M0_PromptReco'
+#era                                     = 'DYJetsTo2L_M50_v1'
 primary_dataset                         = "Muon"
 process                                 = "V0Analyzer"
 
