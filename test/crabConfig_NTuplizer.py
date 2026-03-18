@@ -9,8 +9,8 @@ config = config()
 # ---------------------------------------------------------
 
 # data configuration
-year                                    = "2025" 
-era                                     = 'Run2025G_M0_PromptReco'
+year                                    = "2024" 
+era                                     = 'Run2024F_M0'
 #era                                     = 'DYJetsTo2L_M50_v1'
 primary_dataset                         = "Muon"
 process                                 = "V0Analyzer"
@@ -30,9 +30,19 @@ runTime                                 = 2750                  # ~45 hours (def
 
 # Data or MC
 isData                                  = False     if 'DYJets' in era else True
+isPromptReco                            = 'PromptReco' in era
+isBusyDataEra                           = isData and (era == 'Run2024F_M0' or (year == '2025' and isPromptReco))
 
 dataType                                = 'data'    if isData else 'sim'
-nunits                                  = 700        if isData else 10
+
+# Era-aware queue tuning:
+defaultDataUnits                        = 300
+busyDataUnits                           = 50
+nunits                                  = (busyDataUnits if isBusyDataEra else defaultDataUnits) if isData else 10
+
+useLumiBasedForBusyDataEras             = True
+allowIgnoreLocalityForBusyPromptReco    = True
+useWhitelist                            = False
 
 # Create storage location (if not already exist)
 dbssavepath                             = f'/store/user/{user}/K0sAnalysis/NTuples/MINIAOD/{dataType}/v{version}'
@@ -80,10 +90,11 @@ config.Data.outputDatasetTag            = data_config["eras"][era]["dataset"].sp
 config.Data.allowNonValidInputDataset   = True
 
 if isData:
-    # For Data: Automatic splitting with lumimasking gives best configuration
-    config.Data.splitting               = 'Automatic'
-    #config.Data.splitting               = 'LumiBased'
+    # Busy eras often spend a long time idle; split into smaller lumi chunks there.
+    config.Data.splitting               = 'LumiBased' if (isBusyDataEra and useLumiBasedForBusyDataEras) else 'Automatic'
     config.Data.lumiMask                = data_config["lumijson"]
+    if year == '2025' and isPromptReco and isBusyDataEra and allowIgnoreLocalityForBusyPromptReco:
+        config.Data.ignoreLocality      = True
 else:
     # For MC: use FileBased splitting of files 
     config.Data.splitting               = 'FileBased'
@@ -93,9 +104,10 @@ config.Data.totalUnits                  = -1                                    
 config.Data.publication                 = False
 
 ## Site config:
-config.Site.ignoreGlobalBlacklist       = True
+config.Site.ignoreGlobalBlacklist       = False
 config.Site.storageSite                 = 'T2_BE_IIHE'                                                  # or your site
-config.Site.whitelist                   = [
+if useWhitelist:
+    config.Site.whitelist               = [
                                             "T2_CH*", "T2_FR*", "T2_IT*", "T2_DE*", "T2_AT*", "T2_BE*", "T2_ES*",
                                             "T1_US*", "T2_US*", "T3_US*", "T1_FR*", "T1_IT*", "T1_DE*", "T2_UK*", "T3_UK*", "T2_FI*", "T2_EE*", "T1_ES*"
                                         ]
