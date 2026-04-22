@@ -9,8 +9,9 @@ config = config()
 # ---------------------------------------------------------
 
 # data configuration
-year                                    = "2024" 
-era                                     = 'Run2024F_M0'
+year                                    = "2025" 
+#era                                     = 'Run2024I_M1_v2'
+era                                     = 'Run2025C_M0_PromptReco'
 #era                                     = 'DYJetsTo2L_M50_v1'
 primary_dataset                         = "Muon"
 process                                 = "V0Analyzer"
@@ -22,7 +23,7 @@ cmssw                                   = "CMSSW_15_0_17"
 nthreads                                = 1
 cores                                   = 1
 memory                                  = 2500                  # in MB
-runTime                                 = 2750                  # ~45 hours (default is ~20h)
+runTime                                 = 2200                  # 2750 ~45 hours (default is ~20h)
 
 # ---------------------------------------------------------
 # RUN CONFIGURATION:
@@ -31,13 +32,13 @@ runTime                                 = 2750                  # ~45 hours (def
 # Data or MC
 isData                                  = False     if 'DYJets' in era else True
 isPromptReco                            = 'PromptReco' in era
-isBusyDataEra                           = isData and (era == 'Run2024F_M0' or (year == '2025' and isPromptReco))
+isBusyDataEra                           = isData and (era == 'Run2024F_M0' or era == 'Run2024F_M0_v2' or (year == '2025' and isPromptReco))
 
 dataType                                = 'data'    if isData else 'sim'
 
 # Era-aware queue tuning:
 defaultDataUnits                        = 300
-busyDataUnits                           = 50
+busyDataUnits                           = 5
 nunits                                  = (busyDataUnits if isBusyDataEra else defaultDataUnits) if isData else 10
 
 useLumiBasedForBusyDataEras             = True
@@ -93,8 +94,8 @@ if isData:
     # Busy eras often spend a long time idle; split into smaller lumi chunks there.
     config.Data.splitting               = 'LumiBased' if (isBusyDataEra and useLumiBasedForBusyDataEras) else 'Automatic'
     config.Data.lumiMask                = data_config["lumijson"]
-    if year == '2025' and isPromptReco and isBusyDataEra and allowIgnoreLocalityForBusyPromptReco:
-        config.Data.ignoreLocality      = True
+    #if year == '2025' and isPromptReco and isBusyDataEra and allowIgnoreLocalityForBusyPromptReco:
+    #    config.Data.ignoreLocality      = True
 else:
     # For MC: use FileBased splitting of files 
     config.Data.splitting               = 'FileBased'

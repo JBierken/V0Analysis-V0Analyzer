@@ -73,7 +73,7 @@
             "dataset":      "/Muon1/Run2024E-PromptReco-v2/MINIAOD",
             "globalTag":    "140X_dataRun3_Prompt_v2"
         },
-        "Run2024F_M0"  : {
+        "Run2024F_M0_v2"  : {
             "dataset":      "/Muon0/Run2024F-MINIv6NANOv15-v1/MINIAOD",
             "globalTag":    "150X_dataRun3_v2"
         },
