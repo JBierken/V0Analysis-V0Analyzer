@@ -67,6 +67,13 @@ class JetAnalyzer {
         double   _jetDeepFlavor_g[nJets_max];
         
         // Flavor tagging: Particle Net 
+        double   _jetParticleNet_b[nJets_max];
+        double   _jetParticleNet_bb[nJets_max];
+        double   _jetParticleNet_c[nJets_max];
+        double   _jetParticleNet_cc[nJets_max];
+        double   _jetParticleNet_uds[nJets_max];
+        double   _jetParticleNet_g[nJets_max];
+        double   _jetParticleNet[nJets_max];
         double   _jetParticleNet_BvsAll[nJets_max];
         double   _jetParticleNet_CvsAll[nJets_max];
         double   _jetParticleNet_CvsB[nJets_max];

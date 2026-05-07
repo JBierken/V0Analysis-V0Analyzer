@@ -297,9 +297,16 @@ void JetAnalyzer::beginJob(TTree* outputTree)
     outputTree->Branch("_jetDeepFlavor_uds",         &_jetDeepFlavor_uds,        "_jetDeepFlavor_uds[_nJets]/D");
     outputTree->Branch("_jetDeepFlavor_g",           &_jetDeepFlavor_g,          "_jetDeepFlavor_g[_nJets]/D");
     // Flavor tagging: Particle Net 
-    outputTree->Branch("_jetParticleNet_BvsAll",     &_jetParticleNet_BvsAll,    "_jetParticleNet_BvsAll[_nJets]/D");
-    outputTree->Branch("_jetParticleNet_CvsAll",     &_jetParticleNet_CvsAll,    "_jetParticleNet_CvsAll[_nJets]/D");
-    outputTree->Branch("_jetParticleNet_CvsB",       &_jetParticleNet_CvsB,      "_jetParticleNet_CvsB[_nJets]/D");
+    outputTree->Branch("_jetParticleNet_b",          &_jetParticleNet_b,         "_jetParticleNet_b[_nJetsPuppi]/D");
+    outputTree->Branch("_jetParticleNet_bb",         &_jetParticleNet_bb,        "_jetParticleNet_bb[_nJetsPuppi]/D");
+    outputTree->Branch("_jetParticleNet_c",          &_jetParticleNet_c,         "_jetParticleNet_c[_nJetsPuppi]/D");
+    outputTree->Branch("_jetParticleNet_cc",         &_jetParticleNet_cc,        "_jetParticleNet_cc[_nJetsPuppi]/D");
+    outputTree->Branch("_jetParticleNet_uds",        &_jetParticleNet_uds,       "_jetParticleNet_uds[_nJetsPuppi]/D");
+    outputTree->Branch("_jetParticleNet_g",          &_jetParticleNet_g,         "_jetParticleNet_g[_nJetsPuppi]/D");
+    outputTree->Branch("_jetParticleNet",            &_jetParticleNet,           "_jetParticleNet[_nJetsPuppi]/D");
+    outputTree->Branch("_jetParticleNet_BvsAll",     &_jetParticleNet_BvsAll,    "_jetParticleNet_BvsAll[_nJetsPuppi]/D");
+    outputTree->Branch("_jetParticleNet_CvsAll",     &_jetParticleNet_CvsAll,    "_jetParticleNet_CvsAll[_nJetsPuppi]/D");
+    outputTree->Branch("_jetParticleNet_CvsB",       &_jetParticleNet_CvsB,      "_jetParticleNet_CvsB[_nJetsPuppi]/D");
     // Jet ID requirements
     outputTree->Branch("_jetHadronFlavor",           &_jetHadronFlavor,          "_jetHadronFlavor[_nJets]/i");
     outputTree->Branch("_jetPartonFlavor",           &_jetPartonFlavor,          "_jetPartonFlavor[_nJets]/i");
@@ -437,6 +444,15 @@ bool JetAnalyzer::analyze(const edm::Event& iEvent)
         
 
         // Flavor tagging: Particle Net 
+        _jetParticleNet_b[_nJetsPuppi]              = jet.bDiscriminator("pfParticleNetAK4JetTags:probb");
+        _jetParticleNet_bb[_nJetsPuppi]             = jet.bDiscriminator("pfParticleNetAK4JetTags:probbb");
+        _jetParticleNet_c[_nJetsPuppi]              = jet.bDiscriminator("pfParticleNetAK4JetTags:probc");
+        _jetParticleNet_cc[_nJetsPuppi]             = jet.bDiscriminator("pfParticleNetAK4JetTags:probcc");
+        _jetParticleNet_uds[_nJetsPuppi]            = jet.bDiscriminator("pfParticleNetAK4JetTags:probuds");
+        _jetParticleNet_g[_nJetsPuppi]              = jet.bDiscriminator("pfParticleNetAK4JetTags:probg");
+        _jetParticleNet[_nJetsPuppi]                = _jetParticleNet_b[_nJetsPuppi] + _jetParticleNet_bb[_nJetsPuppi];
+        if( std::isnan( _jetParticleNet[_nJetsPuppi] ) ) _jetParticleNet[_nJetsPuppi] = 0.;
+
         _jetParticleNet_BvsAll[_nJetsPuppi]         = jet.bDiscriminator("pfParticleNetDiscriminatorsJetTags:BvsAll");
         _jetParticleNet_CvsAll[_nJetsPuppi]         = jet.bDiscriminator("pfParticleNetDiscriminatorsJetTags:CvsAll");
         _jetParticleNet_CvsB[_nJetsPuppi]           = jet.bDiscriminator("pfParticleNetDiscriminatorsJetTags:CvsB");
