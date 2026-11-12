@@ -173,13 +173,16 @@ bool JetAnalyzer::analyze(const edm::Event& iEvent)
         _jetDeepFlavor[_nJets]          = deepJetValid ? _jetDeepFlavor_b[_nJets] + _jetDeepFlavor_bb[_nJets] + _jetDeepFlavor_lepb[_nJets] : -1.;
 
         // Flavour tagging: ParticleNet
-        // The central model only runs for |eta| < 2.5; outside, its raw scores are stored as 0 in MiniAOD.
-        const bool pnetCentral = std::abs(jet.eta()) < 2.5;
-        _jetParticleNet_b[_nJets]       = pnetCentral ? tagScore(jet, kPNet + "probb")   : -1.;
-        _jetParticleNet_c[_nJets]       = pnetCentral ? tagScore(jet, kPNet + "probc")   : -1.;
-        _jetParticleNet_uds[_nJets]     = pnetCentral ? tagScore(jet, kPNet + "probuds") : -1.;
-        _jetParticleNet_g[_nJets]       = pnetCentral ? tagScore(jet, kPNet + "probg")   : -1.;
+        // The central model only runs for |eta| < 2.5 (on its own eta definition, so jets at |eta| ~ 2.4-2.5 can
+        // also be skipped). For skipped jets MiniAOD stores the raw scores as 0 and BvsAll as -1:
+        // use BvsAll to decide whether the tagger ran, and set the raw scores to -1 if it did not.
         _jetParticleNet_BvsAll[_nJets]  = tagScore(jet, kPNetDisc + "BvsAll");
+        const bool pnetEvaluated        = _jetParticleNet_BvsAll[_nJets] >= 0.;
+        const bool pnetCentral          = std::abs(jet.eta()) < 2.5;
+        _jetParticleNet_b[_nJets]       = pnetEvaluated ? tagScore(jet, kPNet + "probb")   : -1.;
+        _jetParticleNet_c[_nJets]       = pnetEvaluated ? tagScore(jet, kPNet + "probc")   : -1.;
+        _jetParticleNet_uds[_nJets]     = pnetEvaluated ? tagScore(jet, kPNet + "probuds") : -1.;
+        _jetParticleNet_g[_nJets]       = pnetEvaluated ? tagScore(jet, kPNet + "probg")   : -1.;
         _jetParticleNet_CvsL[_nJets]    = tagScore(jet, kPNetDisc + "CvsL");
         _jetParticleNet_CvsB[_nJets]    = tagScore(jet, kPNetDisc + "CvsB");
         _jetParticleNet_QvsG[_nJets]    = tagScore(jet, (pnetCentral ? kPNetDisc : kPNetFwdDisc) + "QvsG");
