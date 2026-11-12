@@ -148,7 +148,6 @@ process.blackJackAndHookers = cms.EDAnalyzer('V0Analyzer',
                                 fixedGridRhoFastjetAll  = cms.InputTag("fixedGridRhoFastjetAll"),
                                 met                     = cms.InputTag("slimmedMETs"),
                                 metPuppi                = cms.InputTag("slimmedMETsPuppi"),
-                                jets                    = cms.InputTag("slimmedJets"),
                                 jetsPuppi               = cms.InputTag("slimmedJetsPuppi"),
 
                                 # JES-smeared jets (only present if you run JME modules yourself)

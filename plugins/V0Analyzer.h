@@ -173,7 +173,6 @@ class V0Analyzer : public edm::one::EDAnalyzer<edm::one::WatchLuminosityBlocks, 
         //edm::EDGetTokenT<double>                                    rhoToken;
         edm::EDGetTokenT<std::vector<pat::MET>>                     metToken;
         edm::EDGetTokenT<std::vector<pat::MET>>                     metPuppiToken;
-        edm::EDGetTokenT<std::vector<pat::Jet>>                     jetToken;
         edm::EDGetTokenT<std::vector<pat::Jet>>                     jetPuppiToken;
         edm::EDGetTokenT<std::vector<pat::Jet>>                     jetSmearedToken;
         edm::EDGetTokenT<std::vector<pat::Jet>>                     jetSmearedUpToken;

@@ -27,7 +27,6 @@ V0Analyzer::V0Analyzer(const edm::ParameterSet& iConfig):
     //rhoToken(                   consumes<double>(                                iConfig.getParameter<edm::InputTag>("rho"))),
     metToken(                   consumes<std::vector<pat::MET>>(                 iConfig.getParameter<edm::InputTag>("met"))),
     metPuppiToken(              consumes<std::vector<pat::MET>>(                 iConfig.getParameter<edm::InputTag>("metPuppi"))),
-    jetToken(                   consumes<std::vector<pat::Jet>>(                 iConfig.getParameter<edm::InputTag>("jets"))),
     jetPuppiToken(              consumes<std::vector<pat::Jet>>(                 iConfig.getParameter<edm::InputTag>("jetsPuppi"))),
     jetSmearedToken(            consumes<std::vector<pat::Jet>>(                 iConfig.getParameter<edm::InputTag>("jetsSmeared"))),
     jetSmearedUpToken(          consumes<std::vector<pat::Jet>>(                 iConfig.getParameter<edm::InputTag>("jetsSmearedUp"))),

@@ -12,6 +12,7 @@
 <!-- JetAnalyzer dependancies -->
 <use name="DataFormats/JetReco"/>
 <use name="CondFormats/JetMETObjects"/>
+<use name="PhysicsTools/SelectorUtils"/>
 
  <!-- LeptonAnalyzer dependencies -->
 <use name="DataFormats/MuonReco"/>
