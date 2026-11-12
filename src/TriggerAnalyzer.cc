@@ -266,10 +266,7 @@ void TriggerAnalyzer::analyze(const edm::Event& iEvent)
         edm::Handle<bool> passEcalBadCalibFilterUpdate = getHandle(iEvent, myAnalyzer->ecalBadCalibFilterToken);
         flag["updated_ecalBadCalibFilter"] = (*passEcalBadCalibFilterUpdate);
     }
-    if( myAnalyzer->is2022() || myAnalyzer->is2022EE() || myAnalyzer->is2023() || myAnalyzer->is2023BPix() ){         // The updated ecalBadCalibFilter
-        edm::Handle<bool> passEcalBadCalibFilterUpdate = getHandle(iEvent, myAnalyzer->ecalBadCalibFilterToken);
-        flag["updated_ecalBadCalibFilter"] = (*passEcalBadCalibFilterUpdate);
-    }
+    // Run 3: no re-run ecalBadCalibFilter; Flag_ecalBadCalibFilter from the MiniAOD TriggerResults is used (see passMETFilters)
 
     // Get all flags
     getResults(iEvent, triggerResults, triggersToSave, true);

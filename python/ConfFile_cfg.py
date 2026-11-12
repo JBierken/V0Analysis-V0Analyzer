@@ -156,7 +156,9 @@ process.blackJackAndHookers = cms.EDAnalyzer('V0Analyzer',
                                 jetsSmearedDown         = cms.InputTag("slimmedJetsSmearedDown"),
                                 
                                 # Trigger info
-                                recoResultsPrimary      = cms.InputTag("TriggerResults",                "", "RECO"),
+                                # MET-filter flags (Flag_*): stored in the PAT process for MC and MiniAOD-only reprocessings,
+                                # in the RECO process for PromptReco data (no PAT step) -> PAT first, RECO as fallback
+                                recoResultsPrimary      = cms.InputTag("TriggerResults",                "", "PAT"),
                                 recoResultsSecondary    = cms.InputTag("TriggerResults",                "", "RECO"),
                                 triggers                = cms.InputTag("TriggerResults",                "", "HLT"),
                                 prescales               = cms.InputTag("patTrigger"),

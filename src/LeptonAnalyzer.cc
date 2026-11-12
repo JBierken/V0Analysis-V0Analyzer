@@ -143,22 +143,35 @@ bool LeptonAnalyzer::analyze(const edm::Event& iEvent, const reco::Vertex& prima
 
         //store Lepton flavor and ID
         _lFlavor[_nL]                           = 2;
-        _lPOGVeto[_nL]                          = ((tau.tauID("byUTagPUPPIDecayMode") > 0.5) 
-                                                    && (tau.tauID("byUTagPUPPIVSjetraw") > 0.10) 
-                                                    && (tau.tauID("byUTagPUPPIVSeraw")  > 0.50) 
-                                                    && (tau.tauID("byUTagPUPPIVSmuraw") > 0.50)); 
-        _lPOGLoose[_nL]                         = ((tau.tauID("byUTagPUPPIDecayMode") > 0.5) 
-                                                    && (tau.tauID("byUTagPUPPIVSjetraw") > 0.10) 
-                                                    && (tau.tauID("byUTagPUPPIVSeraw")  > 0.50) 
-                                                    && (tau.tauID("byUTagPUPPIVSmuraw") > 0.50)); 
-        _lPOGMedium[_nL]                        = ((tau.tauID("byUTagPUPPIDecayMode") > 0.5) 
-                                                    && (tau.tauID("byUTagPUPPIVSjetraw") > 0.50) 
-                                                    && (tau.tauID("byUTagPUPPIVSeraw")  > 0.50) 
-                                                    && (tau.tauID("byUTagPUPPIVSmuraw") > 0.50)); 
-        _lPOGTight[_nL]                         = ((tau.tauID("byUTagPUPPIDecayMode") > 0.5) 
-                                                    && (tau.tauID("byUTagPUPPIVSjetraw") > 0.10) 
-                                                    && (tau.tauID("byUTagPUPPIVSeraw")  > 0.50) 
-                                                    && (tau.tauID("byUTagPUPPIVSmuraw") > 0.70)); 
+        if( tau.isTauIDAvailable("byUTagPUPPIDecayMode") ){
+            // UParT-based tau ID: only stored in 2024+ MiniAOD
+            _lPOGVeto[_nL]                      = ((tau.tauID("byUTagPUPPIDecayMode") > 0.5)
+                                                    && (tau.tauID("byUTagPUPPIVSjetraw") > 0.10)
+                                                    && (tau.tauID("byUTagPUPPIVSeraw")  > 0.50)
+                                                    && (tau.tauID("byUTagPUPPIVSmuraw") > 0.50));
+            _lPOGLoose[_nL]                     = ((tau.tauID("byUTagPUPPIDecayMode") > 0.5)
+                                                    && (tau.tauID("byUTagPUPPIVSjetraw") > 0.10)
+                                                    && (tau.tauID("byUTagPUPPIVSeraw")  > 0.50)
+                                                    && (tau.tauID("byUTagPUPPIVSmuraw") > 0.50));
+            _lPOGMedium[_nL]                    = ((tau.tauID("byUTagPUPPIDecayMode") > 0.5)
+                                                    && (tau.tauID("byUTagPUPPIVSjetraw") > 0.50)
+                                                    && (tau.tauID("byUTagPUPPIVSeraw")  > 0.50)
+                                                    && (tau.tauID("byUTagPUPPIVSmuraw") > 0.50));
+            _lPOGTight[_nL]                     = ((tau.tauID("byUTagPUPPIDecayMode") > 0.5)
+                                                    && (tau.tauID("byUTagPUPPIVSjetraw") > 0.10)
+                                                    && (tau.tauID("byUTagPUPPIVSeraw")  > 0.50)
+                                                    && (tau.tauID("byUTagPUPPIVSmuraw") > 0.70));
+        } else {
+            // DeepTau 2018v2p5: 2022/2023 MiniAOD (130X). Veto/Loose/Medium/Tight = VSjet VVVLoose/Loose/Medium/Tight,
+            // with new decay-mode finding, VSe VVLoose and VSmu VLoose for all four.
+            const bool deepTauBase              = (tau.tauID("decayModeFindingNewDMs") > 0.5)
+                                                    && (tau.tauID("byVVLooseDeepTau2018v2p5VSe") > 0.5)
+                                                    && (tau.tauID("byVLooseDeepTau2018v2p5VSmu") > 0.5);
+            _lPOGVeto[_nL]                      = deepTauBase && (tau.tauID("byVVVLooseDeepTau2018v2p5VSjet") > 0.5);
+            _lPOGLoose[_nL]                     = deepTauBase && (tau.tauID("byLooseDeepTau2018v2p5VSjet")    > 0.5);
+            _lPOGMedium[_nL]                    = deepTauBase && (tau.tauID("byMediumDeepTau2018v2p5VSjet")   > 0.5);
+            _lPOGTight[_nL]                     = deepTauBase && (tau.tauID("byTightDeepTau2018v2p5VSjet")    > 0.5);
+        }
         //_lPOGVeto[_nL]                          = tau.tauID("byVVVLooseDeepTau2017v2p1VSjet");
         //_lPOGLoose[_nL]                         = tau.tauID("byLooseDeepTau2017v2p1VSjet");
         //_lPOGMedium[_nL]                        = tau.tauID("byMediumDeepTau2017v2p1VSjet");
