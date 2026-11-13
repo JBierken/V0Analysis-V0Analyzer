@@ -58,9 +58,12 @@ is2016preVFP                = "preVFP"      in options.campaign
 is2022                      = "2022"        in options.campaign 
 is2022EE                    = "2022EE"      in options.campaign 
 is2023                      = "2023"        in options.campaign 
-is2023BPix                  = "2023BPix"    in options.campaign 
+# post-BPix 2023 lives in data/Run2023.json, so also derive it from the era (MC key "*BPix*", data Run2023D*)
+is2023BPix                  = ("2023BPix"   in options.campaign) or \
+                              ("2023"       in options.campaign and ("BPix" in options.era or options.era.startswith("Run2023D")))
 is2024                      = "2024"        in options.campaign 
 is2025                      = "2025"        in options.campaign 
+is2026                      = "2026"        in options.campaign 
 
 ## ---------------------------------------
 # Start process
@@ -176,6 +179,7 @@ process.blackJackAndHookers = cms.EDAnalyzer('V0Analyzer',
                                 is2023BPix              = cms.untracked.bool(is2023BPix),
                                 is2024                  = cms.untracked.bool(is2024),
                                 is2025                  = cms.untracked.bool(is2025),
+                                is2026                  = cms.untracked.bool(is2026),
 
                                 # Which info should be collected
                                 storeLheParticles       = cms.untracked.bool(True),

@@ -57,6 +57,7 @@ V0Analyzer::V0Analyzer(const edm::ParameterSet& iConfig):
     sampleIs2023BPix(                                                            iConfig.getUntrackedParameter<bool>("is2023BPix")),
     sampleIs2024(                                                                iConfig.getUntrackedParameter<bool>("is2024")),
     sampleIs2025(                                                                iConfig.getUntrackedParameter<bool>("is2025")),
+    sampleIs2026(                                                                iConfig.getUntrackedParameter<bool>("is2026")),
     storeLheParticles(                                                           iConfig.getUntrackedParameter<bool>("storeLheParticles")),
     storeGenParticles(                                                           iConfig.getUntrackedParameter<bool>("storeGenParticles")),
     storeParticleLevel(                                                          iConfig.getUntrackedParameter<bool>("storeParticleLevel")),
@@ -153,6 +154,7 @@ void V0Analyzer::beginJob()
         outputTree->Branch("_is2023BPix",    &sampleIs2023BPix,         "_is2023BPix/O");
         outputTree->Branch("_is2024",        &sampleIs2024,             "_is2024/O");
         outputTree->Branch("_is2025",        &sampleIs2025,             "_is2025/O");
+        outputTree->Branch("_is2026",        &sampleIs2026,             "_is2026/O");
     }
 
     // Set Prefiring branches for MC samples

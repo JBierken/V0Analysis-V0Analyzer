@@ -71,8 +71,23 @@ TriggerAnalyzer::TriggerAnalyzer(const edm::ParameterSet& iConfig, V0Analyzer* m
     // TODO: maybe we should clean up this part by storing it in some configuration file which can be analysis-specific
     //--------------------------------------------------------
     
+    // ------------------ 2026 triggers ------------------
+    if( myAnalyzer->is2026() ){
+        allFlags["passTrigger_mm"] = {
+            "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL",
+            "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ",
+            "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8",
+            "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8",
+            "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8_PFJet30",
+            "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8_AK8PFJet30",
+            "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8_CaloJet30",
+            "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8_AK8CaloJet30",
+            "HLT_Mu37_TkMu27"
+        };
+    }
+    
     // ------------------ 2025 triggers ------------------
-    if( myAnalyzer->is2025() ){
+    else if( myAnalyzer->is2025() ){
         allFlags["passTrigger_mm"] = {
             "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL",
             "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ",

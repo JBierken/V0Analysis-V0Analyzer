@@ -12,7 +12,7 @@ config = config()
 year                                    = "2025" 
 #era                                     = 'Run2024I_M1_v2'
 era                                     = 'Run2025C_M0_PromptReco'
-#era                                     = 'DYJetsTo2L_M50_v1'
+#era                                     = 'DYJetsTo2L_M50'
 primary_dataset                         = "Muon"
 process                                 = "V0Analyzer"
 
@@ -32,7 +32,7 @@ runTime                                 = 2200                  # 2750 ~45 hours
 # Data or MC
 isData                                  = False     if 'DYJets' in era else True
 isPromptReco                            = 'PromptReco' in era
-isBusyDataEra                           = isData and (era == 'Run2024F_M0' or era == 'Run2024F_M0_v2' or (year == '2025' and isPromptReco))
+isBusyDataEra                           = isData and (era == 'Run2024F_M0' or era == 'Run2024F_M0_v2' or (year in ('2025', '2026') and isPromptReco))
 
 dataType                                = 'data'    if isData else 'sim'
 

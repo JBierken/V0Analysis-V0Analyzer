@@ -32,7 +32,7 @@ JetAnalyzer::JetAnalyzer(const edm::ParameterSet& iConfig, V0Analyzer* myAnalyze
     myAnalyzer(myAnalyzer)
 {
     // Jet ID for PUPPI jets. For Run 3 JME recommends the "2022FG/2023CD" definition for
-    // the 22Sep2023 ReReco of 2022 and for 2023; it is also used here for 2024 and 2025.
+    // the 22Sep2023 ReReco of 2022 and for 2023; it is also used here for 2024, 2025 and 2026.
     // (The "runsBCDEprompt" version only applies to the 2022 PromptReco, which is not used.)
     const PFJetIDSelectionFunctor::Version_t version = myAnalyzer->isRun3()
         ? PFJetIDSelectionFunctor::RUN3PUPPIruns2022FGruns2023CD

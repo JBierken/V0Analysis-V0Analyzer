@@ -129,8 +129,8 @@ class V0Analyzer : public edm::one::EDAnalyzer<edm::one::WatchLuminosityBlocks, 
         //Helper functions
         bool isData()       const{ return sampleIsData; }
         bool isMC()         const{ return !sampleIsData; }
-        bool isRun2()       const{ return !(sampleIs2022 || sampleIs2022EE || sampleIs2023 || sampleIs2023BPix || sampleIs2024 || sampleIs2025); }
-        bool isRun3()       const{ return (sampleIs2022 || sampleIs2022EE || sampleIs2023 || sampleIs2023BPix || sampleIs2024 || sampleIs2025); }
+        bool isRun2()       const{ return !(sampleIs2022 || sampleIs2022EE || sampleIs2023 || sampleIs2023BPix || sampleIs2024 || sampleIs2025 || sampleIs2026); }
+        bool isRun3()       const{ return (sampleIs2022 || sampleIs2022EE || sampleIs2023 || sampleIs2023BPix || sampleIs2024 || sampleIs2025 || sampleIs2026); }
         bool is2017()       const{ return sampleIs2017; }
         bool is2018()       const{ return sampleIs2018; }
         bool is2022()       const{ return sampleIs2022; }
@@ -139,6 +139,7 @@ class V0Analyzer : public edm::one::EDAnalyzer<edm::one::WatchLuminosityBlocks, 
         bool is2023BPix()   const{ return sampleIs2023BPix; }
         bool is2024()       const{ return sampleIs2024; }
         bool is2025()       const{ return sampleIs2025; }
+        bool is2026()       const{ return sampleIs2026; }
 
     private:
 
@@ -206,6 +207,7 @@ class V0Analyzer : public edm::one::EDAnalyzer<edm::one::WatchLuminosityBlocks, 
         bool                        sampleIs2023BPix;
         bool                        sampleIs2024;
         bool                        sampleIs2025;
+        bool                        sampleIs2026;
         bool                        storeLheParticles;
         bool                        storeGenParticles;
         bool                        storeParticleLevel;
