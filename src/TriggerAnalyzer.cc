@@ -182,7 +182,7 @@ void TriggerAnalyzer::beginJob(TTree* outputTree)
 
     for(TString f : getAllFlags()){
         outputTree->Branch("_" + f, &flag[f], "_" + f + "/O");
-        if(f.Contains("HLT")) outputTree->Branch("_" + f + "_prescale", &prescale[f], "_" + f + "_prescale/I");
+        if(f.Contains("HLT")) outputTree->Branch("_" + f + "_prescale", &prescale[f], "_" + f + "_prescale/D");
     }
 }
 
