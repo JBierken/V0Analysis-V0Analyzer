@@ -1,24 +1,24 @@
 {
-    "lumijson" :           "https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions25/Cert_Collisions2025_391658_398903_Golden.json",
+    "lumijson" :           "https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions26/Cert_Collisions2026_401624_403937_golden.json",
     "eras": {
         "DYJetsTo4L_M50"  : {
             "dataset":     "/DYto2L-4Jets_Bin-MLL-50_TuneCP5_13p6TeV_madgraphMLM-pythia8/Run3Winter25MiniAOD-142X_mcRun3_2025_realistic_v9-v3/MINIAODSIM",
             "globalTag":    "142X_mcRun3_2025_realistic_v9"
         },
         "Run2026A_M0_PromptReco"  : {
-            "dataset":      "/Muon0/Run2026B-PromptReco-v1/MINIAOD",
+            "dataset":      "/Muon0/Run2026A-PromptReco-v1/MINIAOD",
             "globalTag":    "160X_dataRun3_Prompt_v1"
         },
         "Run2026A_M1_PromptReco"  : {
-            "dataset":      "/Muon1/Run2026B-PromptReco-v1/MINIAOD",
+            "dataset":      "/Muon1/Run2026A-PromptReco-v1/MINIAOD",
             "globalTag":    "160X_dataRun3_Prompt_v1"
         },
         "Run2026A_M2_PromptReco"  : {
-            "dataset":      "/Muon2/Run2026B-PromptReco-v1/MINIAOD",
+            "dataset":      "/Muon2/Run2026A-PromptReco-v1/MINIAOD",
             "globalTag":    "160X_dataRun3_Prompt_v1"
         },
         "Run2026A_M3_PromptReco"  : {
-            "dataset":      "/Muon3/Run2026B-PromptReco-v1/MINIAOD",
+            "dataset":      "/Muon3/Run2026A-PromptReco-v1/MINIAOD",
             "globalTag":    "160X_dataRun3_Prompt_v1"
         },
         "Run2026B_M0_PromptReco"  : {
@@ -38,19 +38,19 @@
             "globalTag":    "160X_dataRun3_Prompt_v1"
         },
         "Run2026C_M0_PromptReco"  : {
-            "dataset":      "/Muon0/Run2026C-PromptReco-v2/MINIAOD",
+            "dataset":      "/Muon0/Run2026C-PromptReco-v1/MINIAOD",
             "globalTag":    "160X_dataRun3_Prompt_v1"
         },
         "Run2026C_M1_PromptReco"  : {
-            "dataset":      "/Muon1/Run2026C-PromptReco-v2/MINIAOD",
+            "dataset":      "/Muon1/Run2026C-PromptReco-v1/MINIAOD",
             "globalTag":    "160X_dataRun3_Prompt_v1"
         },
         "Run2026C_M2_PromptReco"  : {
-            "dataset":      "/Muon2/Run2026C-PromptReco-v2/MINIAOD",
+            "dataset":      "/Muon2/Run2026C-PromptReco-v1/MINIAOD",
             "globalTag":    "160X_dataRun3_Prompt_v1"
         },
         "Run2026C_M3_PromptReco"  : {
-            "dataset":      "/Muon3/Run2026C-PromptReco-v2/MINIAOD",
+            "dataset":      "/Muon3/Run2026C-PromptReco-v1/MINIAOD",
             "globalTag":    "160X_dataRun3_Prompt_v1"
         },
         "Run2026D_M0_PromptReco"  : {
