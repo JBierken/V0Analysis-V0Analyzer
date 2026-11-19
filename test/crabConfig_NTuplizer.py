@@ -38,11 +38,19 @@ dataType                                = 'data'    if isData else 'sim'
 
 # Era-aware queue tuning:
 defaultDataUnits                        = 300
-busyDataUnits                           = 5
+# Lumis per job for busy (LumiBased) eras. Derivation: before the K0Analyzer speed-up, past tasks took
+# ~0.45-0.7 h per lumi (2025C/F: 5 lumis/job -> 2.1-2.6 h median; 2025D: 10 lumis/job -> 6.7 h).
+# The per-track caching + pre-fit mass filter cut CPU/event by ~3.2-4.9x (0.33 -> 0.07-0.10 s on 2024G data),
+# so ~0.1-0.2 h/lumi -> 30 lumis/job gives ~4-6 h jobs and 1/6-1/3 of the old job count, far below the
+# 10000-jobs-per-task cap. Check the median job runtime ('crab status --long') after the first jobs and adjust.
+busyDataUnits                           = 30
 nunits                                  = (busyDataUnits if isBusyDataEra else defaultDataUnits) if isData else 10
 
 useLumiBasedForBusyDataEras             = True
-allowIgnoreLocalityForBusyPromptReco    = True
+# Busy eras: data is often only hosted at a few sites, so jobs stay idle/unsubmitted.
+# The jobs are CPU-bound (~90% CPU efficiency), so reading the input remotely (xrootd/AAA) is cheap:
+# run anywhere in the site whitelist below instead of only where the data sits.
+useIgnoreLocalityForBusyDataEras        = True
 useWhitelist                            = False
 
 # Create storage location (if not already exist)
@@ -65,7 +73,7 @@ except FileNotFoundError:
 config.General.requestName              = f"{process}_Run{year}_MiniAOD_{dataType}_{era}"
 config.General.workArea                 = 'crab_V0Analyzer'
 config.General.transferOutputs          = True
-config.General.transferLogs             = True
+config.General.transferLogs             = False                                                         # logs still available with 'crab getlog'
 
 ## JobType config:
 config.JobType.pluginName               = 'Analysis'
@@ -94,8 +102,8 @@ if isData:
     # Busy eras often spend a long time idle; split into smaller lumi chunks there.
     config.Data.splitting               = 'LumiBased' if (isBusyDataEra and useLumiBasedForBusyDataEras) else 'Automatic'
     config.Data.lumiMask                = data_config["lumijson"]
-    #if year == '2025' and isPromptReco and isBusyDataEra and allowIgnoreLocalityForBusyPromptReco:
-    #    config.Data.ignoreLocality      = True
+    if isBusyDataEra and useIgnoreLocalityForBusyDataEras:
+        config.Data.ignoreLocality      = True                                                          # requires a site whitelist (set below)
 else:
     # For MC: use FileBased splitting of files 
     config.Data.splitting               = 'FileBased'
@@ -107,7 +115,7 @@ config.Data.publication                 = False
 ## Site config:
 config.Site.ignoreGlobalBlacklist       = False
 config.Site.storageSite                 = 'T2_BE_IIHE'                                                  # or your site
-if useWhitelist:
+if useWhitelist or getattr(config.Data, 'ignoreLocality', False):
     config.Site.whitelist               = [
                                             "T2_CH*", "T2_FR*", "T2_IT*", "T2_DE*", "T2_AT*", "T2_BE*", "T2_ES*",
                                             "T1_US*", "T2_US*", "T3_US*", "T1_FR*", "T1_IT*", "T1_DE*", "T2_UK*", "T3_UK*", "T2_FI*", "T2_EE*", "T1_ES*"

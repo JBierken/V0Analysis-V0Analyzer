@@ -40,6 +40,8 @@
 #include "TrackingTools/TrajectoryState/interface/TrajectoryStateTransform.h"
 #include "TrackingTools/PatternTools/interface/TSCBLBuilderNoMaterial.h"
 #include "TrackingTools/PatternTools/interface/ClosestApproachInRPhi.h"
+#include "TrackingTools/TransientTrack/interface/TransientTrack.h"
+#include "DataFormats/PatCandidates/interface/PackedCandidate.h"
 
 // data format include files
 #include "DataFormats/VertexReco/interface/Vertex.h"
@@ -71,6 +73,47 @@ class K0Analyzer {
         static constexpr double ksmass      = 0.49761;
         static constexpr double lambdamass  = 1.1157;
         static constexpr double jpsimass    = 3.0969;
+
+        // V0 mass windows (final selection, applied after the vertex fit)
+        static constexpr double ksMassWindow        = 0.07;
+        static constexpr double lambdaMassWindow    = 0.05;
+        // Loose pre-fit mass filter: before the (expensive) Kalman fit, the pair is skipped
+        // if the K0S, Lambda and LambdaBar masses computed from the track momenta at the PCA
+        // are all outside preFitMassWindowScale times the final windows above.
+        // A value <= 0 disables the pre-filter. Set from the optional untracked parameter
+        // v0PreFitMassWindowScale (default 5: on 1000 2024G events 1 of 40230 V0s lost, ~25% less CPU than no filter).
+        double preFitMassWindowScale = 5.;
+
+        // Per-event cache of a preselected track: everything that only depends on
+        // the single track is computed once instead of once per track pair.
+        struct SelTrack {
+            reco::Track             track;
+            reco::TransientTrack    ttrack;             // built from the original track
+            bool                    validIP     = false;// impactPointTSCP() is valid
+            FreeTrajectoryState     ipState;            // state at the impact point
+            bool                    hasFixed    = false;
+            reco::TransientTrack    ttrackFixed;        // built from fixTrackCovariance(track), lazily
+            double                  relIso      = -1.;  // lazily computed (<0: not yet)
+        };
+
+        // Output of the V0 fit for one track pair
+        struct V0Result {
+            double type = -1., invmass = 0.;
+            double vtxx = 0., vtxy = 0., vtxz = 0., vtxxunc = 0., vtxyunc = 0., vtxzunc = 0.;
+            double vtxr_pv = 0., vtxr_bs = 0., vtxrunc_pv = 0., vtxrunc_bs = 0., vtxrsig_pv = 0., vtxrsig_bs = 0.;
+            double px = 0., py = 0., pz = 0., pt = 0., eta = 0., phi = 0.;
+            double dca = 0., pcax = 0., pcay = 0., pcaz = 0.;
+            double vtxnormchi2 = 0.;
+            double pxpos = 0., pypos = 0., pzpos = 0., ptpos = 0.;
+            double pxneg = 0., pyneg = 0., pzneg = 0., ptneg = 0.;
+            double etapos = 0., etaneg = 0., phipos = 0., phineg = 0.;
+            double nhitspos = 0., nhitsneg = 0., normchi2pos = 0., normchi2neg = 0.;
+            double d0pos = 0., dzpos = 0., d0neg = 0., dzneg = 0.;
+            double isopos = 0., isoneg = 0.;
+        };
+
+        // vertex fitter (smoothing on, so refitted tracks are available); stateless between fits
+        KalmanVertexFitter v0Fitter{true};
         
         // Root tree variable declarations
         static const unsigned nV0s_max      = 50;
@@ -152,14 +195,20 @@ class K0Analyzer {
         void analyze(const edm::Event&, const edm::EventSetup&, const reco::Vertex&);
         
         // help member functions
-        std::unordered_map<std::string, double> getTrackVariables(
-                const reco::Track&, edm::Handle<reco::BeamSpot>, const MagneticField*);
-        double getTrackRelIso(const reco::Track&, const edm::Event&);
-        std::unordered_map<std::string, double> VZeroFitter(const reco::Track&, const reco::Track&,
-                edm::Handle<reco::BeamSpot>,
+        bool passTrackPreselection(const reco::Track&, const reco::BeamSpot&, const MagneticField*) const;
+        double getTrackRelIso(const reco::Track&,
+                const std::vector<pat::PackedCandidate>&,
+                const std::vector<pat::PackedCandidate>&) const;
+        double getTrackRelIso(SelTrack&,
+                const std::vector<pat::PackedCandidate>&,
+                const std::vector<pat::PackedCandidate>&) const;
+        bool VZeroFitter(SelTrack&, SelTrack&,
+                const reco::BeamSpot&,
                 const reco::Vertex&,
                 const MagneticField*,
-                const edm::Event&);
+                const std::vector<pat::PackedCandidate>&,
+                const std::vector<pat::PackedCandidate>&,
+                V0Result&) const;
 };
 
 #endif
