@@ -93,7 +93,7 @@ process.GlobalTag.globaltag = options.globaltag
 ## Message Logger settings
 process.load("FWCore.MessageService.MessageLogger_cfi")
 process.MessageLogger.cerr.FwkReport.reportEvery= 10000
-process.maxEvents           = cms.untracked.PSet( input = cms.untracked.int32(-1) )
+process.maxEvents           = cms.untracked.PSet( input = cms.untracked.int32(options.maxEvents) )   # -1 (default) = all events
 
 process.source              = cms.Source("PoolSource",
                                 fileNames           = cms.untracked.vstring(
