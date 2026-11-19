@@ -37,22 +37,6 @@
             "dataset":      "/Muon3/Run2026B-PromptReco-v1/MINIAOD",
             "globalTag":    "160X_dataRun3_Prompt_v1"
         },
-        "Run2026C_M0_PromptReco"  : {
-            "dataset":      "/Muon0/Run2026C-PromptReco-v1/MINIAOD",
-            "globalTag":    "160X_dataRun3_Prompt_v1"
-        },
-        "Run2026C_M1_PromptReco"  : {
-            "dataset":      "/Muon1/Run2026C-PromptReco-v1/MINIAOD",
-            "globalTag":    "160X_dataRun3_Prompt_v1"
-        },
-        "Run2026C_M2_PromptReco"  : {
-            "dataset":      "/Muon2/Run2026C-PromptReco-v1/MINIAOD",
-            "globalTag":    "160X_dataRun3_Prompt_v1"
-        },
-        "Run2026C_M3_PromptReco"  : {
-            "dataset":      "/Muon3/Run2026C-PromptReco-v1/MINIAOD",
-            "globalTag":    "160X_dataRun3_Prompt_v1"
-        },
         "Run2026D_M0_PromptReco"  : {
             "dataset":      "/Muon0/Run2026D-PromptReco-v1/MINIAOD",
             "globalTag":    "160X_dataRun3_Prompt_v1"
@@ -67,6 +51,25 @@
         },
         "Run2026D_M3_PromptReco"  : {
             "dataset":      "/Muon3/Run2026D-PromptReco-v1/MINIAOD",
+            "globalTag":    "160X_dataRun3_Prompt_v1"
+        }
+    },
+    "_disabled_eras_comment": "Run2026C is not in the golden JSON (all runs 402536-403421 decertified as of Cert_Collisions2026_401624_403937); CRAB refuses these tasks. Move back into eras if recertified.",
+    "disabled_eras": {
+        "Run2026C_M0_PromptReco"  : {
+            "dataset":      "/Muon0/Run2026C-PromptReco-v1/MINIAOD",
+            "globalTag":    "160X_dataRun3_Prompt_v1"
+        },
+        "Run2026C_M1_PromptReco"  : {
+            "dataset":      "/Muon1/Run2026C-PromptReco-v1/MINIAOD",
+            "globalTag":    "160X_dataRun3_Prompt_v1"
+        },
+        "Run2026C_M2_PromptReco"  : {
+            "dataset":      "/Muon2/Run2026C-PromptReco-v1/MINIAOD",
+            "globalTag":    "160X_dataRun3_Prompt_v1"
+        },
+        "Run2026C_M3_PromptReco"  : {
+            "dataset":      "/Muon3/Run2026C-PromptReco-v1/MINIAOD",
             "globalTag":    "160X_dataRun3_Prompt_v1"
         }
     }
