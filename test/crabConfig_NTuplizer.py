@@ -32,7 +32,11 @@ runTime                                 = 2200                  # 2750 ~45 hours
 # Data or MC
 isData                                  = False     if 'DYJets' in era else True
 isPromptReco                            = 'PromptReco' in era
-isBusyDataEra                           = isData and (era == 'Run2024F_M0' or era == 'Run2024F_M0_v2' or (year in ('2025', '2026') and isPromptReco))
+# Busy eras: inputs hosted at only a few sites, so tasks stay idle/unsubmitted with data-local Automatic splitting.
+# They get LumiBased splitting (busyDataUnits) and ignoreLocality (see below). All 2025/2026 PromptReco eras are busy;
+# for 2024 the MINIv6 eras that stayed idle are listed explicitly (2024F_M1 ran fine with Automatic splitting).
+busyDataEras2024                        = ('Run2024F_M0', 'Run2024F_M0_v2', 'Run2024C_M1', 'Run2024D_M1', 'Run2024E_M1', 'Run2024G_M1')
+isBusyDataEra                           = isData and (era in busyDataEras2024 or (year in ('2025', '2026') and isPromptReco))
 
 dataType                                = 'data'    if isData else 'sim'
 
