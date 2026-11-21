@@ -9,15 +9,14 @@ config = config()
 # ---------------------------------------------------------
 
 # data configuration
-year                                    = "2025" 
-#era                                     = 'Run2024I_M1_v2'
-era                                     = 'Run2025C_M0_PromptReco'
-#era                                     = 'DYJetsTo2L_M50'
+year                                    = "2024" 
+era                                     = 'Run2024G_M1'
+#era                                     = 'Run2025D_M1_PromptReco'
 primary_dataset                         = "Muon"
 process                                 = "V0Analyzer"
 
 # user/processing configuration
-version                                 = 1
+version                                 = 2
 user                                    = "jbierken"
 cmssw                                   = "CMSSW_15_0_17"
 nthreads                                = 1
